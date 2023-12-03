@@ -121,7 +121,6 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
           let edgeCoords = this.direction == 1 ? new Coordinates(this.limits.right + settings.roundTolerance, this.limits.rightTop - settings.roundTolerance) : new Coordinates(this.limits.left - settings.roundTolerance, this.limits.leftTop - settings.roundTolerance);
           let framesCount = Math.min(frameInterpolationCountMin,Math.ceil(Math.abs(DistBetweenCoords(this.coordinates, edgeCoords)/this.velocity.x)));
           this.forcePathSettings = new ForcePathSettings(this.coordinates.clone(), edgeCoords, framesCount, true, null, null);
-          console.log(JSON.stringify(this.forcePathSettings));
         }
       }
     break;

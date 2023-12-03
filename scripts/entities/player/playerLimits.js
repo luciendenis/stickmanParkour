@@ -305,6 +305,21 @@ Player.prototype.canReachHoldUp = function(offsetCoords){
   this.searchForUsableHold(xMin,xMax,yMin,yMax,this.direction);
   return this.limits.usableHold != null;
 }
+Player.prototype.canReachHoldDown = function(offsetCoords){
+  let searchArea = this.body.hoppingForwardRange();
+  let xMin = this.direction == 1 ? this.coordinates.x : this.coordinates.x - (searchArea.x/2);
+  let xMax = this.direction == 1 ? this.coordinates.x + (searchArea.x/2) : this.coordinates.x;
+  let yMax = this.body.coordinates.y + this.body.hitBox.bottom;
+  let yMin = this.body.coordinates.y;
+  if(offsetCoords != null){
+    xMin += offsetCoords.x;
+    xMax += offsetCoords.x;
+    yMin += offsetCoords.y;
+    yMax += offsetCoords.y;
+  }
+  this.searchForUsableHold(xMin,xMax,yMin,yMax,this.direction);
+  return this.limits.usableHold != null;
+}
 Player.prototype.canClimbEdgeFromHanging = function(){
   if(this.limits.usableHold == null || this.limits.usableHold.blockIndex == -1)
     return false;

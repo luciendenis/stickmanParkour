@@ -416,7 +416,6 @@ class Player {
       currentOffsetCoords = new Coordinates(npOffsetCoords.x - cpOffsetCoords.x, npOffsetCoords.y - cpOffsetCoords.y);
     }
     let nextOffsetCoords = this.body.getOffsetCoords("absolute", newDrawStartJunction);
-    console.log("CCC : " + JSON.stringify(currentCenterCoords) + ", COC : " + JSON.stringify(currentOffsetCoords) + ", NOC : " + JSON.stringify(nextOffsetCoords));
     this.coordinates.x = currentCenterCoords.x + currentOffsetCoords.x - nextOffsetCoords.x;
     this.coordinates.y = currentCenterCoords.y + currentOffsetCoords.y - nextOffsetCoords.y;
     this.currentPosition.drawStartJunction = newDrawStartJunction;
@@ -513,7 +512,6 @@ class Player {
     let hold = this.limits.usableHold;
     let distReduction = 0; ((this.currentAction == "hoppingForwardJumping" || this.currentAction == "idling" || this.currentAction == "running") && hold.blockIndex == -1) ? settings.hoppingDistMin : 0;
     let dist = DistBetweenCoords(this.body.coordinates, hold.coordinates) - distReduction;
-    console.log("Dist : " + dist + ", current Action : " + this.currentAction);
     this.forceFrameCount = Math.round(Math.max(dist/settings.hoppingDistPerFrame, 2));
     let anchorFpsOffsets = new Coordinates(0,-Math.max(0,dist)*0.3);
     this.anchor = new Anchor(new Coordinates(hold.coordinates.x + (hold.type == "front" ? 0 : this.direction*this.body.bodySize/2), hold.coordinates.y - this.body.bodySize/2),"", anchorFpsOffsets);

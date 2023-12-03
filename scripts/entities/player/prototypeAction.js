@@ -32,16 +32,13 @@ Player.prototype.action = function(){
             this.setMovement(null);
           }
           else{
-            console.log("CCE ? " + this.canClimbEdge(null));
             if(this.obstacleAhead(this.coordinates) && this.canClimbEdge(null)){
               let height = this.body.coordinates.y - this.limits.usableHold.coordinates.y;
               let indexFor = this.giveEdgeClimbingPositionIndexStartForHeight(height);
-              console.log("Height : " + height + ", index : " + indexFor);
               if(this.controls.up || (this.limits.usableHold.blockIndex > -1 && this.giveEdgeClimbingPositionIndexStartForHeight(height) >= 1))
                 this.climbEdge();
             }
             else if(this.crossableObstacleAhead(this.coordinates)){
-              console.log("Crossable obstacle");
               let edgeCoords = this.direction == 1 ? new Coordinates(this.limits.right, this.limits.rightTop) : new Coordinates(this.limits.left, this.limits.leftTop);
               this.forcePathSettings = new ForcePathSettings(this.coordinates.clone(), edgeCoords, 0, false, null, null);
             }
@@ -357,8 +354,17 @@ Player.prototype.action = function(){
           }
         }
         else if(this.controls.down){
-          this.forceFrameCount = frameInterpolationCountMin;
-          this.fallFromAnchor(null);
+          if(this.canReachHoldDown(null)){
+            console.log("Can go down");
+            this.anchor = null;
+            this.currentPosition.anchor = false;
+            this.nextPositionKeyFrame.anchor = false;
+            this.climbEdge();
+          }
+          else{
+            this.forceFrameCount = frameInterpolationCountMin;
+            this.fallFromAnchor(null);
+          }
         }
         else if(this.wantsToChangeDirection()){
           this.direction *= -1;
@@ -369,11 +375,6 @@ Player.prototype.action = function(){
         else if(this.wantsToKeepDirection()){
           this.setMovement("edgeHangingFrontWithLegsHopping");
         }
-      }
-    break;
-    case "edgeHangingFrontWithLegs":
-      if(!this.inTransition && this.readyToJump && !this.controls.jump){
-        console.log("JUMP");
       }
     break;
     case "oneFootBalance":

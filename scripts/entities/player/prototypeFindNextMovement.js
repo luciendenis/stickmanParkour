@@ -124,6 +124,11 @@ Player.prototype.findNextMovement = function(){
           this.climbEdge();
         }
       }
+      else if(this.canReachHoldDown(null)){
+        this.currentPosition.anchor = false;
+        this.nextPositionKeyFrame.anchor = false;
+        this.climbEdge();
+      }
       else{
         this.fallFromAnchor("edgeHangingFrontForwardFall");
       }
