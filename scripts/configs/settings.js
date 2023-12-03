@@ -1,0 +1,44 @@
+var settingsConfigs = JSON.parse(`[
+  {
+    "name":"default",
+    "config":{
+      "minVelocityForStopping":5,
+      "minVelocityX":2.5,
+      "maxVelocityX":10,
+      "accelerationX":0.125,
+      "stoppingAccelerationFactor":1.5,
+      "crouchSlidingAccelerationFactor":0.7,
+      "gravity":0.5,
+      "crouchFactorMin":0.9,
+      "crouchFactorDiff":0.05,
+      "bodyCrossingAbilityFactor":0.9,
+      "bodyHeightFactor":0.6,
+      "obstacleRange":20,
+      "roundTolerance":0.001,
+      "ladderDetectionRange":40,
+      "ladderClimbSpeed":-4,
+      "ladderDownSlidingSpeed":15,
+      "ladderDeceleration":-0.5,
+      "ladderOffSpeed":4,
+      "ropeDetectionRange":100,
+      "ropeCrossingDistPerFrame":67.49,
+      "ropeCrossingFrameCount":20,
+      "ropeDownSlidingSpeed":10,
+      "ropeDeceleration":-0.4,
+      "ropeClimbingEntryOffset":100,
+      "ropeClimbingDistPerFrame":44.93,
+      "ropeClimbingFrameCount":20,
+      "ropeCrossingAngleLimit":0.4,
+      "fightFrameCount":12,
+      "fallHeight":70,
+      "crouchingDistPerFrame":35,
+      "crouchingFrameCount":16,
+      "crouchTurningFactor":1.6,
+      "hoppingRangeX":3,
+      "hoppingRangeY":0.4,
+      "hoppingDistPerFrame":6,
+      "hoppingDistMin":80
+    }
+  }
+]`);
+var settingsConfig = LoadConfig(settingsConfigs,"default");
