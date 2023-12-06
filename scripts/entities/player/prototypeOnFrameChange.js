@@ -183,7 +183,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
     case "wallClimbingFront":
       if(this.velocity.y > 0){
         this.anchor = null;
-        this.anglesOffsets = new Angles(0,0,0);
+        this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
         this.switchDrawStartJunction("hitboxbottom");
         this.setMovement("falling");
       }
@@ -351,7 +351,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
               }
               else{
                 this.direction *= -1;
-                this.anglesOffsets = new Angles(-this.limits.usableRope.angle,0,0);
+                this.anglesOffsets = new PlayerAngles(new Angles(-this.limits.usableRope.angle,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
                 this.forceFrameCount = frameInterpolationCountMin;
                 let xLimit = (this.direction == 1) ? this.limits.usableRope.anchorLeft.x + settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x : this.limits.usableRope.anchorRight.x - settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x;
                 let nextX = ((this.coordinates.x <= xLimit && this.direction == 1) || (this.coordinates.x >= xLimit && this.direction == -1)) ? xLimit : this.coordinates.x;
@@ -376,6 +376,29 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
         this.velocity.x = this.direction*(settings.ropeCrossingDistPerFrame/ffc)*this.limits.usableRope.speedFactors.x;
         this.velocity.y = -this.direction*(settings.ropeCrossingDistPerFrame/ffc)*this.limits.usableRope.speedFactors.y;
         this.setMovement(null);
+      }
+    break;
+    case "edgeHangingFrontSwinging":
+      if(this.anglesOffsets.directionSwitch){
+        this.direction *= -1;
+        this.sideSwitch = true;
+        this.forceFrameCount = 20;
+        this.setMovement(null);
+      }
+      else if(!this.inTransition && !this.wantsToKeepDirection() && Math.abs(this.anglesOffsets.angles.xy) < 0.3 && Math.abs(this.anglesOffsets.angularSpeed.xy) < 0.02 && this.anglesOffsets.angles.xy*this.anglesOffsets.angularSpeed.xy < 0){
+        this.anglesOffsets.angles.xy = 0;
+        this.anglesOffsets.angularSpeed.xy = 0;
+        this.anglesOffsets.angularAcceleration.xy = 0;
+        this.anglesOffsets.gravityAffected = false;
+        this.anglesOffsets.controlAffected = false;
+        this.forceFrameCount = 25;
+        this.setMovement("edgeHangingFront");
+      }
+      else if(this.wantsToKeepDirection() && this.anglesOffsets.angles.xy*this.anglesOffsets.angularSpeed.xy > 0 && Math.abs(this.anglesOffsets.angularSpeed.xy) > 0.04 && Math.abs(this.anglesOffsets.angles.xy) > 0.5){
+        offsets = new Coordinates(0, this.body.hitBox.totalHeight());
+        if(this.canHopForward(offsets) || this.canReachHoldForward(offsets)){
+          this.setMovement("edgeHangingFrontSwingingOut");
+        }
       }
     break;
   }

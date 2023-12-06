@@ -268,7 +268,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     case "wallPrepareJumping":
       if(this.limits.usableHold != null && !this.inTransition && this.readyToJump && !this.controls.jump){
         this.keepNextKeyFrameReference = true;
-        this.anglesOffsets = new Angles(0,0,0);
+        this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
         if(this.controls.up){
           this.forceFrameCount = 10;
           this.forceControlTemp("up", false, 20); // this avoids to climb the edge the playing is jumping from
@@ -282,7 +282,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
       }
       else if(this.readyToJump && !this.controls.jump){
         if((this.direction == 1 && this.obstacleRight(this.coordinates)) || (this.direction == -1 && this.obstacleLeft(this.coordinates))){
-          this.anglesOffsets = new Angles(0,0,0);
+          this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
           if(this.controls.up){
             this.forceFrameCount = 10;
             this.forceControlTemp("up", false, 20); // this avoids climbing on the edge the playing is jumping from
@@ -346,7 +346,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
         let nextDir = (this.controls.left) ? -1 : 1;
         if(this.direction != nextDir){
           this.direction = nextDir;
-          this.anglesOffsets = new Angles(0,0,0);
+          this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
           this.forceFrameCount = frameInterpolationCountMin;
           this.setMovement("ropeDownSliding");
         }
@@ -401,6 +401,11 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
         else if(this.wantsToKeepDirection()){
           this.setMovement("edgeHangingFrontWithLegsHopping");
         }
+      }
+    break;
+    case "edgeHangingFrontSwinging":
+      if(this.forceFrameCount == 0){
+        this.forceFrameCount = 5;
       }
     break;
   }

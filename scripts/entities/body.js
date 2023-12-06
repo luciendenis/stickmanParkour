@@ -21,6 +21,9 @@ class Angles {
     this.z = z;   // angle on the pane formed by the xy line and the z axis, between -1 and 1
     this.forceRotationDirection = forceRotationDirection; // null or -1 or 1, used to force rotation direction to the next frame
   }
+  clone(){
+    return new Angles(this.xy, this.z, this.forceRotationDirection);
+  }
 }
 
 // Body junction
@@ -295,7 +298,7 @@ function ApplyPositionSettings(position, overrides, frontSide, backSide, directi
     newPosition.offsets["position"] = position.offsets.position != null ? new Coordinates(position.offsets.position.x != null ? position.offsets.position.x*globalScale*direction : 0, position.offsets.position.y != null ? position.offsets.position.y*globalScale : 0) : new Coordinates(0,0);
     newPosition.offsets["velocity"] = position.offsets.velocity != null ? new Coordinates(position.offsets.velocity.x != null ? position.offsets.velocity.x*globalScale*direction : 0, position.offsets.velocity.y != null ? position.offsets.velocity.y*globalScale : 0) : new Coordinates(0,0);
   }
-  newPosition.offsets["angles"] = anglesOffsets != null ? anglesOffsets : new Angles(0,0,0);
+  newPosition.offsets["angles"] = (anglesOffsets != null) ? anglesOffsets : new Angles(0,0,0);
   for(let i = 0; i < position.elements.length; i++){
     let startJunction = position.elements[i].startJunction.replace('front', frontSide).replace('back', backSide);
     let middleJunction = position.elements[i].middleJunction.replace('front', frontSide).replace('back', backSide);

@@ -37,6 +37,27 @@ function AngleMirrorY(angle){
   return offset + Math.PI - angle;
 }
 
+function AngleDiff(nextAngle, currentAngle, forceRotationDirection, direction){
+  let angleDiff = nextAngle - currentAngle;
+  // angle diff must be the shortest path between the 2 angles so no absolute value greater than PI...
+  if(angleDiff > Math.PI){
+    angleDiff -= 2*Math.PI;
+  }
+  else if(angleDiff < - Math.PI){
+    angleDiff += 2*Math.PI;
+  }
+  // ... unless we force the rotation in a given direction
+  if(forceRotationDirection != null && forceRotationDirection != 0){
+    if(forceRotationDirection*direction == -1){
+      angleDiff += angleDiff >= 0 ? 0 : 2*Math.PI;
+    }
+    else if(forceRotationDirection*direction == 1){
+      angleDiff -= angleDiff <= 0 ? 0 : 2*Math.PI;
+    }
+  }
+  return angleDiff;
+}
+
 function CartesianCoordinatesFromPolar(length, angle){
   return new Coordinates(length*Math.cos(angle),length*Math.sin(angle));
 }

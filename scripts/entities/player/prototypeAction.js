@@ -164,7 +164,7 @@ Player.prototype.action = function(){
       }
       else if(this.readyToJump && !this.controls.jump){
         if((this.direction == 1 && this.obstacleRight(this.coordinates)) || (this.direction == -1 && this.obstacleLeft(this.coordinates))){
-          this.anglesOffsets = new Angles(0,0,0);
+          this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
           if(this.controls.up){
             this.forceFrameCount = 10;
             this.forceControlTemp("up", false, 120); // this avoids to climb the edge the playing is jumping from
@@ -244,7 +244,7 @@ Player.prototype.action = function(){
         let nextDir = (this.controls.left) ? -1 : 1;
         if(this.direction != nextDir){
           this.direction = nextDir;
-          this.anglesOffsets = new Angles(0,0,0);
+          this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
           this.forceFrameCount = frameInterpolationCountMin;
           this.setMovement("ropeDownSliding");
         }
@@ -288,7 +288,7 @@ Player.prototype.action = function(){
           }
           else{
             this.direction = nextDir;
-            this.anglesOffsets = new Angles(-this.limits.usableRope.angle,0,0);
+            this.anglesOffsets = new PlayerAngles(new Angles(-this.limits.usableRope.angle,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
             this.forceFrameCount = frameInterpolationCountMin;
             let xLimit = (this.direction == 1) ? this.limits.usableRope.anchorLeft.x + settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x : this.limits.usableRope.anchorRight.x - settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x;
             let nextX = ((this.coordinates.x <= xLimit && this.direction == 1) || (this.coordinates.x >= xLimit && this.direction == -1)) ? xLimit : this.coordinates.x;
@@ -375,6 +375,36 @@ Player.prototype.action = function(){
         else if(this.wantsToKeepDirection()){
           this.setMovement("edgeHangingFrontWithLegsHopping");
         }
+      }
+    break;
+    case "edgeHangingFront":
+      if(this.controls.down){
+        this.forceFrameCount = frameInterpolationCountMin;
+        let exitVelocityCoords = this.anglesOffsets.exitVelocityCoords();
+        this.velocity.x = exitVelocityCoords.x;
+        this.velocity.y = exitVelocityCoords.y;
+        this.fallFromAnchor(null);
+      }
+      else if(!this.wantsNoDirection()){
+        let nextDirection = this.controls.left ? -1 : 1;
+        console.log("Left ? " + this.controls.left + ", Right ? " + this.controls.right + ", next direction : " + nextDirection + ", current direction : " + this.direction);
+        this.sideSwitch = (this.direction != nextDirection);
+        this.forceFrameCount = 15;
+        this.direction = nextDirection;
+        this.anglesOffsets.angles.xy = -this.direction*0.2;
+        this.anglesOffsets.angularSpeed.xy = -this.direction*0.025;
+        this.anglesOffsets.gravityAffected = true;
+        this.anglesOffsets.controlAffected = true;
+        this.setMovement("edgeHangingFrontSwinging");
+      }
+    break;
+    case "edgeHangingFrontSwinging":
+      if(this.controls.down){
+        this.forceFrameCount = frameInterpolationCountMin;
+        let exitVelocityCoords = this.anglesOffsets.exitVelocityCoords();
+        this.velocity.x = exitVelocityCoords.x;
+        this.velocity.y = exitVelocityCoords.y;
+        this.fallFromAnchor(null);
       }
     break;
     case "oneFootBalance":

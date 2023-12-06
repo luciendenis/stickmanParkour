@@ -371,5 +371,12 @@ var movementTransitionConfigs = JSON.parse(`[
         "direction":-1
       }
     ]
+  },
+  {
+    "from":"edgeHangingFrontSwinging",
+    "to":"edgeHangingFrontSwingingOut",
+    "sideSwitch":null,
+    "frameCount":10,
+    "rotationDirections":[]
   }
 ]`);

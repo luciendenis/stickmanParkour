@@ -257,6 +257,21 @@ Player.prototype.findNextMovement = function(){
         this.fallFromAnchor("edgeHangingTurningFall");
       }
     break;
+    case "edgeHangingFrontSwingingOut":
+      if(this.limits.reachableBlockStandingPoint != null){
+        this.sideSwitch = true;
+        this.hopForward();
+      }
+      else if(this.limits.usableHold != null){
+        this.nextPositionKeyFrame.anchor = null;
+        this.currentPosition.anchor = null;
+        this.sideSwitch = true;
+        this.climbEdge();
+      }
+      else{
+        this.fallFromAnchor(null);
+      }
+    break;
     default:
       next = true;
     break;
