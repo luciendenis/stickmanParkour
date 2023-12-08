@@ -100,7 +100,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
           this.prepareHopForward();
         }
       }
-      else if(this.wantsToKeepDirection() && this.forcePathSettings == null){
+      else if(this.forcePathSettings == null){
         if(this.obstacleAhead(this.coordinates)){
           this.acceleration.x = 0; // stop accelerating
           if(this.canClimbEdge(null)){  // player wants to climb
@@ -116,7 +116,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
             this.setMovement("idling");
           }
         }
-        else if(this.crossableObstacleAhead(this.coordinates)){
+        else if(this.wantsToKeepDirection() && this.crossableObstacleAhead(this.coordinates)){
           this.stopPlayerYAxis();
           let edgeCoords = this.direction == 1 ? new Coordinates(this.limits.right + settings.roundTolerance, this.limits.rightTop - settings.roundTolerance) : new Coordinates(this.limits.left - settings.roundTolerance, this.limits.leftTop - settings.roundTolerance);
           let framesCount = Math.min(frameInterpolationCountMin,Math.ceil(Math.abs(DistBetweenCoords(this.coordinates, edgeCoords)/this.velocity.x)));
@@ -202,7 +202,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
           this.climbDownLadder();
         }
       }
-      if(this.coordinates.y + 30*this.velocity.y >= this.limits.bottom){  // going to hit the floor in 30 frames or less
+      if(this.coordinates.y + 20*this.velocity.y >= this.limits.bottom){  // going to hit the floor in 20 frames or less
         this.crouchFactor = 1 - .02*this.velocity.y; // the harder the fall, the greater crouchFactor on landing
         if(Math.abs(this.velocity.x) < settings.minVelocityForStopping){
           let frameCount = 0;

@@ -186,7 +186,7 @@ class ClimbingHold {
   constructor(coordinates, size, type, hangWithLegs, color, roughOptions) {
     this.coordinates = coordinates;
     this.size = size;
-    this.type = type;   // sideLeft, sideRight or front
+    this.type = type;   // sideLeft, sideRight, front or pole
     this.hangWithLegs = hangWithLegs; // boolean that determines the position used to hang on the hold
     this.color = color;
     this.roughOptions = roughOptions;
@@ -194,7 +194,8 @@ class ClimbingHold {
   giveProgressiveDrawInstructions(progressiveDrawObj){
     let startAngle = this.type == "sideRight" ? Math.PI/2 : 0;
     let endAngle = this.type == "sideLeft" ? Math.PI/2 : Math.PI;
-    progressiveDrawObj.drawFunctions.push(new Function("context", "context.arc(" + this.coordinates.x + "," + this.coordinates.y + "," + this.size + "," + this.size + "," + startAngle + "," + endAngle + ",true," + JSON.stringify(this.roughOptions) + ");" ));
+    let size = this.type == "pole" ? this.size/2 : this.size;
+    progressiveDrawObj.drawFunctions.push(new Function("context", "context.arc(" + this.coordinates.x + "," + this.coordinates.y + "," + size + "," + size + "," + startAngle + "," + endAngle + ",true," + JSON.stringify(this.roughOptions) + ");" ));
   }
   draw(context){
     context.beginPath();
@@ -205,7 +206,8 @@ class ClimbingHold {
       context.lineTo(this.coordinates.x, this.coordinates.y + this.size/2);
     let startAngle = this.type == "sideRight" ? Math.PI/2 : 0;
     let endAngle = this.type == "sideLeft" ? Math.PI/2 : Math.PI;
-    context.arc(this.coordinates.x, this.coordinates.y, this.size/2, startAngle, endAngle, false);
+    let size = this.type == "pole" ? this.size/4 : this.size/2;
+    context.arc(this.coordinates.x, this.coordinates.y, size, startAngle, endAngle, false);
     context.fillStyle = this.color;
     context.fill();
   }
@@ -924,4 +926,14 @@ function GetBlockIndexesInZone(level, ignoreBlockIndex, xMin, xMax, yMin, yMax, 
     }
   }
   return indexes;
+}
+
+function GetDistBetweenBlocks(level, firstIndex, secondIndex){
+  let firstBlock = level.blocks[firstIndex];
+  let secondBlock = level.blocks[secondIndex];
+  if(firstBlock == null || firstBlock === undefined || secondBlock == null || secondBlock === undefined)
+    return 0;
+  let yDist = (firstBlock.yBottom < secondBlock.yTop) ? secondBlock.yTop - firstBlock.yBottom : (firstBlock.yTop > secondBlock.yBottom) ? secondBlock.yBottom - firstBlock.yTop : 0;
+  let xDist = (firstBlock.xRight < secondBlock.xLeft) ? secondBlock.xLeft - firstBlock.xRight : (firstBlock.xLeft > secondBlock.xRight) ? secondBlock.xRight - firstBlock.xLeft : 0;
+  return Math.pow(Math.pow(yDist,2) + Math.pow(xDist,2),.5);
 }

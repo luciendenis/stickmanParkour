@@ -270,8 +270,10 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
         this.keepNextKeyFrameReference = true;
         this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
         if(this.controls.up){
+          this.stopPlayerAll();
+          this.forcePathSettings = null;
           this.forceFrameCount = 10;
-          this.forceControlTemp("up", false, 20); // this avoids to climb the edge the playing is jumping from
+          this.forceControlTemp("up", false, 120); // this avoids to climb the edge the playing is jumping from
           this.setMovement("wallClimbing");
         }
         else{

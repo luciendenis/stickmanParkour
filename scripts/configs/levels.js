@@ -562,6 +562,16 @@ var levelConfigs = JSON.parse(`[
           {
             "coordinates":{
               "x":1220,
+              "y":450
+            },
+            "size":30,
+            "type":"sideLeft",
+            "hangWithLegs":true,
+            "color":"black"
+          },
+          {
+            "coordinates":{
+              "x":1220,
               "y":240
             },
             "size":30,

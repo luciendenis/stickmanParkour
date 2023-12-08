@@ -206,10 +206,12 @@ Player.prototype.isOnBlock = function(coordinates){
   return coordinates.y >= this.limits.bottom - settings.roundTolerance;
 }
 Player.prototype.reachingLimitLeft = function(coordinates){
-  return (coordinates.x + this.body.hitBox.left - settings.obstacleRange) <= this.limits.left;
+  let range = settings.obstacleRange * (1 + Math.abs(this.velocity.x/settings.maxVelocityX));
+  return (coordinates.x + this.body.hitBox.left - range) <= this.limits.left;
 }
 Player.prototype.reachingLimitRight = function(coordinates){
-  return (coordinates.x + this.body.hitBox.right + settings.obstacleRange) >= this.limits.right;
+  let range = settings.obstacleRange * (1 + Math.abs(this.velocity.x/settings.maxVelocityX));
+  return (coordinates.x + this.body.hitBox.right + range) >= this.limits.right;
 }
 Player.prototype.reachingLimitAhead = function(coordinates){
   return (this.direction == 1) ? this.reachingLimitRight(coordinates) : this.reachingLimitLeft(coordinates);
@@ -356,13 +358,18 @@ Player.prototype.canHopForward = function(offsetCoords){
   let block = null;
   let i = 0;
   while(block == null && i < blocksIndexes.length){
-    let b = level.blocks[blocksIndexes[i]];
-    xMin = (this.direction == 1) ? b.xLeft : b.xRight - standDimensions.x;
-    xMax = (this.direction == 1) ? b.xLeft + standDimensions.x : b.xRight;
-    yMin = b.yTop - standDimensions.y;
-    yMax = b.yTop;
-    if(IsZoneClear(level, blocksIndexes[i], xMin, xMax, yMin, yMax)){
-      block = b;
+    if(this.limits.currentBlockIndex == -1 || GetDistBetweenBlocks(level, this.limits.currentBlockIndex, blocksIndexes[i]) > standDimensions.x){
+      let b = level.blocks[blocksIndexes[i]];
+      xMin = (this.direction == 1) ? b.xLeft : b.xRight - standDimensions.x;
+      xMax = (this.direction == 1) ? b.xLeft + standDimensions.x : b.xRight;
+      yMin = b.yTop - standDimensions.y;
+      yMax = b.yTop;
+      if(IsZoneClear(level, blocksIndexes[i], xMin, xMax, yMin, yMax)){
+        block = b;
+      }
+      else{
+        i++;
+      }
     }
     else{
       i++;
