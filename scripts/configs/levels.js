@@ -541,6 +541,15 @@ var levelConfigs = JSON.parse(`[
         "instances":[
           {
             "coordinates":{
+              "x":420,
+              "y":1350
+            },
+            "size":30,
+            "type":"front",
+            "hangWithLegs":false,
+            "color":"black"
+          },{
+            "coordinates":{
               "x":1220,
               "y":600
             },
@@ -611,6 +620,16 @@ var levelConfigs = JSON.parse(`[
           },
           {
             "coordinates":{
+              "x":1650,
+              "y":360
+            },
+            "size":30,
+            "type":"front",
+            "hangWithLegs":false,
+            "color":"black"
+          },
+          {
+            "coordinates":{
               "x":2290,
               "y":360
             },
@@ -626,7 +645,7 @@ var levelConfigs = JSON.parse(`[
             },
             "size":30,
             "type":"front",
-            "hangWithLegs":true,
+            "hangWithLegs":false,
             "color":"black"
           },
           {

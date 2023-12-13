@@ -348,14 +348,13 @@ Player.prototype.action = function(){
           this.setMovement("edgeHangingFrontWithLegs");
         }
         else if(this.controls.up){
-          if(this.canReachHoldUp(null)){
+          if(this.canReachHoldUp(null, null)){
             this.forceControlUntilNextKeyFrame("up", true, "edgeHangingFrontWithLegs"); // this forces player up when edgeHangingFrontWithLegs transition is complete
             this.setMovement("edgeHangingFrontWithLegs");
           }
         }
         else if(this.controls.down){
-          if(this.canReachHoldDown(null)){
-            console.log("Can go down");
+          if(this.canReachHoldDown(null, this.direction == 1 ? "right" : "left")){
             this.anchor = null;
             this.currentPosition.anchor = false;
             this.nextPositionKeyFrame.anchor = false;
@@ -379,11 +378,19 @@ Player.prototype.action = function(){
     break;
     case "edgeHangingFront":
       if(this.controls.down){
-        this.forceFrameCount = frameInterpolationCountMin;
-        let exitVelocityCoords = this.anglesOffsets.exitVelocityCoords();
-        this.velocity.x = exitVelocityCoords.x;
-        this.velocity.y = exitVelocityCoords.y;
-        this.fallFromAnchor(null);
+        if(this.canReachHoldDown(null,null)){
+          this.anchor = null;
+          this.currentPosition.anchor = null;
+          this.nextPositionKeyFrame.anchor = null;
+          this.climbEdge();
+        }
+        else{
+          this.forceFrameCount = frameInterpolationCountMin;
+          let exitVelocityCoords = this.anglesOffsets.exitVelocityCoords();
+          this.velocity.x = exitVelocityCoords.x;
+          this.velocity.y = exitVelocityCoords.y;
+          this.fallFromAnchor(null);
+        }
       }
       else if(!this.wantsNoDirection()){
         let nextDirection = this.controls.left ? -1 : 1;
@@ -399,12 +406,20 @@ Player.prototype.action = function(){
       }
     break;
     case "edgeHangingFrontSwinging":
-      if(this.controls.down){
-        this.forceFrameCount = frameInterpolationCountMin;
-        let exitVelocityCoords = this.anglesOffsets.exitVelocityCoords();
-        this.velocity.x = exitVelocityCoords.x;
-        this.velocity.y = exitVelocityCoords.y;
-        this.fallFromAnchor(null);
+      if(!this.inTransition && this.controls.down){
+        if(this.canReachHoldDown(null,null)){
+          this.anchor = null;
+          this.currentPosition.anchor = null;
+          this.nextPositionKeyFrame.anchor = null;
+          this.climbEdge();
+        }
+        else{
+          this.forceFrameCount = frameInterpolationCountMin;
+          let exitVelocityCoords = this.anglesOffsets.exitVelocityCoords();
+          this.velocity.x = exitVelocityCoords.x;
+          this.velocity.y = exitVelocityCoords.y;
+          this.fallFromAnchor(null);
+        }
       }
     break;
     case "oneFootBalance":

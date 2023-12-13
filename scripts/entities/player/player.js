@@ -282,7 +282,7 @@ class Player {
     this.currentFrame = (this.currentFrame + 1) % this.currentFrameCount;
     this.body.setPositionRelative(this.currentPosition);
     this.updatePosition();
-    this.anglesOffsets.update(this.controls.left ? "left" : this.controls.right ? "right" : null);
+    this.anglesOffsets.update(this.inTransition || this.wantsNoDirection() ? null : this.controls.left ? "left" : "right");
     this.checkForNextActionOnFrameChange();
   }
 
@@ -396,9 +396,7 @@ class Player {
     currentCenterCoords.y -= this.currentPosition.offsets["position"].y;
     let currentOffsetCoords = new Coordinates(0,0);
     if(this.currentPosition.drawStartJunction != this.nextPositionKeyFrame.drawStartJunction){
-      let cpOffsetCoords = this.body.getOffsetCoords("absolute", this.currentPosition.drawStartJunction);
-      let npOffsetCoords = this.body.getOffsetCoords("absolute", this.nextPositionKeyFrame.drawStartJunction);
-      currentOffsetCoords = new Coordinates(npOffsetCoords.x - cpOffsetCoords.x, npOffsetCoords.y - cpOffsetCoords.y);
+      currentOffsetCoords = this.body.getOffsetCoordsBetweenDrawStartJunctions(this.currentPosition.drawStartJunction, this.nextPositionKeyFrame.drawStartJunction);
     }
     let nextOffsetCoords = this.body.getOffsetCoords("absolute", newDrawStartJunction);
     this.coordinates.x = currentCenterCoords.x + currentOffsetCoords.x - nextOffsetCoords.x;
@@ -494,6 +492,9 @@ class Player {
     }
   }
   climbEdge(){
+    this.readyToJump = false;
+    this.crouchFactor = 1;
+    this.currentMovementOverride = null;
     let hold = this.limits.usableHold;
     let distReduction = ((this.currentAction == "hoppingForwardJumping" || this.currentAction == "idling" || this.currentAction == "running") && hold.blockIndex == -1 && hold.climbDownType == "edgeHangingFront") ? settings.hoppingDistMin : 0;
     let dist = DistBetweenCoords(this.body.coordinates, hold.coordinates) - distReduction;
@@ -506,14 +507,29 @@ class Player {
       if(hold.climbDownType == "edgeHangingFront"){
         let startCoords = this.coordinates.clone();
         if(this.currentAction.startsWith("edgeHanging")){
-          startCoords.addOffset(new Coordinates(0, this.body.hitBox.totalHeight()));
+          startCoords = this.body.getJunctionCoords(this.frontSide + "foot");
+          let distsToHold = new Coordinates(hold.coordinates.x - this.coordinates.x, hold.coordinates.y - this.coordinates.y);
+          if(distsToHold.y > Math.abs(distsToHold.x)){ // the hold is above current coordinates (that are the current hold coords)
+            let exitVelocityCoords = this.anglesOffsets == null ? new Coordinates(0,0) : this.anglesOffsets.exitVelocityCoords();
+            let framesToHold = CalculateFrameCountToReachLimitDown(this.coordinates.y, exitVelocityCoords.y, settings.gravity, hold.coordinates.y);
+            let framesToHoldWithXSpeed = CalculateFrameCountToReachLimitDown(this.coordinates.y, (exitVelocityCoords.y + Math.abs(exitVelocityCoords.x)), settings.gravity, hold.coordinates.y);
+            let fallOffsetCoords = new Coordinates(framesToHold*exitVelocityCoords.x, distsToHold.y);
+            startCoords.addOffset(fallOffsetCoords);
+            this.forceFrameCount = framesToHoldWithXSpeed;
+            let nextDirection = hold.coordinates.x > startCoords.x ? 1 : -1;
+            this.sideSwitch = this.direction != nextDirection;
+            this.direction = nextDirection;
+          }
         }
-        let xyAngle = this.direction*Math.abs(AngleXYfromCoords(hold.coordinates, startCoords) - Math.PI/2);
+        let xyAngle = AngleXYfromCoords(hold.coordinates, startCoords) - Math.PI/2;
         this.anglesOffsets = new PlayerAngles(new Angles(xyAngle,0,0), new Angles(-xyAngle/30,0,0), new Angles(0,0,0), true, true, 0.01);
         this.setMovement("edgeHangingFrontSwinging");
       }
       else{
         this.anglesOffsets = new PlayerAngles(this.limits.usableHold.angles.clone(), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+        if(this.currentAction.startsWith("edgeHangingFrontSwingingOut")){
+          this.sideSwitch = false;
+        }
         this.setMovement(hold.climbDownType);
       }
     }

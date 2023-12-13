@@ -217,6 +217,20 @@ class Body {
   getOffsetCoords(type, startCoordName){ // gives x and y offsets from center depending on the name of the junction or limit
     return GetPositionOffsetCoords((type == "absolute" ? this.coordinates : null), this.junctions, startCoordName, this.hitBox);
   }
+  getJunctionCoords(junctionName){
+    let junction = this.junctions[junctionName];
+    if(junction != null){
+      return junction.coordinates.clone();
+    }
+    else{
+      return null;
+    }
+  }
+  getOffsetCoordsBetweenDrawStartJunctions(firstDrawStartJunction, secondDrawStartJunction){
+    let firstOffsetCoords = this.getOffsetCoords("absolute", firstDrawStartJunction);
+    let secondOffsetCoords = this.getOffsetCoords("absolute", secondDrawStartJunction);
+    return new Coordinates(secondOffsetCoords.x - firstOffsetCoords.x, secondOffsetCoords.y - firstOffsetCoords.y);
+  }
   getHitBoxForPosition(position){
     let referencePosition = ApplyPositionSettings(position, null, "left", "right", 1, 1, null);
     return GetPositionHitbox(this.calculateJunctionsForPosition(referencePosition));

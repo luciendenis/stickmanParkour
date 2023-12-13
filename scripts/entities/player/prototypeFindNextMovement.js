@@ -124,7 +124,7 @@ Player.prototype.findNextMovement = function(){
           this.climbEdge();
         }
       }
-      else if(this.canReachHoldDown(null)){
+      else if(this.canReachHoldDown(null, this.direction == 1 ? "right" : "left")){
         this.currentPosition.anchor = false;
         this.nextPositionKeyFrame.anchor = false;
         this.climbEdge();
@@ -179,7 +179,7 @@ Player.prototype.findNextMovement = function(){
           }
         }
         else if(this.controls.up){
-          if((this.previousAction == "edgeHangingFrontWithLegsReady" && this.limits.usableHold != null) || this.canReachHoldUp(null)){
+          if((this.previousAction == "edgeHangingFrontWithLegsReady" && this.limits.usableHold != null) || this.canReachHoldUp(null, null)){
             let holdCoordsX = this.limits.usableHold.coordinates.x;
             if(holdCoordsX > this.coordinates.x + this.body.hitBox.right){
               this.direction = 1;
@@ -257,12 +257,23 @@ Player.prototype.findNextMovement = function(){
         this.fallFromAnchor("edgeHangingTurningFall");
       }
     break;
-    case "edgeHangingFrontSwingingOut":
+    case "edgeHangingFrontSwingingOutForward":
       if(this.limits.reachableBlockStandingPoint != null){
         this.sideSwitch = true;
         this.hopForward();
       }
       else if(this.limits.usableHold != null){
+        this.nextPositionKeyFrame.anchor = null;
+        this.currentPosition.anchor = null;
+        this.sideSwitch = true;
+        this.climbEdge();
+      }
+      else{
+        this.fallFromAnchor(null);
+      }
+    break;
+    case "edgeHangingFrontSwingingOutUp":
+      if(this.limits.usableHold != null){
         this.nextPositionKeyFrame.anchor = null;
         this.currentPosition.anchor = null;
         this.sideSwitch = true;

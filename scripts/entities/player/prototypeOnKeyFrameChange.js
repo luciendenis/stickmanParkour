@@ -385,7 +385,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     case "edgeHangingFrontWithLegsReady":
       if(!this.inTransition){
         if(this.controls.up){
-          if(this.canReachHoldUp(null)){
+          if(this.canReachHoldUp(null,null)){
             this.forceControlUntilNextKeyFrame("up", true, "edgeHangingFrontWithLegs"); // this forces player up when edgeHangingFrontWithLegs transition is complete
             this.setMovement("edgeHangingFrontWithLegs");
           }
@@ -403,6 +403,20 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
         else if(this.wantsToKeepDirection()){
           this.setMovement("edgeHangingFrontWithLegsHopping");
         }
+      }
+    break;
+    case "edgeHangingFront":
+      if(!this.wantsNoDirection()){
+        let nextDirection = this.controls.left ? -1 : 1;
+        console.log("Left ? " + this.controls.left + ", Right ? " + this.controls.right + ", next direction : " + nextDirection + ", current direction : " + this.direction);
+        this.sideSwitch = (this.direction != nextDirection);
+        this.forceFrameCount = 15;
+        this.direction = nextDirection;
+        this.anglesOffsets.angles.xy = -this.direction*0.2;
+        this.anglesOffsets.angularSpeed.xy = -this.direction*0.025;
+        this.anglesOffsets.gravityAffected = true;
+        this.anglesOffsets.controlAffected = true;
+        this.setMovement("edgeHangingFrontSwinging");
       }
     break;
     case "edgeHangingFrontSwinging":

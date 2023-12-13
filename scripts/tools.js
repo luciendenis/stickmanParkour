@@ -4,7 +4,17 @@ function DistBetweenCoords(firstCoord, secondCoord){
 function GetCoordsMiddle(firstCoord, secondCoord){
   return new Coordinates((firstCoord.x + secondCoord.x)/2,(firstCoord.y + secondCoord.y)/2);
 }
-
+function DistBetweenCoordsWithDirection(firstCoord, secondCoord, direction){
+  if(direction == "left" || direction == "right"){
+    return Math.abs(firstCoord.x - secondCoord.x);
+  }
+  else if(direction == "up" || direction == "down"){
+    return Math.abs(firstCoord.y - secondCoord.y);
+  }
+  else{
+    return DistBetweenCoords(firstCoord, secondCoord);
+  }
+}
 function AngleXYfromCoords(startCoords, endCoords){
   let dx = endCoords.x-startCoords.x;
   let dy = endCoords.y-startCoords.y;
@@ -60,4 +70,15 @@ function AngleDiff(nextAngle, currentAngle, forceRotationDirection, direction){
 
 function CartesianCoordinatesFromPolar(length, angle){
   return new Coordinates(length*Math.cos(angle),length*Math.sin(angle));
+}
+function CalculateFrameCountToReachLimitDown(y, dy, ay, yLimit){
+  let frameCount = 0;
+  let nextY = y;
+  let nextDY = dy;
+  while(nextY < yLimit && frameCount <= 60){
+    nextDY += ay;
+    nextY += nextDY;
+    frameCount++;
+  }
+  return frameCount;
 }

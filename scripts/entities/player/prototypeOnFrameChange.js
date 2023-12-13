@@ -205,15 +205,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
       if(this.coordinates.y + 20*this.velocity.y >= this.limits.bottom){  // going to hit the floor in 20 frames or less
         this.crouchFactor = 1 - .02*this.velocity.y; // the harder the fall, the greater crouchFactor on landing
         if(Math.abs(this.velocity.x) < settings.minVelocityForStopping){
-          let frameCount = 0;
-          let nextY = this.coordinates.y;
-          let nextDY = this.velocity.y;
-          while(nextY < this.limits.bottom && frameCount <= 60){
-            nextDY += this.acceleration.y;
-            nextY += nextDY;
-            frameCount++;
-          }
-          this.forceFrameCount = frameCount;
+          this.forceFrameCount = CalculateFrameCountToReachLimitDown(this.coordinates.y, this.velocity.y, this.acceleration.y, this.limits.bottom);
           let wideEnough = IsBlockWideEnough(level, this.limits.currentBlockIndex, this, true);
           if(this.wantsNoDirection()){
             if(!wideEnough){
@@ -379,7 +371,15 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
       }
     break;
     case "edgeHangingFrontSwinging":
-      if(this.anglesOffsets.directionSwitch){
+      this.anglesOffsets.controlAffected = (Math.abs(this.anglesOffsets.angles.xy) < 1.2 || this.anglesOffsets.angles.xy*this.anglesOffsets.angularSpeed.xy < 0);
+      if(!this.inTransition && this.controls.down){
+        this.forceFrameCount = frameInterpolationCountMin;
+        let exitVelocityCoords = this.anglesOffsets.exitVelocityCoords();
+        this.velocity.x = exitVelocityCoords.x;
+        this.velocity.y = exitVelocityCoords.y;
+        this.fallFromAnchor(null);
+      }
+      else if(this.anglesOffsets.angularSpeed.xy*this.direction > 0){
         this.direction *= -1;
         this.sideSwitch = true;
         this.forceFrameCount = 20;
@@ -394,10 +394,15 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
         this.forceFrameCount = 25;
         this.setMovement("edgeHangingFront");
       }
-      else if(this.wantsToKeepDirection() && this.anglesOffsets.angles.xy*this.anglesOffsets.angularSpeed.xy > 0 && Math.abs(this.anglesOffsets.angularSpeed.xy) > 0.04 && Math.abs(this.anglesOffsets.angles.xy) > 0.5){
+      else if(this.wantsToKeepDirection() && !this.controls.up && this.anglesOffsets.angles.xy*this.anglesOffsets.angularSpeed.xy > 0 && Math.abs(this.anglesOffsets.angularSpeed.xy) > 0.03 && Math.abs(this.anglesOffsets.angles.xy) > 0.5){
         offsets = new Coordinates(0, this.body.hitBox.totalHeight());
         if(this.canHopForward(offsets) || this.canReachHoldForward(offsets)){
-          this.setMovement("edgeHangingFrontSwingingOut");
+          this.setMovement("edgeHangingFrontSwingingOutForward");
+        }
+      }
+      else if(this.controls.up && this.anglesOffsets.angles.xy*this.anglesOffsets.angularSpeed.xy > 0 && Math.abs(this.anglesOffsets.angularSpeed.xy) > 0.02 && Math.abs(this.anglesOffsets.angles.xy) > 1){
+        if(this.canReachHoldUp(null,this.direction == 1 ? "right" : "left")){
+          this.setMovement("edgeHangingFrontSwingingOutUp");
         }
       }
     break;

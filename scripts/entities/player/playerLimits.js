@@ -109,16 +109,19 @@ Player.prototype.updatePlayerLimits = function(){ // computing what the player l
   this.limits = newLimits;
   this.checkForFall(bottomGap);
 }
-Player.prototype.searchForUsableHold = function(xMin, xMax, yMin, yMax, direction){  //checking if the is a usable hold for the player in the area
+Player.prototype.searchForUsableHold = function(xMin, xMax, yMin, yMax, direction, sortBy, sortDirection){  //checking if there is a usable hold for the player in the area
   let type = direction == 1 ? "sideRight" : "sideLeft";
-  let dist = 9999;
+  let maxDist = 9999;
+  let sortByFactor = (sortBy == "furthest" ? -1 : 1);
   // checking for ClimbingHolds in this area
   let usableHold = null;
   for(let i = 0 ; i < level.climbingHolds.length ; i++){
     let h = level.climbingHolds[i];
     if(h.coordinates.x > xMin && h.coordinates.x < xMax && h.coordinates.y > yMin && h.coordinates.y < yMax && (h.type == "front" || h.type == type)){
-      if(DistBetweenCoords(this.body.coordinates, h.coordinates) < dist){
+      let dist = DistBetweenCoordsWithDirection(this.body.coordinates, h.coordinates, sortDirection)*sortByFactor;
+      if(dist < maxDist){
         usableHold = h;
+        maxDist = dist;
       }
     }
   }
@@ -128,15 +131,19 @@ Player.prototype.searchForUsableHold = function(xMin, xMax, yMin, yMax, directio
     let b = level.blocks[i];
     if(direction == 1){
       if(b.xLeft > xMin && b.xLeft < xMax && b.yTop > yMin && b.yTop < yMax){
-        if(DistBetweenCoords(this.body.coordinates, new Coordinates(b.xLeft, b.yTop)) < dist){
+        let dist = DistBetweenCoordsWithDirection(this.body.coordinates, new Coordinates(b.xLeft, b.yTop), sortDirection)*sortByFactor;
+        if(dist < maxDist){
           usableBlockIndex = i;
+          maxDist = dist;
         }
       }
     }
     else{
       if(b.xRight > xMin && b.xRight < xMax && b.yTop > yMin && b.yTop < yMax){
-        if(DistBetweenCoords(this.body.coordinates, new Coordinates(b.xRight, b.yTop)) < dist){
+        let dist = DistBetweenCoordsWithDirection(this.body.coordinates, new Coordinates(b.xRight, b.yTop), sortDirection)*sortByFactor;
+        if(dist < maxDist){
           usableBlockIndex = i;
+          maxDist = dist;
         }
       }
     }
@@ -292,26 +299,26 @@ Player.prototype.canReachHoldForward = function(offsetCoords){
   this.searchForUsableHold(xMin,xMax,yMin,yMax,this.direction);
   return this.limits.usableHold != null;
 }
-Player.prototype.canReachHoldUp = function(offsetCoords){
+Player.prototype.canReachHoldUp = function(offsetCoords, side){
   let searchArea = this.body.hoppingForwardRange();
-  let xMin = this.coordinates.x - (searchArea.x/2);
-  let xMax = this.coordinates.x + (searchArea.x/2);
+  let xMin = this.coordinates.x - searchArea.x*(side == "left" ? 0.75 : side == "right" ? 0 : 0.5);
+  let xMax = this.coordinates.x + searchArea.x*(side == "left" ? 0 : side == "right" ? 0.75 : 0.5);
   let yMax = this.coordinates.y;
-  let yMin = this.coordinates.y - 2*searchArea.y;
+  let yMin = this.coordinates.y - 2.5*searchArea.y;
   if(offsetCoords != null){
     xMin += offsetCoords.x;
     xMax += offsetCoords.x;
     yMin += offsetCoords.y;
     yMax += offsetCoords.y;
   }
-  this.searchForUsableHold(xMin,xMax,yMin,yMax,this.direction);
+  this.searchForUsableHold(xMin,xMax,yMin,yMax,this.direction, "furthest", "up");
   return this.limits.usableHold != null;
 }
-Player.prototype.canReachHoldDown = function(offsetCoords){
+Player.prototype.canReachHoldDown = function(offsetCoords, side){
   let searchArea = this.body.hoppingForwardRange();
-  let xMin = this.direction == 1 ? this.coordinates.x : this.coordinates.x - (searchArea.x/2);
-  let xMax = this.direction == 1 ? this.coordinates.x + (searchArea.x/2) : this.coordinates.x;
-  let yMax = this.body.coordinates.y + this.body.hitBox.bottom;
+  let xMin = this.coordinates.x - searchArea.x*(side == "left" ? 0.75 : side == "right" ? 0 : 0.5);
+  let xMax = this.coordinates.x + searchArea.x*(side == "left" ? 0 : side == "right" ? 0.75 : 0.5);
+  let yMax = this.body.coordinates.y + searchArea.y*(this.currentAction == "edgeHangingFrontSwinging" ? 3 : 2);
   let yMin = this.body.coordinates.y;
   if(offsetCoords != null){
     xMin += offsetCoords.x;
@@ -319,7 +326,7 @@ Player.prototype.canReachHoldDown = function(offsetCoords){
     yMin += offsetCoords.y;
     yMax += offsetCoords.y;
   }
-  this.searchForUsableHold(xMin,xMax,yMin,yMax,this.direction);
+  this.searchForUsableHold(xMin,xMax,yMin,yMax,this.direction, "furthest", "down");
   return this.limits.usableHold != null;
 }
 Player.prototype.canClimbEdgeFromHanging = function(){
@@ -346,7 +353,7 @@ Player.prototype.canHopForward = function(offsetCoords){
   let xMin = (this.direction == 1) ? coords.x : coords.x - searchArea.x;
   let xMax = (this.direction == 1) ? coords.x + searchArea.x : coords.x;
   let yMin = coords.y - searchArea.y;
-  let yMax = coords.y + searchArea.y*2;
+  let yMax = coords.y + searchArea.y*1.5;
   let xLimit = (this.direction == 1) ? "left" : "right";
   //console.log("xMin : " + xMin + ", xMax : " + xMax + ", yMin : " + yMin + ", yMax : " + yMax + ", xLimit : " + xLimit);
   let blocksIndexes = GetBlockIndexesInZone(level, this.limits.currentBlockIndex, xMin, xMax, yMin, yMax, xLimit, "top", this.direction == 1 ? "ascending" : "descending");
