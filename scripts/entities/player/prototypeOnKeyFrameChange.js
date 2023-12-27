@@ -213,14 +213,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
       if(!this.inTransition) this.currentMovementOverride = null;
       if(!this.inTransition && (this.velocity.y * (this.velocity.y + this.acceleration.y * this.currentFrameCount) <0 || this.velocity.y > 0)){
         // calculating the frames it will take for the player to reach the ground
-        let y = this.coordinates.y;
-        let vy = this.velocity.y;
-        let frames = 0;
-        while(y < this.limits.bottom){
-          vy += this.acceleration.y;
-          y += vy;
-          frames++;
-        }
+        let frames = CalculateFrameCountToReachLimitDown(this.coordinates.y, this.velocity.y, this.acceleration.y, this.limits.bottom);
         this.forceFrameCount = frames - 10;
         this.setMovement("falling");
       }
@@ -268,7 +261,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     case "wallPrepareJumping":
       if(this.limits.usableHold != null && !this.inTransition && this.readyToJump && !this.controls.jump){
         this.keepNextKeyFrameReference = true;
-        this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+        this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
         if(this.controls.up){
           this.stopPlayerAll();
           this.forcePathSettings = null;
@@ -284,7 +277,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
       }
       else if(this.readyToJump && !this.controls.jump){
         if((this.direction == 1 && this.obstacleRight(this.coordinates)) || (this.direction == -1 && this.obstacleLeft(this.coordinates))){
-          this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+          this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
           if(this.controls.up){
             this.forceFrameCount = 10;
             this.forceControlTemp("up", false, 20); // this avoids climbing on the edge the playing is jumping from
@@ -348,7 +341,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
         let nextDir = (this.controls.left) ? -1 : 1;
         if(this.direction != nextDir){
           this.direction = nextDir;
-          this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+          this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
           this.forceFrameCount = frameInterpolationCountMin;
           this.setMovement("ropeDownSliding");
         }
@@ -419,9 +412,19 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
         this.setMovement("edgeHangingFrontSwinging");
       }
     break;
+    case "poleSwinging":
     case "edgeHangingFrontSwinging":
       if(this.forceFrameCount == 0){
         this.forceFrameCount = 5;
+      }
+    break;
+    case "poleSwingingPrepareJump":
+      if(this.controls.jump){
+        this.forceFrameCount = 5;
+        this.freezeFrame = true;
+      }
+      else{
+        this.forceFrameCount = 2;
       }
     break;
   }

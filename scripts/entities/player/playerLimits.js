@@ -21,9 +21,9 @@ class PlayerLimits {
 class UsableHold {
   constructor(coordinates, type, climbType, climbDownType, angles, blockIndex) {
     this.coordinates = coordinates;
-    this.type = type;                   // sideLeft, sideRight or front
+    this.type = type;                   // sideLeft, sideRight, front or pole
     this.climbType = climbType;         // null, "stand" or "crouch"
-    this.climbDownType = climbDownType; // null, "edgeHanging", "edgeHangingWithLegs" or "edgeHopping"
+    this.climbDownType = climbDownType; // null, "edgeHanging", "edgeHangingWithLegs", "edgeHopping" or "poleSwinging"
     this.angles = angles;               // to adjust position depending on the type of hold
     this.blockIndex = blockIndex;       // if hold is attached to a block, it is the block index in level.blocks, else -1
   }
@@ -65,7 +65,7 @@ Player.prototype.updatePlayerLimits = function(){ // computing what the player l
         newLimits.rightTop = block.yTop;
       }
     }
-    if(block.xLeft < this.body.coordinates.x && block.xRight > this.body.coordinates.x){
+    if(block.xLeft < this.body.coordinates.x + settings.roundTolerance && block.xRight > this.body.coordinates.x - settings.roundTolerance){
       if(block.yTop < newLimits.bottom && block.yTop > this.body.coordinates.y){
         newLimits.bottom = block.yTop;
         newLimits.leftEdge = block.xLeft;
@@ -117,7 +117,7 @@ Player.prototype.searchForUsableHold = function(xMin, xMax, yMin, yMax, directio
   let usableHold = null;
   for(let i = 0 ; i < level.climbingHolds.length ; i++){
     let h = level.climbingHolds[i];
-    if(h.coordinates.x > xMin && h.coordinates.x < xMax && h.coordinates.y > yMin && h.coordinates.y < yMax && (h.type == "front" || h.type == type)){
+    if(h.coordinates.x > xMin && h.coordinates.x < xMax && h.coordinates.y > yMin && h.coordinates.y < yMax && (h.type == "front" || h.type == "pole" || h.type == type)){
       let dist = DistBetweenCoordsWithDirection(this.body.coordinates, h.coordinates, sortDirection)*sortByFactor;
       if(dist < maxDist){
         usableHold = h;
@@ -165,10 +165,10 @@ Player.prototype.searchForUsableHold = function(xMin, xMax, yMin, yMax, directio
   }
   else if(usableHold != null){
     chosenHold = new UsableHold(
-      new Coordinates(usableHold.coordinates.x - (usableHold.type == "front" ? 0 : usableHold.size*direction/2), usableHold.coordinates.y),
+      new Coordinates(usableHold.coordinates.x - ((usableHold.type == "front" || usableHold.type == "pole") ? 0 : usableHold.size*direction/2), usableHold.coordinates.y),
       usableHold.type,
       null,
-      "edgeHanging" + (usableHold.type == "front" ? "Front" : "") + (usableHold.hangWithLegs ? "WithLegs" : ""),
+      usableHold.type == "pole" ? "pole" : "edgeHanging" + (usableHold.type == "front" ? "Front" : "") + (usableHold.hangWithLegs ? "WithLegs" : ""),
       (usableHold.type != "front" && usableHold.hangWithLegs ? new Angles(-0.1*direction,0,0) : new Angles(0,0,0)),
       -1
     );
@@ -340,6 +340,34 @@ Player.prototype.canClimbDownEdge = function(offsetCoords){
   if(this.reachingLimitAhead(this.coordinates.clone(offsetCoords)))
     return false;
   this.searchForUsableEdgeDown(offsetCoords);
+  return this.limits.usableHold != null;
+}
+Player.prototype.canClimbDownPole = function(offsetCoords){
+  offsetCoords = (offsetCoords == null) ? new Coordinates(0,0) : offsetCoords;
+  let xMin = this.coordinates.x + offsetCoords.x - this.body.bodySize;
+  let xMax = this.coordinates.x + offsetCoords.x + this.body.bodySize;
+  let yMin = this.coordinates.y + offsetCoords.y;
+  let yMax = this.coordinates.y + offsetCoords.y + this.body.bodySize;
+  let foundHold = null;
+  for(let i = 0; i < level.climbingHolds.length; i++){
+    let hold = level.climbingHolds[i];
+    if(hold.type == "pole" && hold.coordinates.x > xMin && hold.coordinates.x < xMax && hold.coordinates.y > yMin && hold.coordinates.y < yMax){
+      foundHold = hold;
+    }
+  }
+  if(foundHold != null){
+    this.limits.usableHold = new UsableHold(
+      foundHold.coordinates.clone(),
+      foundHold.type,
+      null,
+      "pole",
+      new Angles(0,0,0),
+      -1
+    );
+  }
+  else{
+    this.limits.usableHold = null;
+  }
   return this.limits.usableHold != null;
 }
 Player.prototype.canHopForward = function(offsetCoords){

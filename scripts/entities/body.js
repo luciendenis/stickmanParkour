@@ -296,7 +296,7 @@ function ApplyPositionOverrideSettings(position, frontSide, backSide, direction,
 
 function ApplyPositionSettings(position, overrides, frontSide, backSide, direction, crouchFactor, anglesOffsets){
   var newPosition = new Position();
-  newPosition.anchor = position.anchor != null ? new Anchor(new Coordinates(0,0), position.anchor.releaseOffset.replace('front', frontSide).replace('back', backSide), position.anchor.fpsCurveOffsets) : null;
+  newPosition.anchor = (position.anchor != null) ? new Anchor(new Coordinates(0,0), position.anchor.releaseOffset.replace('front', frontSide).replace('back', backSide), position.anchor.fpsCurveOffsets) : null;
   if(position.drawStartJunction != null){
     newPosition.drawStartJunction = position.drawStartJunction.replace('front', frontSide).replace('back', backSide);
   }

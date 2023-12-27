@@ -428,8 +428,8 @@ var levelConfigs = JSON.parse(`[
     "config":{
       "spawn":{
         "coordinates":{
-          "x":1450,
-          "y":20
+          "x":300,
+          "y":1120
         },
         "direction":1,
         "frontSide":"left",
@@ -545,7 +545,7 @@ var levelConfigs = JSON.parse(`[
               "y":1350
             },
             "size":30,
-            "type":"front",
+            "type":"pole",
             "hangWithLegs":false,
             "color":"black"
           },{

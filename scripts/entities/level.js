@@ -205,7 +205,7 @@ class ClimbingHold {
     else if(this.type == "sideRight")
       context.lineTo(this.coordinates.x, this.coordinates.y + this.size/2);
     let startAngle = this.type == "sideRight" ? Math.PI/2 : 0;
-    let endAngle = this.type == "sideLeft" ? Math.PI/2 : Math.PI;
+    let endAngle = this.type == "sideLeft" ? Math.PI/2 : this.type == "pole" ? 2*Math.PI : Math.PI;
     let size = this.type == "pole" ? this.size/4 : this.size/2;
     context.arc(this.coordinates.x, this.coordinates.y, size, startAngle, endAngle, false);
     context.fillStyle = this.color;
@@ -213,8 +213,9 @@ class ClimbingHold {
   }
   drawRough(context){
     let startAngle = this.type == "sideRight" ? Math.PI/2 : 0;
-    let endAngle = this.type == "sideLeft" ? Math.PI/2 : Math.PI;
-    context.arc(this.coordinates.x, this.coordinates.y, this.size, this.size, startAngle, endAngle, true, this.roughOptions);
+    let endAngle = this.type == "sideLeft" ? Math.PI/2 : this.type == "pole" ? 2*Math.PI : Math.PI;
+    let size = this.type == "pole" ? this.size/2: this.size;
+    context.arc(this.coordinates.x, this.coordinates.y, size, size, startAngle, endAngle, true, this.roughOptions);
   }
 }
 

@@ -385,5 +385,49 @@ var movementTransitionConfigs = JSON.parse(`[
     "sideSwitch":null,
     "frameCount":18,
     "rotationDirections":[]
+  },
+  {
+    "from":"poleSwinging",
+    "to":"poleSwingingSwichingSide",
+    "sideSwitch":null,
+    "frameCount":15,
+    "rotationDirections":[]
+  },
+  {
+    "from":"poleSwingingSwichingSide",
+    "to":"poleSwinging",
+    "sideSwitch":null,
+    "frameCount":15,
+    "rotationDirections":[]
+  },
+  {
+    "from":"poleHanging",
+    "to":"edgeClimbing",
+    "sideSwitch":null,
+    "frameCount":35,
+    "rotationDirections":[]
+  },
+  {
+    "from":"poleSwinging",
+    "to":"poleSwingingToOneFootBalance",
+    "sideSwitch":null,
+    "frameCount":24,
+    "rotationDirections":[
+      {
+        "endJunction":"fronthand",
+        "direction":-1
+      },
+      {
+        "endJunction":"backhand",
+        "direction":-1
+      }
+    ]
+  },
+  {
+    "from":"poleSwingingToOneFootBalance",
+    "to":"oneFootBalance",
+    "sideSwitch":null,
+    "frameCount":20,
+    "rotationDirections":[]
   }
 ]`);

@@ -29,6 +29,12 @@ Player.prototype.findNextMovement = function(){
           }
         }
       }
+      else if(this.limits.usableHold != null && this.limits.usableHold.type == "pole"){
+        this.currentPosition.anchor = null;
+        this.nextPositionKeyFrame.anchor = null;
+        this.anchor = new Anchor(new Coordinates(this.limits.usableHold.coordinates.x, this.limits.usableHold.coordinates.y - this.body.bodySize/2),"", null);
+        this.setMovement("oneFootBalance");
+      }
       else{
         if(wideEnough){
           if(this.wantsToKeepDirection()){
@@ -281,6 +287,44 @@ Player.prototype.findNextMovement = function(){
       }
       else{
         this.fallFromAnchor(null);
+      }
+    break;
+    case "poleSwingingSwichingSide":
+      this.direction *= -1;
+      if(this.wantsToKeepDirection() || Math.abs(this.anglesOffsets.angularSpeed.xy) > 0){
+        if(Math.abs(this.anglesOffsets.angularSpeed.xy) == 0){
+          this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(-this.direction*0.02,0,0), new Angles(0,0,0), true, true, 0.12, 0.008);
+        }
+        this.setMovement("poleSwinging");
+      }
+      else{
+        this.setMovement("poleHanging");
+      }
+    break;
+    case "poleSwingingToOneFootBalance":
+      this.currentPosition.anchor = null;
+      this.nextPositionKeyFrame.anchor = null;
+      this.anchor = new Anchor(this.limits.usableHold.coordinates.clone(new Coordinates(0,-this.body.bodySize/2)), null, null);
+      this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
+      this.forceFrameCount = 30;
+      this.sideSwitch = true;
+      this.setMovement("oneFootBalance");
+    break;
+    case "poleSwingingPrepareJump":
+      this.velocity = this.anglesOffsets.exitVelocityCoords(true);
+      this.anchor = null;
+      let additionalRotationFrames = 15*Math.abs(this.anglesOffsets.angles.xy)/Math.PI;
+      this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
+      this.direction = this.velocity.x > 0 ? 1 : -1;
+      this.switchDrawStartJunction("hitboxbottom");
+      if(this.velocity.y > 0){
+        this.setMovement("falling");
+        this.forceFrameCount = 5;
+      }
+      else{
+        this.forcePositionIndex = 1;
+        this.forceFrameCount = 10 + additionalRotationFrames;
+        this.setMovement("jumping");
       }
     break;
     default:

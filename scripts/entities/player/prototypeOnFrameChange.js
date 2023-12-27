@@ -183,7 +183,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
     case "wallClimbingFront":
       if(this.velocity.y > 0){
         this.anchor = null;
-        this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+        this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
         this.switchDrawStartJunction("hitboxbottom");
         this.setMovement("falling");
       }
@@ -343,7 +343,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
               }
               else{
                 this.direction *= -1;
-                this.anglesOffsets = new PlayerAngles(new Angles(-this.limits.usableRope.angle,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+                this.anglesOffsets = new PlayerAngles(new Angles(-this.limits.usableRope.angle,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
                 this.forceFrameCount = frameInterpolationCountMin;
                 let xLimit = (this.direction == 1) ? this.limits.usableRope.anchorLeft.x + settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x : this.limits.usableRope.anchorRight.x - settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x;
                 let nextX = ((this.coordinates.x <= xLimit && this.direction == 1) || (this.coordinates.x >= xLimit && this.direction == -1)) ? xLimit : this.coordinates.x;
@@ -374,7 +374,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
       this.anglesOffsets.controlAffected = (Math.abs(this.anglesOffsets.angles.xy) < 1.2 || this.anglesOffsets.angles.xy*this.anglesOffsets.angularSpeed.xy < 0);
       if(!this.inTransition && this.controls.down){
         this.forceFrameCount = frameInterpolationCountMin;
-        let exitVelocityCoords = this.anglesOffsets.exitVelocityCoords();
+        let exitVelocityCoords = this.anglesOffsets.exitVelocityCoords(false);
         this.velocity.x = exitVelocityCoords.x;
         this.velocity.y = exitVelocityCoords.y;
         this.fallFromAnchor(null);
@@ -404,6 +404,24 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
         if(this.canReachHoldUp(null,this.direction == 1 ? "right" : "left")){
           this.setMovement("edgeHangingFrontSwingingOutUp");
         }
+      }
+    break;
+    case "poleSwinging":
+      if(this.anglesOffsets.calculateAngularSpeedForNextFrames(5,(this.wantsNoDirection() ? null : this.controls.left ? "left" : "right"))*this.direction > 0){
+        this.setMovement("poleSwingingSwichingSide");
+      }
+      else if(!this.inTransition && !this.wantsToKeepDirection() && Math.abs(this.anglesOffsets.angles.xy) < 0.3 && Math.abs(this.anglesOffsets.angularSpeed.xy) < 0.02 && this.anglesOffsets.angles.xy*this.anglesOffsets.angularSpeed.xy < 0){
+        this.anglesOffsets.angles.xy = 0;
+        this.anglesOffsets.angularSpeed.xy = 0;
+        this.anglesOffsets.angularAcceleration.xy = 0;
+        this.anglesOffsets.gravityAffected = false;
+        this.anglesOffsets.controlAffected = false;
+        this.forceFrameCount = 25;
+        this.setMovement("poleHanging");
+      }
+      else if(this.controls.jump && Math.abs(this.anglesOffsets.angularSpeed.xy) > 0.07){
+        this.anglesOffsets.prepareJump();
+        this.setMovement("poleSwingingPrepareJump");
       }
     break;
   }

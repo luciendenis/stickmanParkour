@@ -39,7 +39,7 @@ class Player {
     this.forcePositionIndex = 0;
     this.intermediatePositionSettings = {};
     this.intermediateOffsetSettings = {};
-    this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+    this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
   }
   reset(levelSpawn){
     this.controls = new PlayerControls();
@@ -79,7 +79,7 @@ class Player {
     this.forcePositionIndex = 0;
     this.intermediatePositionSettings = {};
     this.intermediateOffsetSettings = {};
-    this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+    this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
   }
   setMovement(movementName){
     this.previousAction = this.currentAction;
@@ -384,9 +384,13 @@ class Player {
   }
   fallFromAnchor(movementOverride){
     this.anchor = null;
-    this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+    let forceRotationDirection = Math.abs(this.anglesOffsets.angles.xy) > 1.7 ? -1 : 0;
+    this.anglesOffsets = new PlayerAngles(new Angles(0,0,forceRotationDirection), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
     this.currentMovementOverride = (movementOverride == null) ? null : LoadConfig(movementOverrideConfigs,movementOverride);
     this.currentMovementOverrideIndex = 0;
+    if(forceRotationDirection == -1){
+      this.forceFrameCount = 30;
+    }
     this.switchDrawStartJunction("hitboxbottom");
     this.setMovement("falling");
   }
@@ -420,7 +424,7 @@ class Player {
     let nextX = this.coordinates.x + this.velocity.x*frameInterpolationCountMin;
     this.stopPlayerAll();
     if(Math.abs(this.limits.usableRope.angle) < settings.ropeCrossingAngleLimit){ // case rope is crossable
-      this.anglesOffsets = new PlayerAngles(new Angles(-this.limits.usableRope.angle,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+      this.anglesOffsets = new PlayerAngles(new Angles(-this.limits.usableRope.angle,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
       this.forceFrameCount = frameInterpolationCountMin;
       let xLimitLeft = this.limits.usableRope.anchorLeft.x + settings.ropeCrossingDistPerFrame*this.limits.usableRope.speedFactors.x;
       let xLimitRight = this.limits.usableRope.anchorRight.x - settings.ropeCrossingDistPerFrame*this.limits.usableRope.speedFactors.x;
@@ -437,7 +441,7 @@ class Player {
       this.setMovement("ropeCrossing");
     }
     else if(this.direction*this.limits.usableRope.angle >= settings.ropeCrossingAngleLimit){ // case rope is climbable in that direction
-      this.anglesOffsets = new PlayerAngles(new Angles(-this.limits.usableRope.angle,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+      this.anglesOffsets = new PlayerAngles(new Angles(-this.limits.usableRope.angle,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
       this.forceFrameCount = frameInterpolationCountMin;
       let xLimitLeft = this.limits.usableRope.anchorLeft.x + settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x;
       let xLimitRight = this.limits.usableRope.anchorRight.x - settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x;
@@ -500,17 +504,17 @@ class Player {
     let dist = DistBetweenCoords(this.body.coordinates, hold.coordinates) - distReduction;
     this.forceFrameCount = Math.round(Math.max(dist/settings.hoppingDistPerFrame, 2));
     let anchorFpsOffsets = new Coordinates(0,-Math.max(0,dist)*0.3);
-    this.anchor = new Anchor(new Coordinates(hold.coordinates.x + (hold.type == "front" ? 0 : this.direction*this.body.bodySize/2), hold.coordinates.y - this.body.bodySize/2),"", anchorFpsOffsets);
+    this.anchor = new Anchor(new Coordinates(hold.coordinates.x + ((hold.type == "front" || hold.type == "pole") ? 0 : this.direction*this.body.bodySize/2), hold.coordinates.y - (hold.type == "pole" ? 0 : this.body.bodySize/2)),null, anchorFpsOffsets);
     let positionIndexStart = (hold.climbType == null || hold.type == "front") ? 0 : this.giveEdgeClimbingPositionIndexStartForHeight(this.body.coordinates.y - hold.coordinates.y);
     this.keepNextKeyFrameReference = true;
     if(positionIndexStart <= 0){
-      if(hold.climbDownType == "edgeHangingFront"){
+      if(hold.climbDownType == "edgeHangingFront" || hold.climbDownType == "pole"){
         let startCoords = this.coordinates.clone();
         if(this.currentAction.startsWith("edgeHanging")){
           startCoords = this.body.getJunctionCoords(this.frontSide + "foot");
           let distsToHold = new Coordinates(hold.coordinates.x - this.coordinates.x, hold.coordinates.y - this.coordinates.y);
           if(distsToHold.y > Math.abs(distsToHold.x)){ // the hold is above current coordinates (that are the current hold coords)
-            let exitVelocityCoords = this.anglesOffsets == null ? new Coordinates(0,0) : this.anglesOffsets.exitVelocityCoords();
+            let exitVelocityCoords = this.anglesOffsets == null ? new Coordinates(0,0) : this.anglesOffsets.exitVelocityCoords(false);
             let framesToHold = CalculateFrameCountToReachLimitDown(this.coordinates.y, exitVelocityCoords.y, settings.gravity, hold.coordinates.y);
             let framesToHoldWithXSpeed = CalculateFrameCountToReachLimitDown(this.coordinates.y, (exitVelocityCoords.y + Math.abs(exitVelocityCoords.x)), settings.gravity, hold.coordinates.y);
             let fallOffsetCoords = new Coordinates(framesToHold*exitVelocityCoords.x, distsToHold.y);
@@ -522,11 +526,13 @@ class Player {
           }
         }
         let xyAngle = AngleXYfromCoords(hold.coordinates, startCoords) - Math.PI/2;
-        this.anglesOffsets = new PlayerAngles(new Angles(xyAngle,0,0), new Angles(-xyAngle/30,0,0), new Angles(0,0,0), true, true, 0.01);
-        this.setMovement("edgeHangingFrontSwinging");
+        let friction = hold.climbDownType == "edgeHangingFront" ? 0.01 : 0.008;
+        let controlStrength = hold.climbDownType == "edgeHangingFront" ? 0.1 : 0.12;
+        this.anglesOffsets = new PlayerAngles(new Angles(xyAngle,0,0), new Angles(-xyAngle/30,0,0), new Angles(0,0,0), true, true, controlStrength, friction);
+        this.setMovement(hold.climbDownType + "Swinging");
       }
       else{
-        this.anglesOffsets = new PlayerAngles(this.limits.usableHold.angles.clone(), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+        this.anglesOffsets = new PlayerAngles(this.limits.usableHold.angles.clone(), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
         if(this.currentAction.startsWith("edgeHangingFrontSwingingOut")){
           this.sideSwitch = false;
         }
@@ -544,7 +550,7 @@ class Player {
     this.direction = nextDirection;
     this.anchor = new Anchor(new Coordinates(this.limits.usableHold.coordinates.x + (this.direction*this.body.bodySize/2), this.limits.usableHold.coordinates.y - this.body.bodySize/2),"", null);
     this.keepNextKeyFrameReference = true;
-    this.anglesOffsets = new PlayerAngles(this.limits.usableHold.angles.clone(), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+    this.anglesOffsets = new PlayerAngles(this.limits.usableHold.angles.clone(), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
     this.forceFrameCount = 20;
     if(this.currentAction == "crouchSliding"){
       if(this.limits.usableHold.climbDownType == "edgeHangingWithLegs" || this.limits.usableHold.climbDownType == "edgeHanging")
@@ -569,8 +575,17 @@ class Player {
   }
   climbEdgeAfterHanging(){
     this.keepNextKeyFrameReference = true;
-    this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+    this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
     this.setMovement("edgeClimbing");
+  }
+  climbDownPole(){
+    // Coming from oneFootBalance on a pole, going down to poleSwinging
+    this.currentPosition.anchor = false;
+    this.nextPositionKeyFrame.anchor = false;
+    this.anchor = new Anchor(this.limits.usableHold.coordinates.clone(), null, new Coordinates(-this.direction*globalScale*30,-30*globalScale));
+    this.anglesOffsets = new PlayerAngles(new Angles(this.direction*1.2,0,0), new Angles(-this.direction/50,0,0), new Angles(0,0,0), true, true, 0.12, 0.008);
+    this.forceFrameCount = 30;
+    this.setMovement("poleSwinging");
   }
   preventFall(edgeSide){
     this.stopPlayerAll();
@@ -589,7 +604,7 @@ class Player {
     this.setMovement("hoppingForwardJumping");
   }
   hopForward(){
-    this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0);
+    this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
     let standPoint = this.limits.reachableBlockStandingPoint;
     this.nextPositionKeyFrame.anchor = null;
     this.currentPosition.anchor = null;
