@@ -22,7 +22,7 @@ var level;
 var currentLevelName;
 var globalScale;
 var debugMode = true;
-var roughMode = false;
+var roughMode = true;
 var progressiveDrawMode = false;
 var progressiveDraw = null;
 var readyToPlay = false;
@@ -32,7 +32,7 @@ var drawPlayer = true;
 // Start and animate
 function Init(){
   //globalScale = 0.4;
-  currentLevelName = "level2";
+  currentLevelName = "level0";
   globalScale = GetScaleFromLevel(LoadConfig(levelConfigs, currentLevelName), lvlCanvas.width/dpr, lvlCanvas.height/dpr);
   settings = AdaptSettingsToScale(LoadConfig(settingsConfigs,"default"),globalScale);
   gearsCurrentState = new GearsState(AdaptGearSettingsToScale(LoadConfig(propsConfigs,"gear"), globalScale));

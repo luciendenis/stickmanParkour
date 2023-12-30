@@ -124,10 +124,10 @@ var bodyConfigs = JSON.parse(`
       "color":"black",
       "size":13,
       "roughOptions":{
-        "stroke":"white",
-        "strokeWidth":2,
+        "stroke":"black",
+        "strokeWidth":6,
         "roughness":0.8,
-        "fill":"#3057E1",
+        "fill":"black",
         "fillStyle":"solid"
       }
     }

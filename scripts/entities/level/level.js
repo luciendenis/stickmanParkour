@@ -10,6 +10,7 @@ class Level {
     this.ropes = [];
     this.collectibles = [];
     this.collectiblesToDraw = 1;
+    this.assets = [];
     this.frameWait = 5;
     this.hazards = [];
     this.door = null;
@@ -75,6 +76,9 @@ class Level {
     for(let i = 0 ; i < this.hazards.length ; i++){
       this.hazards[i].draw(context);
     }
+    for(let i = 0 ; i < this.assets.length ; i++){
+      this.assets[i].draw(context);
+    }
   }
   drawCollectibles(context){
     for(let i = 0 ; i < this.collectiblesToDraw ; i++){
@@ -114,6 +118,9 @@ class Level {
     }
     for(let i = 0 ; i < this.hazards.length ; i++){
       this.hazards[i].drawRough(context);
+    }
+    for(let i = 0 ; i < this.assets.length ; i++){
+      this.assets[i].drawRough(context);
     }
   }
   drawCollectiblesRough(context){
@@ -215,7 +222,7 @@ class ClimbingHold {
     let startAngle = this.type == "sideRight" ? Math.PI/2 : 0;
     let endAngle = this.type == "sideLeft" ? Math.PI/2 : this.type == "pole" ? 2*Math.PI : Math.PI;
     let size = this.type == "pole" ? this.size/2: this.size;
-    context.arc(this.coordinates.x, this.coordinates.y, size, size, startAngle, endAngle, true, this.roughOptions);
+    context.arc(this.coordinates.x, this.coordinates.y, size, size, startAngle, endAngle, this.type == "pole" ? false : true, this.roughOptions);
   }
 }
 
@@ -822,6 +829,9 @@ function AdaptLevelToScale(levelSettings, width, height, scale){
       levelSettings.hazards.spikes.lineWidth*scale,
       hazardsSpikesRoughOptions
     ));
+  }
+  for(let i = 0; i < levelSettings.assets.length; i++){
+    newLevel.assets.push(AdaptAssetToScale(levelSettings.assets[i], newLevel.levelLimits, scale));
   }
   return newLevel;
 }

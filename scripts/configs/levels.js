@@ -110,6 +110,42 @@ var levelConfigs = JSON.parse(`[
           "instances":[]
         }
       },
+      "assets":[
+        {
+          "type":"wall_bricks",
+          "config":{
+            "bottomLeftCoords":{
+              "x":0,
+              "y":0
+            },
+            "height":400,
+            "width":600,
+            "orientation":0,
+            "layerHeightMin":15,
+            "layerHeightMax":20,
+            "brickWidthMin":50,
+            "brickWidthMax":55,
+            "brickBorderRadius":2,
+            "jointThickness":1,
+            "strokeStrength":0.5,
+            "strokeColor":"black",
+            "roughOptions":{
+              "stroke":"black",
+              "strokeWidth":1,
+              "roughness":0.5
+            },
+            "brickColors":[
+              "#b55b37",
+              "#94472a",
+              "#c8613a",
+              "#dd5c38",
+              "#d46239"
+            ],
+            "jointColor":"lightgrey",
+            "brickRoughness":3
+          }
+        }
+      ],
       "background":{
         "color":"white",
         "roughOptions":[
@@ -391,6 +427,7 @@ var levelConfigs = JSON.parse(`[
           ]
         }
       },
+      "assets":[],
       "background":{
         "color":"white",
         "roughOptions":[
@@ -714,6 +751,7 @@ var levelConfigs = JSON.parse(`[
           "instances":[]
         }
       },
+      "assets":[],
       "background":{
         "color":"white",
         "roughOptions":[
