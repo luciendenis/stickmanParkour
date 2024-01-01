@@ -14,6 +14,12 @@ class Coordinates{
     return new Coordinates(this.x + offset.x, this.y + offset.y);
   }
 }
+class PolarCoordinates {
+  constructor(distance, angle) {
+    this.distance = distance;
+    this.angle = angle;
+  }
+}
 
 class Angles {
   constructor(xy,z,forceRotationDirection) {

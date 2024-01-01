@@ -118,21 +118,19 @@ var levelConfigs = JSON.parse(`[
               "x":0,
               "y":0
             },
-            "height":400,
+            "height":250,
             "width":600,
             "orientation":0,
             "layerHeightMin":15,
             "layerHeightMax":20,
             "brickWidthMin":50,
             "brickWidthMax":55,
-            "brickBorderRadius":2,
-            "jointThickness":1,
-            "strokeStrength":0.5,
+            "brickBorderRadius":3,
+            "jointThickness":2,
+            "strokeStrength":0.4,
             "strokeColor":"black",
             "roughOptions":{
-              "stroke":"black",
-              "strokeWidth":1,
-              "roughness":0.5
+              "roughness":0.6
             },
             "brickColors":[
               "#b55b37",
@@ -142,7 +140,7 @@ var levelConfigs = JSON.parse(`[
               "#d46239"
             ],
             "jointColor":"lightgrey",
-            "brickRoughness":3
+            "brickRoughness":6
           }
         }
       ],

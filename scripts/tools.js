@@ -68,6 +68,10 @@ function AngleDiff(nextAngle, currentAngle, forceRotationDirection, direction){
   return angleDiff;
 }
 
+function PolarCoordsFromCartesian(startCoords, endCoords){
+  return new PolarCoordinates(DistBetweenCoords(startCoords, endCoords), AngleXYfromCoords(startCoords, endCoords));
+}
+
 function CartesianCoordinatesFromPolar(length, angle){
   return new Coordinates(length*Math.cos(angle),length*Math.sin(angle));
 }

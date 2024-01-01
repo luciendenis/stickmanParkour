@@ -15,7 +15,7 @@ class Wall_Bricks {
     this.roughOptions = AdaptRoughOptionsToScale(config.roughOptions, scale);
     this.brickColors = config.brickColors;
     this.jointColor = config.jointColor;
-    this.brickRoughness = config.brickRoughness;
+    this.brickRoughness = Math.min(config.brickRoughness,10);
     this.seed = seed;
   }
   draw(context){
@@ -24,11 +24,14 @@ class Wall_Bricks {
     let currentHeight = 0;
     let brickLayerCount = 0;
     let currentRandomIndex = this.seed;
+    // temporary translation and rotation
+    context.translate(this.bottomLeftCoords.x, this.bottomLeftCoords.y);
+    context.rotate(this.orientation);
     // drawing the joint layer, bricks will be drawn over
     context.fillStyle = this.jointColor;
     context.fillRect(
-      this.bottomLeftCoords.x + this.strokeStrength + this.brickBorderRadius/2,
-      this.bottomLeftCoords.y - this.height + this.strokeStrength + this.brickBorderRadius,
+      this.strokeStrength + this.brickBorderRadius/2,
+      -this.height + this.strokeStrength + this.brickBorderRadius,
       this.width - 2*this.strokeStrength - this.brickBorderRadius,
       this.height - this.strokeStrength - this.brickBorderRadius
     );
@@ -38,7 +41,7 @@ class Wall_Bricks {
 
     while(!done){ // while for the layers
       let currentBrickLayerHeight;
-      if(this.height - currentHeight < this.layerHeightMax){
+      if(this.height - currentHeight < this.layerHeightMax + 3*this.jointThickness){
         currentBrickLayerHeight = this.height - currentHeight;
         done = true;
       }
@@ -53,7 +56,7 @@ class Wall_Bricks {
       let brickCount = 0;
       while(!layerDone){ // while for the bricks
         let currentBrickWidth;
-        if(this.width - currentWidth < this.brickWidthMax){
+        if(this.width - currentWidth < this.brickWidthMax + 3*this.jointThickness){
           currentBrickWidth = this.width - currentWidth;
           layerDone = true;
         }
@@ -70,14 +73,28 @@ class Wall_Bricks {
         context.fillStyle = this.brickColors[colorIndex];
         context.beginPath();
         context.roundRect(
-          this.bottomLeftCoords.x + currentWidth,
-          this.bottomLeftCoords.y - currentHeight,
+          currentWidth,
+          -currentHeight,
           currentBrickWidth,
           -currentBrickLayerHeight,
           this.brickBorderRadius
         );
         context.fill();
-        if(this.strokeStrength > 0) context.stroke();
+        if(this.strokeStrength > 0){
+          context.stroke();
+          let currentBrickRoughness = Math.round((this.brickRoughness*currentBrickWidth*currentBrickLayerHeight)/(this.brickWidthMax*this.layerHeightMax));
+          for(let i = 0; i < currentBrickRoughness; i++){
+            let lineX = this.strokeStrength + this.brickBorderRadius/2 + (currentBrickWidth - this.strokeStrength - this.brickBorderRadius/2)*randomHandler.giveNumber(currentRandomIndex);
+            currentRandomIndex++;
+            let lineLength = (lineX < currentBrickWidth/2 ? 1 : -1)*this.strokeStrength*5*randomHandler.giveNumber(currentRandomIndex);
+            currentRandomIndex++;
+            let lineY = - this.strokeStrength - this.brickBorderRadius/2 + (-currentBrickLayerHeight + this.strokeStrength + this.brickBorderRadius/2)*randomHandler.giveNumber(currentRandomIndex);
+            currentRandomIndex++;
+            context.moveTo(currentWidth + lineX, -currentHeight + lineY);
+            context.lineTo(currentWidth + lineX + lineLength, -currentHeight + lineY);
+            context.stroke();
+          }
+        }
 
         brickCount++;
         currentWidth += currentBrickWidth + this.jointThickness + 2*this.strokeStrength;
@@ -86,6 +103,9 @@ class Wall_Bricks {
       brickLayerCount++;
       currentHeight += currentBrickLayerHeight + this.jointThickness + 2*this.strokeStrength;
     }
+    // temporary translation end
+    context.translate(-this.bottomLeftCoords.x, -this.bottomLeftCoords.y);
+    context.rotate(-this.orientation);
     var t1 = performance.now();
     console.log("Render time : " + (t1 - t0) + " ms");
   }
@@ -95,19 +115,14 @@ class Wall_Bricks {
     let currentHeight = 0;
     let brickLayerCount = 0;
     let currentRandomIndex = this.seed;
-    // drawing the joint layer, bricks will be drawn over
-    context.fillStyle = this.jointColor;
-    context.rectangle(
-      this.bottomLeftCoords.x + this.strokeStrength + this.brickBorderRadius/2,
-      this.bottomLeftCoords.y - this.height + this.strokeStrength + this.brickBorderRadius,
-      this.width - 2*this.strokeStrength - this.brickBorderRadius,
-      this.height - this.strokeStrength - this.brickBorderRadius,
-      {
-        fill: this.jointColor,
-        fillStyle: 'solid',
-        strokeWidth: 0,
-        stroke: 'transparent'
-      }
+    context.path(
+      svgHelper.path_Rectangle(this.bottomLeftCoords, new Coordinates(this.strokeStrength + this.brickBorderRadius/2,-this.strokeStrength), new Coordinates(this.width - this.strokeStrength - this.brickBorderRadius/2, this.height -this.strokeStrength - this.brickBorderRadius/2), this.orientation),
+        {
+          fill: this.jointColor,
+          fillStyle: 'solid',
+          strokeWidth: 0,
+          stroke: 'transparent'
+        }
     );
     // Stroke style will remain the same for every drawing
     context.lineWidth = this.strokeStrength;
@@ -115,7 +130,7 @@ class Wall_Bricks {
 
     while(!done){ // while for the layers
       let currentBrickLayerHeight;
-      if(this.height - currentHeight < this.layerHeightMax){
+      if(this.height - currentHeight < this.layerHeightMax + 3*this.jointThickness){
         currentBrickLayerHeight = this.height - currentHeight;
         done = true;
       }
@@ -123,14 +138,13 @@ class Wall_Bricks {
         currentBrickLayerHeight = this.layerHeightMin + (this.layerHeightMax - this.layerHeightMin)*randomHandler.giveNumber(currentRandomIndex);
         currentRandomIndex++;
       }
-
       // Draw bricks in this layer
       let layerDone = false;
       let currentWidth = 0;
       let brickCount = 0;
       while(!layerDone){ // while for the bricks
         let currentBrickWidth;
-        if(this.width - currentWidth < this.brickWidthMax){
+        if(this.width - currentWidth < this.brickWidthMax + 3*this.jointThickness){
           currentBrickWidth = this.width - currentWidth;
           layerDone = true;
         }
@@ -145,45 +159,53 @@ class Wall_Bricks {
         let colorIndex = Math.floor(this.brickColors.length*randomHandler.giveNumber(currentRandomIndex));
         currentRandomIndex++;
         if(this.brickBorderRadius < 2){
-          context.rectangle(
-            this.bottomLeftCoords.x + currentWidth,
-            this.bottomLeftCoords.y - currentHeight,
-            currentBrickWidth,
-            -currentBrickLayerHeight,
-            {
-              fill: this.brickColors[colorIndex],
-              fillStyle: 'solid',
-              strokeWidth: this.strokeStrength,
-              stroke: (this.strokeStrength == 0 ? 'transparent' : this.strokeColor)
-            }
-          );
-        }
-        else{
-          let radius = Math.min(this.brickBorderRadius, currentBrickWidth/2, currentBrickLayerHeight/2);
-          context.polygon([
-            [this.bottomLeftCoords.x + currentWidth + radius, this.bottomLeftCoords.y - currentHeight],
-            [this.bottomLeftCoords.x + currentWidth + currentBrickWidth - radius, this.bottomLeftCoords.y - currentHeight],
-            [this.bottomLeftCoords.x + currentWidth + currentBrickWidth, this.bottomLeftCoords.y - currentHeight - radius],
-            [this.bottomLeftCoords.x + currentWidth + currentBrickWidth, this.bottomLeftCoords.y - currentHeight - currentBrickLayerHeight + radius],
-            [this.bottomLeftCoords.x + currentWidth + currentBrickWidth - radius, this.bottomLeftCoords.y - currentHeight - currentBrickLayerHeight],
-            [this.bottomLeftCoords.x + currentWidth + radius, this.bottomLeftCoords.y - currentHeight - currentBrickLayerHeight],
-            [this.bottomLeftCoords.x + currentWidth, this.bottomLeftCoords.y - currentHeight - currentBrickLayerHeight + radius],
-            [this.bottomLeftCoords.x + currentWidth, this.bottomLeftCoords.y - currentHeight - radius]
-          ],
+          context.path(
+            svgHelper.path_Rectangle(this.bottomLeftCoords, new Coordinates(currentWidth,-currentHeight), new Coordinates(currentBrickWidth,currentBrickLayerHeight), this.orientation),
             {
               fill: this.brickColors[colorIndex],
               fillStyle: 'solid',
               strokeWidth: this.strokeStrength,
               stroke: (this.strokeStrength == 0 ? 'transparent' : this.strokeColor),
-              roughness: 0.8
+              roughness: this.roughOptions.roughness
             }
           );
+        }
+        else{
+          context.path(
+            svgHelper.path_Rectangle_Rounded(this.bottomLeftCoords, new Coordinates(currentWidth,-currentHeight), new Coordinates(currentBrickWidth,currentBrickLayerHeight), this.orientation, this.brickBorderRadius),
+            {
+              fill: this.brickColors[colorIndex],
+              fillStyle: 'solid',
+              strokeWidth: this.strokeStrength,
+              stroke: (this.strokeStrength == 0 ? 'transparent' : this.strokeColor),
+              roughness: this.roughOptions.roughness
+            }
+          );
+        }
+
+        if(this.strokeStrength > 0){
+          let currentBrickRoughness = Math.round((this.brickRoughness*currentBrickWidth*currentBrickLayerHeight)/(this.brickWidthMax*this.layerHeightMax));
+          for(let i = 0; i < currentBrickRoughness; i++){
+            let lineX = this.strokeStrength + this.brickBorderRadius/2 + (currentBrickWidth - this.strokeStrength - this.brickBorderRadius/2)*randomHandler.giveNumber(currentRandomIndex);
+            currentRandomIndex++;
+            let lineLength = (lineX < currentBrickWidth/2 ? 1 : -1)*this.strokeStrength*5*randomHandler.giveNumber(currentRandomIndex);
+            currentRandomIndex++;
+            let lineY = - this.strokeStrength - this.brickBorderRadius/2 + (-currentBrickLayerHeight + this.strokeStrength + this.brickBorderRadius/2)*randomHandler.giveNumber(currentRandomIndex);
+            currentRandomIndex++;
+            context.path(
+              svgHelper.path_Line(this.bottomLeftCoords, new Coordinates(currentWidth + lineX, -currentHeight + lineY), new Coordinates(lineLength, 0), this.orientation),
+              {
+                strokeWidth: this.strokeStrength,
+                stroke: this.strokeColor,
+                roughness: this.roughOptions.roughness
+              }
+            );
+          }
         }
 
         brickCount++;
         currentWidth += currentBrickWidth + this.jointThickness + 2*this.strokeStrength;
       }
-
       brickLayerCount++;
       currentHeight += currentBrickLayerHeight + this.jointThickness + 2*this.strokeStrength;
     }
