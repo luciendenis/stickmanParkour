@@ -1,22 +1,24 @@
 class Wall_Bricks {
   constructor(config, levelLimits, scale, seed) {
+    // Basic properties
+    this.seed = seed;
     this.bottomLeftCoords = new Coordinates(config.bottomLeftCoords.x*scale + levelLimits.xLeft, levelLimits.yGround-config.bottomLeftCoords.y*scale);
     this.height = config.height*scale;
     this.width = config.width*scale;
     this.orientation = config.orientation;
+    this.strokeStrength = config.strokeStrength*scale;
+    this.strokeColor = config.strokeColor;
+    this.roughOptions = AdaptRoughOptionsToScale(config.roughOptions, scale);
+    // Properties specific to this asset
     this.layerHeightMin = config.layerHeightMin*scale;
     this.layerHeightMax = config.layerHeightMax*scale;
     this.brickWidthMin = config.brickWidthMin*scale;
     this.brickWidthMax = config.brickWidthMax*scale;
     this.brickBorderRadius = config.brickBorderRadius*scale;
     this.jointThickness = config.jointThickness*scale;
-    this.strokeStrength = config.strokeStrength*scale;
-    this.strokeColor = config.strokeColor;
-    this.roughOptions = AdaptRoughOptionsToScale(config.roughOptions, scale);
     this.brickColors = config.brickColors;
     this.jointColor = config.jointColor;
     this.brickRoughness = Math.min(config.brickRoughness,10);
-    this.seed = seed;
   }
   draw(context){
     var t0 = performance.now();
@@ -79,6 +81,7 @@ class Wall_Bricks {
           -currentBrickLayerHeight,
           this.brickBorderRadius
         );
+        context.closePath();
         context.fill();
         if(this.strokeStrength > 0){
           context.stroke();
@@ -124,9 +127,6 @@ class Wall_Bricks {
           stroke: 'transparent'
         }
     );
-    // Stroke style will remain the same for every drawing
-    context.lineWidth = this.strokeStrength;
-    context.strokeStyle = this.strokeColor;
 
     while(!done){ // while for the layers
       let currentBrickLayerHeight;

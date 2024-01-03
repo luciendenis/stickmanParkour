@@ -113,12 +113,14 @@ var levelConfigs = JSON.parse(`[
       "assets":[
         {
           "type":"wall_bricks",
+          "layer":0,
+          "order":0,
           "config":{
             "bottomLeftCoords":{
               "x":0,
               "y":0
             },
-            "height":250,
+            "height":80,
             "width":600,
             "orientation":0,
             "layerHeightMin":15,
@@ -126,7 +128,7 @@ var levelConfigs = JSON.parse(`[
             "brickWidthMin":50,
             "brickWidthMax":55,
             "brickBorderRadius":3,
-            "jointThickness":2,
+            "jointThickness":0.2,
             "strokeStrength":0.4,
             "strokeColor":"black",
             "roughOptions":{
@@ -139,8 +141,77 @@ var levelConfigs = JSON.parse(`[
               "#dd5c38",
               "#d46239"
             ],
-            "jointColor":"lightgrey",
+            "jointColor":"#6f6d64",
             "brickRoughness":6
+          }
+        },
+        {
+          "type":"wall_bricks",
+          "layer":0,
+          "order":0,
+          "config":{
+            "bottomLeftCoords":{
+              "x":0,
+              "y":78
+            },
+            "height":8,
+            "width":600,
+            "orientation":0,
+            "layerHeightMin":20,
+            "layerHeightMax":20,
+            "brickWidthMin":110,
+            "brickWidthMax":130,
+            "brickBorderRadius":0,
+            "jointThickness":1.5,
+            "strokeStrength":0.4,
+            "strokeColor":"black",
+            "roughOptions":{
+              "roughness":0.4
+            },
+            "brickColors":[
+              "#c6c5c0",
+              "#c3c1bc",
+              "#bfbdb8"
+            ],
+            "jointColor":"#ededeb",
+            "brickRoughness":10
+          }
+        },
+        {
+          "type":"fence_metal_bars",
+          "layer":0,
+          "order":0,
+          "config":{
+            "bottomLeftCoords":{
+              "x":0,
+              "y":86
+            },
+            "height":150,
+            "width":600,
+            "orientation":0,
+            "strokeStrength":0.4,
+            "strokeColor":"black",
+            "roughOptions":{
+              "roughness":0.4
+            },
+            "pillarThickness":8,
+            "pillarTopShape":"spear",
+            "pillarTopTransition":{"x":2,"y":8},
+            "pillarTopSize":{"x":30,"y":20},
+            "pillarColor":"#545454",
+            "barThickness":4,
+            "horizontalBarThickness":4,
+            "horizontalBarColor":"#545454",
+            "horizontalBars":[20,130],
+            "barGap":15,
+            "barsBetweenPillars":10,
+            "barIndexStart":0,
+            "barsHeights":[5],
+            "barsLengths":[130,138,144,148,150,148,144,138],
+            "barsTopShapes":["ball","spike"],
+            "barsTopTransitions":[{"x":2,"y":6},{"x":4,"y":0}],
+            "barsTopSizes":[{"x":3,"y":0},{"x":0,"y":12}],
+            "barsColors":["#545454"]
           }
         }
       ],

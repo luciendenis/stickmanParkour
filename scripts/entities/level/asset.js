@@ -4,6 +4,9 @@ function AdaptAssetToScale(asset, levelLimits, scale){
     case "wall_bricks":
         return new Wall_Bricks(asset.config, levelLimits, scale, seed);
       break;
+    case "fence_metal_bars":
+        return new Fence_Metal_Bars(asset.config, levelLimits, scale, seed);
+      break;
     default:
       return null;
   }
