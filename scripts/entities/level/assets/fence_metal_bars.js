@@ -188,7 +188,8 @@ class Fence_Metal_Bars {
         this.bottomLeftCoords,
         new Coordinates(0, -this.horizontalBars[i]),
         new Coordinates(this.width, this.horizontalBarThickness),
-        this.orientation
+        this.orientation,
+        0
       );
       context.path(
         path,

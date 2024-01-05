@@ -121,7 +121,7 @@ var levelConfigs = JSON.parse(`[
               "y":0
             },
             "height":80,
-            "width":600,
+            "width":190,
             "orientation":0,
             "layerHeightMin":15,
             "layerHeightMax":20,
@@ -155,7 +155,7 @@ var levelConfigs = JSON.parse(`[
               "y":78
             },
             "height":8,
-            "width":600,
+            "width":195,
             "orientation":0,
             "layerHeightMin":20,
             "layerHeightMax":20,
@@ -187,7 +187,7 @@ var levelConfigs = JSON.parse(`[
               "y":86
             },
             "height":150,
-            "width":600,
+            "width":190,
             "orientation":0,
             "strokeStrength":0.4,
             "strokeColor":"black",
@@ -212,6 +212,101 @@ var levelConfigs = JSON.parse(`[
             "barsTopTransitions":[{"x":2,"y":6},{"x":4,"y":0}],
             "barsTopSizes":[{"x":3,"y":0},{"x":0,"y":12}],
             "barsColors":["#545454"]
+          }
+        },
+        {
+          "type":"wall_bricks",
+          "layer":0,
+          "order":0,
+          "config":{
+            "bottomLeftCoords":{
+              "x":185,
+              "y":0
+            },
+            "height":250,
+            "width":50,
+            "orientation":0,
+            "layerHeightMin":15,
+            "layerHeightMax":20,
+            "brickWidthMin":50,
+            "brickWidthMax":55,
+            "brickBorderRadius":3,
+            "jointThickness":0.2,
+            "strokeStrength":0.4,
+            "strokeColor":"black",
+            "roughOptions":{
+              "roughness":0.6
+            },
+            "brickColors":[
+              "#b55b37",
+              "#94472a",
+              "#c8613a",
+              "#dd5c38",
+              "#d46239"
+            ],
+            "jointColor":"#6f6d64",
+            "brickRoughness":6
+          }
+        },
+        {
+          "type":"wall_bricks",
+          "layer":0,
+          "order":0,
+          "config":{
+            "bottomLeftCoords":{
+              "x":180,
+              "y":248
+            },
+            "height":8,
+            "width":60,
+            "orientation":0,
+            "layerHeightMin":20,
+            "layerHeightMax":20,
+            "brickWidthMin":110,
+            "brickWidthMax":130,
+            "brickBorderRadius":0,
+            "jointThickness":1.5,
+            "strokeStrength":0.4,
+            "strokeColor":"black",
+            "roughOptions":{
+              "roughness":0.4
+            },
+            "brickColors":[
+              "#c6c5c0",
+              "#c3c1bc",
+              "#bfbdb8"
+            ],
+            "jointColor":"#ededeb",
+            "brickRoughness":10
+          }
+        },
+        {
+          "type":"fence_metal_grid",
+          "layer":0,
+          "order":0,
+          "config":{
+            "bottomLeftCoords":{
+              "x":238,
+              "y":0
+            },
+            "height":200,
+            "width":250,
+            "orientation":0,
+            "strokeStrength":0.35,
+            "strokeColor":"black",
+            "roughOptions":{
+              "roughness":0.4
+            },
+            "pillarThickness":5,
+            "pillarColor":"silver",
+            "pillarGap":77,
+            "horizontalBarThickness":5,
+            "horizontalBarColor":"silver",
+            "horizontalBars":[95],
+            "horizontalStrings":[10,195],
+            "stringThickness":1,
+            "gridColor":"silver",
+            "gridGap":8
           }
         }
       ],

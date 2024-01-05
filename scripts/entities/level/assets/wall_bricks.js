@@ -58,7 +58,7 @@ class Wall_Bricks {
       let brickCount = 0;
       while(!layerDone){ // while for the bricks
         let currentBrickWidth;
-        if(this.width - currentWidth < this.brickWidthMax + 3*this.jointThickness){
+        if(this.width - currentWidth < ((brickCount == 0 && brickLayerCount % 2 == 1 ? 0.5 : 1)*this.brickWidthMax + 3*this.jointThickness)){
           currentBrickWidth = this.width - currentWidth;
           layerDone = true;
         }
@@ -119,13 +119,19 @@ class Wall_Bricks {
     let brickLayerCount = 0;
     let currentRandomIndex = this.seed;
     context.path(
-      svgHelper.path_Rectangle(this.bottomLeftCoords, new Coordinates(this.strokeStrength + this.brickBorderRadius/2,-this.strokeStrength), new Coordinates(this.width - this.strokeStrength - this.brickBorderRadius/2, this.height -this.strokeStrength - this.brickBorderRadius/2), this.orientation),
-        {
-          fill: this.jointColor,
-          fillStyle: 'solid',
-          strokeWidth: 0,
-          stroke: 'transparent'
-        }
+      svgHelper.path_Rectangle(
+        this.bottomLeftCoords,
+        new Coordinates(this.strokeStrength + this.brickBorderRadius/2,-this.strokeStrength),
+        new Coordinates(this.width - this.strokeStrength - this.brickBorderRadius/2, this.height -this.strokeStrength - this.brickBorderRadius/2),
+        this.orientation,
+        0
+      ),
+      {
+        fill: this.jointColor,
+        fillStyle: 'solid',
+        strokeWidth: 0,
+        stroke: 'transparent'
+      }
     );
 
     while(!done){ // while for the layers
@@ -144,7 +150,7 @@ class Wall_Bricks {
       let brickCount = 0;
       while(!layerDone){ // while for the bricks
         let currentBrickWidth;
-        if(this.width - currentWidth < this.brickWidthMax + 3*this.jointThickness){
+        if(this.width - currentWidth < ((brickCount == 0 && brickLayerCount % 2 == 1 ? 0.5 : 1)*this.brickWidthMax + 3*this.jointThickness)){
           currentBrickWidth = this.width - currentWidth;
           layerDone = true;
         }
@@ -160,7 +166,13 @@ class Wall_Bricks {
         currentRandomIndex++;
         if(this.brickBorderRadius < 2){
           context.path(
-            svgHelper.path_Rectangle(this.bottomLeftCoords, new Coordinates(currentWidth,-currentHeight), new Coordinates(currentBrickWidth,currentBrickLayerHeight), this.orientation),
+            svgHelper.path_Rectangle(
+              this.bottomLeftCoords,
+              new Coordinates(currentWidth,-currentHeight),
+              new Coordinates(currentBrickWidth,currentBrickLayerHeight),
+              this.orientation,
+              0
+            ),
             {
               fill: this.brickColors[colorIndex],
               fillStyle: 'solid',
@@ -172,7 +184,14 @@ class Wall_Bricks {
         }
         else{
           context.path(
-            svgHelper.path_Rectangle_Rounded(this.bottomLeftCoords, new Coordinates(currentWidth,-currentHeight), new Coordinates(currentBrickWidth,currentBrickLayerHeight), this.orientation, this.brickBorderRadius),
+            svgHelper.path_Rectangle_Rounded(
+              this.bottomLeftCoords,
+              new Coordinates(currentWidth,-currentHeight),
+              new Coordinates(currentBrickWidth,currentBrickLayerHeight),
+              this.orientation,
+              0,
+              this.brickBorderRadius
+            ),
             {
               fill: this.brickColors[colorIndex],
               fillStyle: 'solid',
@@ -193,7 +212,11 @@ class Wall_Bricks {
             let lineY = - this.strokeStrength - this.brickBorderRadius/2 + (-currentBrickLayerHeight + this.strokeStrength + this.brickBorderRadius/2)*randomHandler.giveNumber(currentRandomIndex);
             currentRandomIndex++;
             context.path(
-              svgHelper.path_Line(this.bottomLeftCoords, new Coordinates(currentWidth + lineX, -currentHeight + lineY), new Coordinates(lineLength, 0), this.orientation),
+              svgHelper.path_Line(
+                this.bottomLeftCoords,
+                new Coordinates(currentWidth + lineX, -currentHeight + lineY),
+                new Coordinates(lineLength, 0), this.orientation
+              ),
               {
                 strokeWidth: this.strokeStrength,
                 stroke: this.strokeColor,
