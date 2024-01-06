@@ -290,7 +290,7 @@ var levelConfigs = JSON.parse(`[
               "y":0
             },
             "height":200,
-            "width":250,
+            "width":85,
             "orientation":0,
             "strokeStrength":0.35,
             "strokeColor":"black",
@@ -307,6 +307,44 @@ var levelConfigs = JSON.parse(`[
             "stringThickness":1,
             "gridColor":"silver",
             "gridGap":8
+          }
+        },
+        {
+          "type":"fence_wood_vertical",
+          "layer":0,
+          "order":0,
+          "config":{
+            "bottomLeftCoords":{
+              "x":350,
+              "y":0
+            },
+            "height":84,
+            "width":200,
+            "orientation":0,
+            "strokeStrength":0.4,
+            "strokeColor":"black",
+            "roughOptions":{
+              "roughness":0.4
+            },
+            "pillarThickness":8,
+            "pillarTopShape":"spear",
+            "pillarTopTransition":{"x":2,"y":8},
+            "pillarTopSize":{"x":30,"y":20},
+            "pillarColor":"#523c21",
+            "barThickness":15,
+            "horizontalBarThickness":4,
+            "horizontalBarColor":"#523c21",
+            "horizontalBars":[10,70],
+            "barGap":1.5,
+            "barsBetweenPillars":10,
+            "barIndexStart":0,
+            "barsHeights":[2],
+            "barsLengths":[80],
+            "barsTopShapes":["spike"],
+            "barsTopTransitions":[{"x":15,"y":0}],
+            "barsTopSizes":[{"x":8,"y":8}],
+            "barsColors":["#523c21"],
+            "woodRoughness":4
           }
         }
       ],

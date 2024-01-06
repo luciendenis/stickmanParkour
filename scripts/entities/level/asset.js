@@ -10,6 +10,9 @@ function AdaptAssetToScale(asset, levelLimits, scale){
     case "fence_metal_grid":
       return new Fence_Metal_Grid(asset.config, levelLimits, scale, seed);
     break;
+    case "fence_wood_vertical":
+      return new Fence_Wood_Vertical(asset.config, levelLimits, scale, seed);
+    break;
     default:
       return null;
   }

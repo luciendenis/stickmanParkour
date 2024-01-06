@@ -45,6 +45,9 @@ class Junction{
     context.fillStyle = this.color;
     context.fill();
   }
+  drawRough(context, roughOptions){
+    context.circle(this.coordinates.x,this.coordinates.y,0, roughOptions);
+  }
 }
 
 // Movement, containing a succession of positions
@@ -152,10 +155,14 @@ class Body {
     }
   }
   drawRough(context){
+    for(let key in this.junctions){
+      this.junctions[key].drawRough(context, this.roughOptions);
+    }
     for(let i = 0; i < this.drawInstructions.length ; i++){
       for(let j = 0; j <this.drawInstructions[i].endNames.length; j++){
         if(this.drawInstructions[i].endNames[j] != "head"){
-          context.line(this.junctions[this.drawInstructions[i].startName].coordinates.x,
+          context.line(
+            this.junctions[this.drawInstructions[i].startName].coordinates.x,
             this.junctions[this.drawInstructions[i].startName].coordinates.y,
             this.junctions[this.drawInstructions[i].endNames[j]].coordinates.x,
             this.junctions[this.drawInstructions[i].endNames[j]].coordinates.y,
