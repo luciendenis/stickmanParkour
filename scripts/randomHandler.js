@@ -15,4 +15,4 @@ class RandomHandler {
   }
 }
 
-var randomHandler = new RandomHandler(10000);
+var randomHandler = new RandomHandler(100000);

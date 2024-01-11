@@ -112,13 +112,47 @@ var levelConfigs = JSON.parse(`[
       },
       "assets":[
         {
+          "type":"ground_depth_grass",
+          "layer":0,
+          "order":0,
+          "config":{
+            "startCoords":{
+              "x":0,
+              "y":300
+            },
+            "orientation":1.571,
+            "depthPolygon":{
+              "startScale":0.2,
+              "endScale":1,
+              "points":[
+                {"distance":0,"offset":0,"length":600},
+                {"distance":250,"offset":0,"length":600}
+              ]
+            },
+            "backgroundGradient":[
+              { "position":0, "color":"hsla(142,40%,30%,1)" },
+              { "position":1, "color":"hsla(92,64%,49%,1)" }
+            ],
+            "grassGradient":[
+              { "position":0, "color":"hsla(120,35%,35%,0.95)" },
+              { "position":1, "color":"hsla(95,60%,45%,0.95)" }
+            ],
+            "grassVariationGradient":[
+              { "position":0, "color":"hsla(10,10%,25%,0)" },
+              { "position":1, "color":"hsla(30,35%,40%,0)" }
+            ],
+            "leafColorVariation":"hsla(20,30%,15%,0)",
+            "leafAngle":0.7
+          }
+        },
+        {
           "type":"wall_bricks",
           "layer":0,
           "order":0,
           "config":{
             "bottomLeftCoords":{
               "x":0,
-              "y":0
+              "y":50
             },
             "height":80,
             "width":190,
@@ -152,7 +186,7 @@ var levelConfigs = JSON.parse(`[
           "config":{
             "bottomLeftCoords":{
               "x":0,
-              "y":78
+              "y":128
             },
             "height":8,
             "width":195,
@@ -184,7 +218,7 @@ var levelConfigs = JSON.parse(`[
           "config":{
             "bottomLeftCoords":{
               "x":0,
-              "y":86
+              "y":136
             },
             "height":150,
             "width":190,
@@ -221,7 +255,7 @@ var levelConfigs = JSON.parse(`[
           "config":{
             "bottomLeftCoords":{
               "x":185,
-              "y":0
+              "y":50
             },
             "height":250,
             "width":50,
@@ -255,7 +289,7 @@ var levelConfigs = JSON.parse(`[
           "config":{
             "bottomLeftCoords":{
               "x":180,
-              "y":248
+              "y":298
             },
             "height":8,
             "width":60,
@@ -287,7 +321,7 @@ var levelConfigs = JSON.parse(`[
           "config":{
             "bottomLeftCoords":{
               "x":238,
-              "y":0
+              "y":50
             },
             "height":200,
             "width":85,
@@ -315,8 +349,8 @@ var levelConfigs = JSON.parse(`[
           "order":0,
           "config":{
             "bottomLeftCoords":{
-              "x":350,
-              "y":0
+              "x":400,
+              "y":50
             },
             "height":84,
             "width":200,

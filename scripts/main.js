@@ -104,4 +104,12 @@ function animate(){
   // console.log(t1 - t0 + " ms");
 }
 
+// get contextes
+function GetCanvasContext(){
+  return lvlContext;
+}
+function GetRoughContext(){
+  return lvlRough;
+}
+
 Init();
