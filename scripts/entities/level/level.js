@@ -60,7 +60,6 @@ class Level {
   }
   draw(context){
     this.background.draw(context);
-    this.levelLimits.draw(context);
     for(let i = 0 ; i < this.blocks.length ; i++){
       this.blocks[i].draw(context);
     }
@@ -79,6 +78,7 @@ class Level {
     for(let i = 0 ; i < this.assets.length ; i++){
       this.assets[i].draw(context);
     }
+    this.levelLimits.draw(context);
   }
   drawCollectibles(context){
     for(let i = 0 ; i < this.collectiblesToDraw ; i++){
@@ -103,7 +103,6 @@ class Level {
   }
   drawRough(context){
     this.background.drawRough(context);
-    this.levelLimits.drawRough(context);
     for(let i = 0 ; i < this.blocks.length ; i++){
       this.blocks[i].drawRough(context);
     }
@@ -122,6 +121,7 @@ class Level {
     for(let i = 0 ; i < this.assets.length ; i++){
       this.assets[i].drawRough(context);
     }
+    this.levelLimits.drawRough(context);
   }
   drawCollectiblesRough(context){
     for(let i = 0 ; i < this.collectiblesToDraw ; i++){

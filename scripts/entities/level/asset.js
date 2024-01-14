@@ -16,6 +16,12 @@ function AdaptAssetToScale(asset, levelLimits, scale){
     case "ground_depth_grass":
       return new Ground_Depth_Grass(asset.config, levelLimits, scale, seed);
     break;
+    case "ground_depth_concrete":
+      return new Ground_Depth_Concrete(asset.config, levelLimits, scale, seed);
+    break;
+    case "background_sky":
+      return new Background_Sky(asset.config, levelLimits, scale, seed);
+    break;
     default:
       return null;
   }

@@ -5,7 +5,7 @@ var levelConfigs = JSON.parse(`[
       "spawn":{
         "coordinates":{
           "x":150,
-          "y":20
+          "y":45
         },
         "direction":1,
         "frontSide":"left",
@@ -18,15 +18,15 @@ var levelConfigs = JSON.parse(`[
         }
       },
       "levelLimits":{
-        "width":600,
-        "height":400,
+        "width":1500,
+        "height":700,
         "xLeft":20,
         "xRight":20,
         "yGround":20,
         "yCeiling":20,
         "color":"black",
         "linesRoughOptions":{
-          "stroke":"white",
+          "stroke":"black",
           "strokeWidth":2,
           "bowing":0,
           "roughness":0.8
@@ -34,25 +34,26 @@ var levelConfigs = JSON.parse(`[
         "rectRoughOptions":{
           "stroke":"transparent",
           "strokeWidth":2,
-          "bowing":0,
-          "fillStyle":"cross-hatch",
-          "hachureAngle":40,
-          "fillWeight":1,
-          "roughness":0.8,
-          "fill":"white"
+          "fillStyle":"solid",
+          "fill":"black",
+          "roughness":0
         }
       },
       "blocks":{
         "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "fillStyle":"hachure",
-          "hachureAngle":40,
-          "fillWeight":1,
-          "roughness":0.8,
-          "fill":"white"
+          "stroke":"transparent",
+          "strokeWidth":0,
+          "fillStyle":"solid"
         },
-        "instances":[]
+        "instances":[
+          {
+            "xLeft":20,
+            "xWidth":1500,
+            "yBottom":0,
+            "yHeight":45,
+            "color":"transparent"
+          }
+        ]
       },
       "climbingHolds":{
         "roughOptions":{
@@ -112,21 +113,30 @@ var levelConfigs = JSON.parse(`[
       },
       "assets":[
         {
+          "type":"background_sky",
+          "config":{
+            "gradient":[
+              { "position":0, "color":"hsla(222,88%,56%,1)" },
+              { "position":1, "color":"hsla(195,87%,67%,1)" }
+            ]
+          }
+        },
+        {
           "type":"ground_depth_grass",
           "layer":0,
           "order":0,
           "config":{
             "startCoords":{
               "x":0,
-              "y":300
+              "y":150
             },
             "orientation":1.571,
             "depthPolygon":{
-              "startScale":0.2,
-              "endScale":1,
+              "startScale":0.15,
+              "endScale":0.8,
               "points":[
-                {"distance":0,"offset":0,"length":600},
-                {"distance":250,"offset":0,"length":600}
+                {"distance":0,"offset":0,"length":1500},
+                {"distance":100,"offset":0,"length":1500}
               ]
             },
             "backgroundGradient":[
@@ -141,8 +151,20 @@ var levelConfigs = JSON.parse(`[
               { "position":0, "color":"hsla(10,10%,25%,0)" },
               { "position":1, "color":"hsla(30,35%,40%,0)" }
             ],
+            "tuftSize":180,
+            "tuftBowing":1.5,
+            "tuftMaxGapVertical":12,
+            "tuftMaxGapHorizontal":15,
             "leafColorVariation":"hsla(20,30%,15%,0)",
-            "leafAngle":0.7
+            "leafDensity":0.4,
+            "leafAngle":0.7,
+            "leafBowing":0.5,
+            "leafMinWidth":1.5,
+            "leafMaxWidth":5,
+            "leafWidthRandomness":0.5,
+            "leafMinHeight":6,
+            "leafMaxHeight":25,
+            "leafHeightRandomness":0.4
           }
         },
         {
@@ -324,7 +346,7 @@ var levelConfigs = JSON.parse(`[
               "y":50
             },
             "height":200,
-            "width":85,
+            "width":420,
             "orientation":0,
             "strokeStrength":0.35,
             "strokeColor":"black",
@@ -349,11 +371,11 @@ var levelConfigs = JSON.parse(`[
           "order":0,
           "config":{
             "bottomLeftCoords":{
-              "x":400,
+              "x":1020,
               "y":50
             },
             "height":84,
-            "width":200,
+            "width":480,
             "orientation":0,
             "strokeStrength":0.4,
             "strokeColor":"black",
@@ -379,6 +401,36 @@ var levelConfigs = JSON.parse(`[
             "barsTopSizes":[{"x":8,"y":8}],
             "barsColors":["#523c21"],
             "woodRoughness":4
+          }
+        },
+        {
+          "type":"ground_depth_concrete",
+          "layer":0,
+          "order":0,
+          "config":{
+            "startCoords":{
+              "x":0,
+              "y":50
+            },
+            "orientation":1.571,
+            "depthPolygon":{
+              "startScale":0.1,
+              "endScale":0.8,
+              "points":[
+                {"distance":0,"offset":0,"length":1500},
+                {"distance":50,"offset":0,"length":1500}
+              ]
+            },
+            "backgroundGradient":[
+              { "position":0, "color":"hsla(197,1%,38%,1)" },
+              { "position":1, "color":"hsla(197,1%,31%,1)" }
+            ],
+            "strokeColor":"hsla(0,0%,50%,1)",
+            "strokeMaxGapVertical":6,
+            "strokeMaxGapHorizontal":50,
+            "strokeMinWidth":1,
+            "strokeMaxWidth":5,
+            "strokeWidthRandomness":0.8
           }
         }
       ],
