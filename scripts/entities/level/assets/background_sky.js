@@ -2,7 +2,7 @@ class Background_Sky {
   constructor(config, levelLimits, scale, seed) {
     this.gradient =  new HslaGradient(config.gradient);
     this.topLeftCoords = new Coordinates(levelLimits.xLeft, levelLimits.yCeiling);
-    this.sizeCoords = new Coordinates(levelLimits.xRight, levelLimits.yGround);
+    this.sizeCoords = new Coordinates(levelLimits.xRight - levelLimits.xLeft, levelLimits.yGround - levelLimits.yCeiling);
     this.seed = seed;
   }
   draw(context){

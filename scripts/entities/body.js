@@ -7,6 +7,7 @@ class Coordinates{
   addOffset(offsetCoords){
     this.x += offsetCoords.x;
     this.y += offsetCoords.y;
+    return this;
   }
   clone(offset){
     if(offset == null || offset === undefined)
@@ -91,6 +92,9 @@ class HitBox {  // gives the offsets from body center to tell the space that is 
     this.right = right;
     this.top = top;
     this.bottom = bottom;
+  }
+  clone(){
+    return new HitBox(this.left, this.right, this.top, this.bottom);
   }
   totalHeight(){
     return this.bottom - this.top;

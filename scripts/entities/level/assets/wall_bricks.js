@@ -212,7 +212,7 @@ class Wall_Bricks {
             let lineY = - this.strokeStrength - this.brickBorderRadius/2 + (-currentBrickLayerHeight + this.strokeStrength + this.brickBorderRadius/2)*randomHandler.giveNumber(currentRandomIndex);
             currentRandomIndex++;
             context.path(
-              svgHelper.path_Line(
+              svgHelper.path_Line_Relative(
                 this.bottomLeftCoords,
                 new Coordinates(currentWidth + lineX, -currentHeight + lineY),
                 new Coordinates(lineLength, 0), this.orientation

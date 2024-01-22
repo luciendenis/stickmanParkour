@@ -3,8 +3,7 @@ class SvgHelper {
   getAbsoluteCoords(refCoords, startCoords, orientation){
     let polarCoords = PolarCoordsFromCartesian(new Coordinates(0,0), startCoords);
     let coords = CartesianCoordinatesFromPolar(polarCoords.distance, polarCoords.angle + orientation);
-    coords.addOffset(refCoords);
-    return coords;
+    return coords.addOffset(refCoords);
   }
   getRelativeCoords(coords, orientation){
     let polarCoords = PolarCoordsFromCartesian(new Coordinates(0,0), coords);
@@ -22,6 +21,9 @@ class SvgHelper {
     let coords = this.getRelativeCoords(new Coordinates(x,y), orientation);
     return "l " + coords.x + "," + coords.y + " ";
   }
+  lineToAbsolute(coords){
+    return "L " + coords.x + "," + coords.y + " ";
+  }
   arcCurveRelativeSimpleCorner(x, y, orientation, radius, largeArc, clockWise){
     let coords = this.getRelativeCoords(new Coordinates(x,y), orientation);
     return "a " + radius + " " + radius + " 0," + (largeArc ? "1," : "0,") + (clockWise ? "1 " : "0 ") + coords.x + "," + coords.y + " ";
@@ -34,17 +36,33 @@ class SvgHelper {
   }
 
   // Full path for a line
-  path_Line(refCoords, startCoords, sizeCoords, orientation){
+  path_Line_Relative(refCoords, startCoords, sizeCoords, orientation){
     let path = this.startPath(this.getAbsoluteCoords(refCoords, startCoords, orientation));
     path += this.lineToRelative(sizeCoords.x, sizeCoords.y, orientation);
     return path + this.closePath();
   }
 
-  // Full path for a polygon
+  // Full path for a line
+  path_Line_Absolute(startCoords, endCoords){
+    let path = this.startPath(startCoords);
+    path += this.lineToAbsolute(endCoords);
+    return path + this.closePath();
+  }
+
+  // Full path for a polygon with relative coordinates
   path_Polygon_Relative(refCoords, startCoords, pointsCoordsArray, orientation){
     let path = this.startPath(this.getAbsoluteCoords(refCoords, startCoords, orientation));
     for(let i = 0; i < pointsCoordsArray.length; i++){
       path += this.lineToRelative(pointsCoordsArray[i].x, -pointsCoordsArray[i].y, orientation);
+    }
+    return path + this.closePath();
+  }
+
+  // Full path for a polygon with relative coordinates
+  path_Polygon_Absolute(pointsCoordsArray){
+    let path = this.startPath(pointsCoordsArray[0]);
+    for(let i = 1; i < pointsCoordsArray.length; i++){
+      path += this.lineToAbsolute(pointsCoordsArray[i]);
     }
     return path + this.closePath();
   }

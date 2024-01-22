@@ -2,6 +2,8 @@ class Ground_Depth_Grass {
   constructor(config, levelLimits, scale, seed) {
     this.startCoords = new Coordinates(config.startCoords.x*scale + levelLimits.xLeft, levelLimits.yGround-config.startCoords.y*scale);
     this.orientation = config.orientation;
+    this.strokeStrength = config.strokeStrength*scale;
+    this.strokeColor = config.strokeColor;
     this.depthPolygon = new DepthPolygon(config.depthPolygon, scale);
     this.backgroundGradient = new HslaGradient(config.backgroundGradient);
     this.grassGradient = new HslaGradient(config.grassGradient);
@@ -20,7 +22,23 @@ class Ground_Depth_Grass {
     this.leafMinHeight = config.leafMinHeight*scale;
     this.leafMaxHeight = config.leafMaxHeight*scale;
     this.leafHeightRandomness = Math.max(0,Math.min(1,config.leafHeightRandomness));
+    this.leafStrokeProbability = config.leafStrokeProbability;
+    this.roughness = config.roughness*scale;
     this.seed = seed;
+    this.children = [];
+    this.shadowAreas = [];
+  }
+  addChild(child){
+    // pushing the child object to draw
+    this.children.push(child);
+    // pushing the child object shadow
+    let childHitbox = child.getHitBox();
+    let dist = child.startCoords.y - this.startCoords.y;
+    let depth = this.depthPolygon.propertiesForDistance(dist).scale*childHitbox.totalWidth()/6;
+    this.shadowAreas.push({
+      type:child.getShadowType(),
+      centerCoords:new Coordinates(childHitbox.left-this.startCoords.x+childHitbox.totalWidth()/2,dist),
+      hitbox:new HitBox(-childHitbox.totalWidth()/2,childHitbox.totalWidth()/2,-depth/3,2*depth/3)});
   }
   draw(context){
     var t0 = performance.now();
@@ -45,16 +63,40 @@ class Ground_Depth_Grass {
     }
 
     // Drawing grass tufts
+    let previousHeight = stepsProperties[0].height;
     for(let i = 0; i < stepsProperties.length; i++){
       let pHeight = stepsProperties[i].height;
       let properties = stepsProperties[i].properties;
       let countInstances = properties.length/this.tuftMaxGapHorizontal;
+      let width = properties.scale*this.tuftSize;
       let xMin = properties.offset;
       let xMax = properties.offset + properties.length;
       let color = this.grassGradient.getColorForPosition(pHeight/dpMaxDist);
       let colorVariation = this.grassVariationGradient.getColorForPosition(pHeight/dpMaxDist);
+      // Checking if there are children to draw
+      for(let j = 0; j < this.children.length; j++){
+        if(this.children[j].startCoords.y > this.startCoords.y + previousHeight && this.children[j].startCoords.y < this.startCoords.y + pHeight){
+          this.children[j].draw(context);
+          // draw additional grass tuft to blend in the child asset
+          let tuftColor = color.clone();
+          currentRandomIndex = tuftColor.randomize(colorVariation, currentRandomIndex);
+          currentRandomIndex = this.drawGrassTuft(
+            context,
+            null,
+            tuftColor,
+            new Coordinates(this.children[j].startCoords.x-this.startCoords.x,this.children[j].startCoords.y-this.startCoords.y),
+            xMin,
+            xMax,
+            width,
+            this.tuftBowing,
+            this.orientation-(Math.PI/2),
+            this.leafAngle,
+            currentRandomIndex
+          );
+        }
+      }
+
       for(let j = 0; j < countInstances; j++){
-        let width = properties.scale*this.tuftSize;
         let x = properties.offset + (properties.length)*randomHandler.giveNumber(currentRandomIndex);
         currentRandomIndex++;
         let y = pHeight + properties.scale*6*randomHandler.giveNumber(currentRandomIndex);
@@ -63,6 +105,7 @@ class Ground_Depth_Grass {
         currentRandomIndex = tuftColor.randomize(colorVariation, currentRandomIndex);
         currentRandomIndex = this.drawGrassTuft(
           context,
+          null,
           tuftColor,
           new Coordinates(x,y),
           xMin,
@@ -74,41 +117,7 @@ class Ground_Depth_Grass {
           currentRandomIndex
         );
       }
-    }
-
-    // Drawing grass leafs
-    for(let i = 0; i < stepsProperties.length; i++){
-      let pHeight = stepsProperties[i].height;
-      let properties = stepsProperties[i].properties;
-      if(properties.scale > 0.1){
-        let divider = properties.scale > 1 ? 8 : properties.scale > 0.4 ? 12 : 20;
-        totalInstances += properties.length/(properties.scale*divider);
-        for(let j = 0; j < properties.length/(properties.scale*divider); j++){
-          let x = properties.offset + properties.length*randomHandler.giveNumber(currentRandomIndex);
-          currentRandomIndex++;
-          let y = pHeight + properties.scale*6*randomHandler.giveNumber(currentRandomIndex);
-          currentRandomIndex++;
-          let width = properties.scale*2;
-          let height = properties.scale*8 + properties.scale*8*randomHandler.giveNumber(currentRandomIndex);
-          currentRandomIndex++;
-          let deviation = properties.scale*10*(randomHandler.giveNumber(currentRandomIndex)-.5);
-          currentRandomIndex++;
-          let pth = svgHelper.path_grass_leaf(
-            this.startCoords,
-            new Coordinates(x,y),
-            new Coordinates(width,height),
-            this.orientation-(Math.PI/2),
-            this.leafAngle,
-            deviation
-          );
-          context.beginPath();
-          context.lineWidth = properties.scale*.1;
-          context.strokeStyle = "black";
-          context.stroke(new Path2D(pth));
-        }
-      }
-      actualGap = maxGap*properties.scale;
-      currentHeight += actualGap;
+      previousHeight = pHeight;
     }
     var t1 = performance.now();
     console.log("Render time : " + (t1 - t0) + " ms");
@@ -138,16 +147,40 @@ class Ground_Depth_Grass {
     }
 
     // Drawing grass tufts
+    let previousHeight = stepsProperties[0].height;
     for(let i = 0; i < stepsProperties.length; i++){
       let pHeight = stepsProperties[i].height;
       let properties = stepsProperties[i].properties;
       let countInstances = properties.length/this.tuftMaxGapHorizontal;
+      let width = properties.scale*this.tuftSize;
       let xMin = properties.offset;
       let xMax = properties.offset + properties.length;
       let color = this.grassGradient.getColorForPosition(pHeight/dpMaxDist);
       let colorVariation = this.grassVariationGradient.getColorForPosition(pHeight/dpMaxDist);
+      // Checking if there are children to draw
+      for(let j = 0; j < this.children.length; j++){
+        if(this.children[j].startCoords.y > this.startCoords.y + previousHeight && this.children[j].startCoords.y < this.startCoords.y + pHeight){
+          this.children[j].drawRough(context);
+          // draw additional grass tuft to blend in the child asset
+          let tuftColor = color.clone();
+          currentRandomIndex = tuftColor.randomize(colorVariation, currentRandomIndex);
+          currentRandomIndex = this.drawGrassTuft(
+            canvasContext,
+            context,
+            tuftColor,
+            new Coordinates(this.children[j].startCoords.x-this.startCoords.x,this.children[j].startCoords.y-this.startCoords.y),
+            xMin,
+            xMax,
+            width,
+            this.tuftBowing,
+            this.orientation-(Math.PI/2),
+            this.leafAngle,
+            currentRandomIndex
+          );
+        }
+      }
+
       for(let j = 0; j < countInstances; j++){
-        let width = properties.scale*this.tuftSize;
         let x = properties.offset + (properties.length)*randomHandler.giveNumber(currentRandomIndex);
         currentRandomIndex++;
         let y = pHeight + properties.scale*6*randomHandler.giveNumber(currentRandomIndex);
@@ -156,6 +189,7 @@ class Ground_Depth_Grass {
         currentRandomIndex = tuftColor.randomize(colorVariation, currentRandomIndex);
         currentRandomIndex = this.drawGrassTuft(
           canvasContext,
+          context,
           tuftColor,
           new Coordinates(x,y),
           xMin,
@@ -167,47 +201,7 @@ class Ground_Depth_Grass {
           currentRandomIndex
         );
       }
-    }
-
-    // Drawing grass leafs
-    for(let i = 0; i < stepsProperties.length; i++){
-      let pHeight = stepsProperties[i].height;
-      let properties = stepsProperties[i].properties;
-      if(properties.scale > 0.1){
-        let divider = properties.scale > 1 ? 8 : properties.scale > 0.4 ? 12 : 20;
-        totalInstances += properties.length/(properties.scale*divider);
-        for(let j = 0; j < properties.length/(properties.scale*divider); j++){
-          let x = properties.offset + properties.length*randomHandler.giveNumber(currentRandomIndex);
-          currentRandomIndex++;
-          let y = pHeight + properties.scale*6*randomHandler.giveNumber(currentRandomIndex);
-          currentRandomIndex++;
-          let width = properties.scale*2;
-          let height = properties.scale*8 + properties.scale*8*randomHandler.giveNumber(currentRandomIndex);
-          currentRandomIndex++;
-          let deviation = properties.scale*10*(randomHandler.giveNumber(currentRandomIndex)-.5);
-          currentRandomIndex++;
-          let pth = svgHelper.path_grass_leaf(
-            this.startCoords,
-            new Coordinates(x,y),
-            new Coordinates(width,height),
-            this.orientation-(Math.PI/2),
-            this.leafAngle,
-            deviation
-          );
-          context.path(
-            pth,
-            {
-              fill: "transparent",
-              fillStyle: 'solid',
-              strokeWidth: properties.scale*.1,
-              stroke: "black",
-              roughness:0.5*properties.scale
-            }
-          );
-        }
-      }
-      actualGap = maxGap*properties.scale;
-      currentHeight += actualGap;
+      previousHeight = pHeight;
     }
     var t1 = performance.now();
     console.log("Render time : " + (t1 - t0) + " ms");
@@ -223,10 +217,45 @@ class Ground_Depth_Grass {
     context.beginPath();
     context.fillStyle = gradient;
     context.fill(new Path2D(path));
+    // draw shadow areas
+    if(this.shadowAreas.length > 0){
+      gradient = context.createLinearGradient(0,this.startCoords.y,0,this.startCoords.y+this.depthPolygon.maxDistance());
+      for(let i = 0; i < this.backgroundGradient.colorStops.length; i++){
+        gradient.addColorStop(this.backgroundGradient.colorStops[i].position, this.backgroundGradient.colorStops[i].color.add(new HslaColor(0,0,-20,0)).getColorString());
+      }
+    }
+    for(let i = 0; i < this.shadowAreas.length; i++){
+      let s = this.shadowAreas[i];
+      let shadowPath;
+      if(s.type == "rectangle"){
+        shadowPath = svgHelper.path_Rectangle(
+          this.startCoords,
+          new Coordinates(s.centerCoords.x+s.hitbox.left,s.centerCoords.y+s.hitbox.bottom),
+          new Coordinates(s.hitbox.totalWidth(),s.hitbox.totalHeight()),
+          0,
+          0
+        );
+      }
+      else if(s.type == "circle"){
+        shadowPath = svgHelper.path_lens(
+          this.startCoords,
+          new Coordinates(s.centerCoords.x+s.hitbox.left,s.centerCoords.y),
+          2*s.hitbox.totalWidth(),
+          8*s.hitbox.bottom/s.hitbox.totalHeight(),
+          8*s.hitbox.top/s.hitbox.totalHeight(),
+          0,
+          0
+        );
+      }
+      context.beginPath();
+      context.fillStyle = gradient;
+      context.fill(new Path2D(shadowPath));
+    }
   }
-  drawGrassTuft(context,color,coords,xMin,xMax,width,bowing,orientation,angle,randomIndex){
-    // rough or not, the context is the canvas
-    //context.fillStyle = color.getColorString();
+  drawGrassTuft(context,roughContext,color,coords,xMin,xMax,width,bowing,orientation,angle,randomIndex){
+    if(this.coordsInShadow(coords)){
+      color.lightness = 12;
+    }
     let countLeafs = width*this.leafDensity;
     let sizeModifier = width/this.tuftSize;
     let xStep = width/countLeafs;
@@ -253,8 +282,49 @@ class Ground_Depth_Grass {
         let leafPath = svgHelper.path_grass_leaf(this.startCoords, new Coordinates(coords.x - width/4 + x,coords.y - y), new Coordinates(leafWidth,leafHeight), orientation, angle, leafDeviation);
         context.beginPath();
         context.fill(new Path2D(leafPath));
+        // Drawing the stroke
+        if(i%2 == 0 && randomHandler.giveNumber(randomIndex) < this.leafStrokeProbability){
+          if(roughContext != null){
+            roughContext.path(
+              leafPath,
+              {
+                fill: 'transparent',
+                fillStyle: 'solid',
+                strokeWidth: this.strokeStrength,
+                stroke: this.strokeColor,
+                roughness: this.roughness
+              }
+            );
+          }
+          else{
+            context.lineWidth = this.strokeStrength;
+            context.strokeStyle = this.strokeColor;
+            context.stroke(new Path2D(leafPath));
+          }
+        }
+        randomIndex++;
       }
     }
     return randomIndex;
+  }
+  coordsInShadow(coords){
+    let inShadow = false;
+    let i = 0;
+    while(!inShadow && i < this.shadowAreas.length){
+      let s = this.shadowAreas[i];
+      if(s.type == "rectangle"){
+        inShadow = (coords.x > s.centerCoords.x + s.hitbox.left && coords.x < s.centerCoords.x + s.hitbox.right && coords.y > s.centerCoords.y + s.hitbox.top && coords.y < s.centerCoords.y + s.hitbox.bottom);
+      }
+      else if(s.type == "circle"){
+        if(coords.y < s.centerCoords.y){
+          inShadow = Math.pow(coords.x - s.centerCoords.x,2)/Math.pow(s.hitbox.left,2) + Math.pow(coords.y - s.centerCoords.y,2)/Math.pow(s.hitbox.top,2) < 1;
+        }
+        else{
+          inShadow = Math.pow(coords.x - s.centerCoords.x,2)/Math.pow(s.hitbox.left,2) + Math.pow(coords.y - s.centerCoords.y,2)/Math.pow(s.hitbox.bottom,2) < 1;
+        }
+      }
+      i++;
+    }
+    return inShadow;
   }
 }

@@ -233,7 +233,7 @@ class Fence_Wood_Vertical {
             let lineX = i*xRange + this.strokeStrength + xRange*randomHandler.giveNumber(currentRandomIndex);
             currentRandomIndex++;
             context.path(
-              svgHelper.path_Line(
+              svgHelper.path_Line_Relative(
                 this.bottomLeftCoords,
                 new Coordinates(currentWidth + lineX, lineY),
                 new Coordinates(0, lineLength),
@@ -305,7 +305,7 @@ class Fence_Wood_Vertical {
             let lineX = i*xRange + this.strokeStrength + xRange*randomHandler.giveNumber(currentRandomIndex);
             currentRandomIndex++;
             context.path(
-              svgHelper.path_Line(
+              svgHelper.path_Line_Relative(
                 this.bottomLeftCoords,
                 new Coordinates(currentWidth + lineX, -bHeight + lineY),
                 new Coordinates(0, lineLength),

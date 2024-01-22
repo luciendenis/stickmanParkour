@@ -1,29 +1,55 @@
 function AdaptAssetToScale(asset, levelLimits, scale){
   let seed = randomHandler.giveRandomIndex();
+  let object;
   switch (asset.type) {
+    case "tree":
+      object = new Tree(asset.config, levelLimits, scale, seed);
+    break;
     case "wall_bricks":
-      return new Wall_Bricks(asset.config, levelLimits, scale, seed);
+      object = new Wall_Bricks(asset.config, levelLimits, scale, seed);
     break;
     case "fence_metal_bars":
-      return new Fence_Metal_Bars(asset.config, levelLimits, scale, seed);
+      object = new Fence_Metal_Bars(asset.config, levelLimits, scale, seed);
     break;
     case "fence_metal_grid":
-      return new Fence_Metal_Grid(asset.config, levelLimits, scale, seed);
+      object = new Fence_Metal_Grid(asset.config, levelLimits, scale, seed);
     break;
     case "fence_wood_vertical":
-      return new Fence_Wood_Vertical(asset.config, levelLimits, scale, seed);
+      object = new Fence_Wood_Vertical(asset.config, levelLimits, scale, seed);
     break;
     case "ground_depth_grass":
-      return new Ground_Depth_Grass(asset.config, levelLimits, scale, seed);
+      object = new Ground_Depth_Grass(asset.config, levelLimits, scale, seed);
     break;
     case "ground_depth_concrete":
-      return new Ground_Depth_Concrete(asset.config, levelLimits, scale, seed);
+      object = new Ground_Depth_Concrete(asset.config, levelLimits, scale, seed);
     break;
     case "background_sky":
-      return new Background_Sky(asset.config, levelLimits, scale, seed);
+      object = new Background_Sky(asset.config, levelLimits, scale, seed);
     break;
     default:
-      return null;
+      object = null;
+  }
+  return new Asset(asset.id, asset.parent, asset.layer, asset.order, object);
+}
+
+function LinkAssetsChildren(assetsList){
+  for(let i = 0; i < assetsList.length; i++){
+    if(assetsList[i].parent != null){
+      let parentAsset = assetsList.find(a => a.id == assetsList[i].parent);
+      if(parentAsset !== null && parentAsset !== undefined && typeof parentAsset.object.addChild === "function"){
+        parentAsset.object.addChild(assetsList[i].object);
+      }
+    }
+  }
+}
+
+class Asset {
+  constructor(id, parent, layer, order, object) {
+    this.id = id;
+    this.parent = parent;
+    this.layer = layer;
+    this.order = order;
+    this.object = object;
   }
 }
 

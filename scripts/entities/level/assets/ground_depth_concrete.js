@@ -50,7 +50,7 @@ class Ground_Depth_Concrete {
         currentRandomIndex++;
         let y = pHeight + properties.scale*1*randomHandler.giveNumber(currentRandomIndex);
         currentRandomIndex++;
-        let pth = svgHelper.path_Line(
+        let pth = svgHelper.path_Line_Relative(
           this.startCoords,
           new Coordinates(x,y),
           new Coordinates(width,0),
@@ -105,7 +105,7 @@ class Ground_Depth_Concrete {
         currentRandomIndex++;
         let y = pHeight + properties.scale*1*randomHandler.giveNumber(currentRandomIndex);
         currentRandomIndex++;
-        let pth = svgHelper.path_Line(
+        let pth = svgHelper.path_Line_Relative(
           this.startCoords,
           new Coordinates(x,y),
           new Coordinates(width,0),

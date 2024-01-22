@@ -19,7 +19,7 @@ var levelConfigs = JSON.parse(`[
       },
       "levelLimits":{
         "width":1500,
-        "height":700,
+        "height":800,
         "xLeft":20,
         "xRight":20,
         "yGround":20,
@@ -113,6 +113,8 @@ var levelConfigs = JSON.parse(`[
       },
       "assets":[
         {
+          "id":"8651ad00-d0da-44ba-b66b-b9fc0de33d5a",
+          "parent":null,
           "type":"background_sky",
           "config":{
             "gradient":[
@@ -122,6 +124,8 @@ var levelConfigs = JSON.parse(`[
           }
         },
         {
+          "id":"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
+          "parent":null,
           "type":"ground_depth_grass",
           "layer":0,
           "order":0,
@@ -131,6 +135,8 @@ var levelConfigs = JSON.parse(`[
               "y":150
             },
             "orientation":1.571,
+            "strokeColor":"black",
+            "strokeStrength":0.2,
             "depthPolygon":{
               "startScale":0.15,
               "endScale":0.8,
@@ -154,7 +160,7 @@ var levelConfigs = JSON.parse(`[
             "tuftSize":180,
             "tuftBowing":1.5,
             "tuftMaxGapVertical":12,
-            "tuftMaxGapHorizontal":15,
+            "tuftMaxGapHorizontal":14,
             "leafColorVariation":"hsla(20,30%,15%,0)",
             "leafDensity":0.4,
             "leafAngle":0.7,
@@ -162,12 +168,124 @@ var levelConfigs = JSON.parse(`[
             "leafMinWidth":1.5,
             "leafMaxWidth":5,
             "leafWidthRandomness":0.5,
-            "leafMinHeight":6,
-            "leafMaxHeight":25,
-            "leafHeightRandomness":0.4
+            "leafMinHeight":8,
+            "leafMaxHeight":30,
+            "leafHeightRandomness":0.4,
+            "leafStrokeProbability":0.15,
+            "roughness":0.2
           }
         },
         {
+          "id":"2c6ccf1a-0c8a-4213-89e5-d7cfaf43a98c",
+          "parent":"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
+          "type":"tree",
+          "layer":0,
+          "order":0,
+          "config":{
+            "startCoords":{
+              "x":500,
+              "y":100
+            },
+            "orientation":4.712,
+            "baseWidth":20,
+            "minWidthForTrunc":6,
+            "truncLines":9,
+            "minWidth":1,
+            "widthLossfactor":0.2,
+            "baseLength":35,
+            "minLength":5,
+            "lengthLossfactor":0.08,
+            "maxDeviation":0.3,
+            "segmentsLimit":20,
+            "layerCount":4,
+            "splitProbability":0.5,
+            "maxWidthForSplit":12,
+            "splitAngle":0.6,
+            "splitAngleRandom":0.2,
+            "splitAngleDistribution":1,
+            "splitWidthFactor":0.7,
+            "minSegmentForLeaves":2,
+            "maxWidthForLeaves":6,
+            "leavesAreaSize":25,
+            "leavesCountPerBush":15,
+            "leavesSize":{"x":25,"y":1},
+            "branchesGradient":[
+              { "position":0, "color":"hsla(14, 20%, 23%, 1)" },
+              { "position":1, "color":"hsla(33, 43%, 23%, 1)" }
+            ],
+            "leavesBackLayerGradient":[
+              { "position":0, "color":"hsla(100, 35%, 5%, 1)" },
+              { "position":1, "color":"hsla(100, 55%, 40%, 1)" }
+            ],
+            "leavesShadowLayerGradient":[
+              { "position":0, "color":"hsla(100, 30%, 10%, 0.5)" },
+              { "position":1, "color":"hsla(100, 30%, 10%, 0.5)" }
+            ],
+            "leavesFrontLayerGradient":[
+              { "position":0, "color":"hsla(100, 30%, 10%, 1)" },
+              { "position":1, "color":"hsla(100, 60%, 50%, 1)" }
+            ],
+            "strokeStrength":0.5,
+            "roughness":0.3
+          }
+        },
+        {
+          "id":"45acd900-d3fa-4626-9c97-6c76c26f3b3c",
+          "parent":"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
+          "type":"tree",
+          "layer":0,
+          "order":0,
+          "config":{
+            "startCoords":{
+              "x":1000,
+              "y":100
+            },
+            "orientation":4.712,
+            "baseWidth":20,
+            "minWidthForTrunc":6,
+            "truncLines":9,
+            "minWidth":1,
+            "widthLossfactor":0.2,
+            "baseLength":35,
+            "minLength":5,
+            "lengthLossfactor":0.08,
+            "maxDeviation":0.3,
+            "segmentsLimit":20,
+            "layerCount":4,
+            "splitProbability":0.5,
+            "maxWidthForSplit":12,
+            "splitAngle":0.6,
+            "splitAngleRandom":0.2,
+            "splitAngleDistribution":1,
+            "splitWidthFactor":0.7,
+            "minSegmentForLeaves":2,
+            "maxWidthForLeaves":6,
+            "leavesAreaSize":25,
+            "leavesCountPerBush":30,
+            "leavesSize":{"x":25,"y":3},
+            "branchesGradient":[
+              { "position":0, "color":"hsla(14, 20%, 23%, 1)" },
+              { "position":1, "color":"hsla(33, 43%, 23%, 1)" }
+            ],
+            "leavesBackLayerGradient":[
+              { "position":0, "color":"hsla(100, 35%, 5%, 1)" },
+              { "position":1, "color":"hsla(100, 55%, 40%, 1)" }
+            ],
+            "leavesShadowLayerGradient":[
+              { "position":0, "color":"hsla(100, 30%, 10%, 0.5)" },
+              { "position":1, "color":"hsla(100, 30%, 10%, 0.5)" }
+            ],
+            "leavesFrontLayerGradient":[
+              { "position":0, "color":"hsla(100, 30%, 10%, 1)" },
+              { "position":1, "color":"hsla(100, 60%, 50%, 1)" }
+            ],
+            "strokeStrength":0.5,
+            "roughness":0.3
+          }
+        },
+        {
+          "id":"c70f6fa0-591f-4808-bfd4-292b456c0213",
+          "parent":null,
           "type":"wall_bricks",
           "layer":0,
           "order":0,
@@ -202,6 +320,8 @@ var levelConfigs = JSON.parse(`[
           }
         },
         {
+          "id":"b869ff32-25d5-464f-8f34-f94befcdee77",
+          "parent":null,
           "type":"wall_bricks",
           "layer":0,
           "order":0,
@@ -234,6 +354,8 @@ var levelConfigs = JSON.parse(`[
           }
         },
         {
+          "id":"9446dde9-75b8-4681-a1ad-1ecb0adc7343",
+          "parent":null,
           "type":"fence_metal_bars",
           "layer":0,
           "order":0,
@@ -271,6 +393,8 @@ var levelConfigs = JSON.parse(`[
           }
         },
         {
+          "id":"a44213d1-af81-47fa-99fa-926b022a5f4c",
+          "parent":null,
           "type":"wall_bricks",
           "layer":0,
           "order":0,
@@ -305,6 +429,8 @@ var levelConfigs = JSON.parse(`[
           }
         },
         {
+          "id":"406c3fca-70f0-44c2-98a2-af9baf037e88",
+          "parent":null,
           "type":"wall_bricks",
           "layer":0,
           "order":0,
@@ -337,6 +463,8 @@ var levelConfigs = JSON.parse(`[
           }
         },
         {
+          "id":"2c7ca2d8-65d7-45e4-b6f6-eacba2895b0e",
+          "parent":null,
           "type":"fence_metal_grid",
           "layer":0,
           "order":0,
@@ -366,6 +494,8 @@ var levelConfigs = JSON.parse(`[
           }
         },
         {
+          "id":"05a08d17-6c24-4447-9320-7a4261cd02d0",
+          "parent":null,
           "type":"fence_wood_vertical",
           "layer":0,
           "order":0,
@@ -404,6 +534,8 @@ var levelConfigs = JSON.parse(`[
           }
         },
         {
+          "id":"1802cbf8-2e0a-427e-9edf-6de9e930926b",
+          "parent":null,
           "type":"ground_depth_concrete",
           "layer":0,
           "order":0,

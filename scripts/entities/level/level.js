@@ -76,7 +76,7 @@ class Level {
       this.hazards[i].draw(context);
     }
     for(let i = 0 ; i < this.assets.length ; i++){
-      this.assets[i].draw(context);
+      if(this.assets[i].parent == null) this.assets[i].object.draw(context);
     }
     this.levelLimits.draw(context);
   }
@@ -119,7 +119,7 @@ class Level {
       this.hazards[i].drawRough(context);
     }
     for(let i = 0 ; i < this.assets.length ; i++){
-      this.assets[i].drawRough(context);
+      if(this.assets[i].parent == null) this.assets[i].object.drawRough(context);
     }
     this.levelLimits.drawRough(context);
   }
@@ -833,6 +833,7 @@ function AdaptLevelToScale(levelSettings, width, height, scale){
   for(let i = 0; i < levelSettings.assets.length; i++){
     newLevel.assets.push(AdaptAssetToScale(levelSettings.assets[i], newLevel.levelLimits, scale));
   }
+  LinkAssetsChildren(newLevel.assets);
   return newLevel;
 }
 

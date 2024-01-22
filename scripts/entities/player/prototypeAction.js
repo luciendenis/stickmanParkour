@@ -58,6 +58,7 @@ Player.prototype.action = function(){
             this.climbDownEdge();
           }
           else{
+            this.currentMovementOverride = null;
             this.setMovement("crouching");
           }
         }
@@ -136,6 +137,7 @@ Player.prototype.action = function(){
           this.climbDownLadder();
         }
         else{ // player wants to crouch
+          this.currentMovementOverride = null;
           if(Math.abs(this.velocity.x) > (3*settings.crouchingDistPerFrame/settings.crouchingFrameCount)){
             this.setMovement("crouchSliding");
           }
