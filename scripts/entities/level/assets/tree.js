@@ -5,6 +5,8 @@ class Tree {
     this.baseWidth = config.baseWidth*scale;
     this.minWidthForTrunc = config.minWidthForTrunc*scale;
     this.truncLines = config.truncLines;
+    this.truncLinesCuts = config.truncLinesCuts;
+    this.truncLinesRoughness = config.truncLinesRoughness*scale;
     this.minWidth = config.minWidth*scale;
     this.widthLossfactor = config.widthLossfactor;
     this.baseLength = config.baseLength*scale;
@@ -68,7 +70,7 @@ class Tree {
       this.seed = this.branches[i].drawLeavesBackLayer(this.seed,{gradient:this.leavesBackLayerGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, maxWidthForLeaves:this.maxWidthForLeaves, minSegmentForLeaves:this.minSegmentForLeaves, leavesAreaSize:this.leavesAreaSize, leavesSize:this.leavesSize, leavesCountPerBush:this.leavesCountPerBush});
     }
     for(let i = 0; i < this.branches.length ; i++){
-      this.seed = this.branches[i].drawBranch(context,this.seed,{gradient:this.branchesGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, minWidthForTrunc:this.minWidthForTrunc, truncLines:this.truncLines});
+      this.seed = this.branches[i].drawBranch(context,this.seed,{gradient:this.branchesGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, minWidthForTrunc:this.minWidthForTrunc, truncLines:this.truncLines, truncLinesCuts:this.truncLinesCuts, truncLinesRoughness:this.truncLinesRoughness});
     }
     for(let i = 0; i < this.branches.length ; i++){
       this.seed = this.branches[i].drawSelfShadowLayer(this.seed,{gradient:this.leavesShadowLayerGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, maxWidthForLeaves:this.maxWidthForLeaves, minSegmentForLeaves:this.minSegmentForLeaves, leavesAreaSize:this.leavesAreaSize, leavesSize:this.leavesSize, leavesCountPerBush:this.leavesCountPerBush});
@@ -86,7 +88,7 @@ class Tree {
       this.seed = this.branches[i].drawLeavesBackLayer(this.seed,{gradient:this.leavesBackLayerGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, maxWidthForLeaves:this.maxWidthForLeaves, minSegmentForLeaves:this.minSegmentForLeaves, leavesAreaSize:this.leavesAreaSize, leavesSize:this.leavesSize, leavesCountPerBush:this.leavesCountPerBush});
     }
     for(let i = 0; i < this.branches.length ; i++){
-      this.seed = this.branches[i].drawBranchRough(context,this.seed,{gradient:this.branchesGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, minWidthForTrunc:this.minWidthForTrunc, truncLines:this.truncLines});
+      this.seed = this.branches[i].drawBranchRough(context,this.seed,{gradient:this.branchesGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, minWidthForTrunc:this.minWidthForTrunc, truncLines:this.truncLines, truncLinesCuts:this.truncLinesCuts, truncLinesRoughness:this.truncLinesRoughness});
     }
     for(let i = 0; i < this.branches.length ; i++){
       this.seed = this.branches[i].drawSelfShadowLayer(this.seed,{gradient:this.leavesShadowLayerGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, maxWidthForLeaves:this.maxWidthForLeaves, minSegmentForLeaves:this.minSegmentForLeaves, leavesAreaSize:this.leavesAreaSize, leavesSize:this.leavesSize, leavesCountPerBush:this.leavesCountPerBush});
@@ -165,6 +167,7 @@ class TreeBranch{
     let offsetFromStart = CartesianCoordinatesFromPolar(this.segments[0].width/2, this.segments[0].orientation - Math.PI/2);
     let lastLeftCoords = startCoords.clone().addOffset(offsetFromStart);
     let lastRightCoords = startCoords.clone().addOffset(new Coordinates(-offsetFromStart.x, -offsetFromStart.y));
+    let currentOrientation = this.segments[0].orientation;
     let xTruncLines = [];
     xTruncLines.push(0);
     for(let i = 1; i <= config.truncLines/2 ; i++){
@@ -182,8 +185,12 @@ class TreeBranch{
       let canvasContext = GetCanvasContext();
       canvasContext.beginPath();
       let path = new Path2D(svgHelper.path_Polygon_Absolute([lastLeftCoords, lastRightCoords, currentRightCoords, currentLeftCoords]));
-      canvasContext.fillStyle = baseColor;
-      canvasContext.strokeStyle = baseColor;
+      let truncGradient = canvasContext.createLinearGradient(currentLeftCoords.x, currentLeftCoords.y,currentRightCoords.x, currentRightCoords.y);
+      truncGradient.addColorStop(0,config.gradient.getColorForPosition(0).getColorString());
+      truncGradient.addColorStop((.5-Math.cos(this.segments[i].orientation)*.5),config.gradient.getColorForPosition(1).getColorString());
+      truncGradient.addColorStop(1,config.gradient.getColorForPosition(0).getColorString());
+      canvasContext.fillStyle = truncGradient;
+      canvasContext.strokeStyle = truncGradient;
       canvasContext.lineWidth = config.strokeStrength;
       canvasContext.fill(path);
       canvasContext.stroke(path);
@@ -195,11 +202,22 @@ class TreeBranch{
 
       // Drawing lines on the trunc
       if(this.segments[i].width > config.minWidthForTrunc){
+        canvasContext.lineWidth = config.strokeStrength/3;
         for(let j = 0 ; j < xTruncLines.length; j++){
           let x = xTruncLines[j];
           let stOffset = this.segments[i].width*x/2;
           let ndOffset = this.segments[i-1].width*x/2;
-          canvasContext.stroke(new Path2D(svgHelper.path_Line_Absolute(startCoords.clone().addOffset(new Coordinates(stOffset,0)), previousStartCoords.clone().addOffset(new Coordinates(ndOffset,0)))));
+          let bc = previousStartCoords.clone().addOffset(new Coordinates(ndOffset,0));
+          let cs = new Coordinates((startCoords.x + stOffset - previousStartCoords.x - ndOffset)/config.truncLinesCuts, (startCoords.y - previousStartCoords.y)/config.truncLinesCuts);
+          let poc = new Coordinates(0,0);
+          for(let l = 0; l < config.truncLinesCuts; l++){
+            let ec = bc.clone().addOffset(cs);
+            let coc = new Coordinates((randomHandler.giveNumber(randomIndex)-.5)*config.truncLinesRoughness,0);
+            randomIndex++;
+            canvasContext.stroke(new Path2D(svgHelper.path_Line_Absolute(bc.clone().addOffset(poc), ec.clone().addOffset(coc))));
+            bc = ec.clone();
+            poc = coc.clone();
+          }
         }
       }
 
@@ -232,8 +250,12 @@ class TreeBranch{
       let canvasContext = GetCanvasContext();
       canvasContext.beginPath();
       let path = new Path2D(svgHelper.path_Polygon_Absolute([lastLeftCoords, lastRightCoords, currentRightCoords, currentLeftCoords]));
-      canvasContext.fillStyle = baseColor;
-      canvasContext.strokeStyle = baseColor;
+      let truncGradient = canvasContext.createLinearGradient(currentLeftCoords.x, currentLeftCoords.y,currentRightCoords.x, currentRightCoords.y);
+      truncGradient.addColorStop(0,config.gradient.getColorForPosition(0).getColorString());
+      truncGradient.addColorStop((.5-Math.cos(this.segments[i].orientation)*.5),config.gradient.getColorForPosition(1).getColorString());
+      truncGradient.addColorStop(1,config.gradient.getColorForPosition(0).getColorString());
+      canvasContext.fillStyle = truncGradient;
+      canvasContext.strokeStyle = truncGradient;
       canvasContext.lineWidth = config.strokeStrength;
       canvasContext.fill(path);
       canvasContext.stroke(path);
@@ -262,14 +284,24 @@ class TreeBranch{
           let x = xTruncLines[j];
           let stOffset = this.segments[i].width*x/2;
           let ndOffset = this.segments[i-1].width*x/2;
-          context.path(
-            svgHelper.path_Line_Absolute(startCoords.clone().addOffset(new Coordinates(stOffset,0)), previousStartCoords.clone().addOffset(new Coordinates(ndOffset,0))),
-            {
-              strokeWidth: config.strokeStrength*.3,
-              stroke: "black",
-              roughness: config.roughness
-            }
-          );
+          let bc = previousStartCoords.clone().addOffset(new Coordinates(ndOffset,0));
+          let cs = new Coordinates((startCoords.x + stOffset - previousStartCoords.x - ndOffset)/config.truncLinesCuts, (startCoords.y - previousStartCoords.y)/config.truncLinesCuts);
+          let poc = new Coordinates(0,0);
+          for(let l = 0; l < config.truncLinesCuts; l++){
+            let ec = bc.clone().addOffset(cs);
+            let coc = new Coordinates((randomHandler.giveNumber(randomIndex)-.5)*config.truncLinesRoughness,0);
+            randomIndex++;
+            context.path(
+              svgHelper.path_Line_Absolute(bc.clone().addOffset(poc), ec.clone().addOffset(coc)),
+              {
+                strokeWidth: config.strokeStrength*.3,
+                stroke: "black",
+                roughness: config.roughness
+              }
+            );
+            bc = ec.clone();
+            poc = coc.clone();
+          }
         }
       }
 

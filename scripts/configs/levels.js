@@ -188,8 +188,10 @@ var levelConfigs = JSON.parse(`[
             },
             "orientation":4.712,
             "baseWidth":20,
-            "minWidthForTrunc":6,
+            "minWidthForTrunc":5,
             "truncLines":9,
+            "truncLinesCuts":15,
+            "truncLinesRoughness":2,
             "minWidth":1,
             "widthLossfactor":0.2,
             "baseLength":35,
@@ -210,8 +212,8 @@ var levelConfigs = JSON.parse(`[
             "leavesCountPerBush":15,
             "leavesSize":{"x":25,"y":1},
             "branchesGradient":[
-              { "position":0, "color":"hsla(14, 20%, 23%, 1)" },
-              { "position":1, "color":"hsla(33, 43%, 23%, 1)" }
+              { "position":0, "color":"hsla(14, 20%, 15%, 1)" },
+              { "position":1, "color":"hsla(33, 30%, 25%, 1)" }
             ],
             "leavesBackLayerGradient":[
               { "position":0, "color":"hsla(100, 35%, 5%, 1)" },
@@ -242,8 +244,10 @@ var levelConfigs = JSON.parse(`[
             },
             "orientation":4.712,
             "baseWidth":20,
-            "minWidthForTrunc":6,
+            "minWidthForTrunc":5,
             "truncLines":9,
+            "truncLinesCuts":15,
+            "truncLinesRoughness":2,
             "minWidth":1,
             "widthLossfactor":0.2,
             "baseLength":35,
@@ -264,8 +268,8 @@ var levelConfigs = JSON.parse(`[
             "leavesCountPerBush":30,
             "leavesSize":{"x":25,"y":3},
             "branchesGradient":[
-              { "position":0, "color":"hsla(14, 20%, 23%, 1)" },
-              { "position":1, "color":"hsla(33, 43%, 23%, 1)" }
+              { "position":0, "color":"hsla(14, 20%, 15%, 1)" },
+              { "position":1, "color":"hsla(33, 30%, 25%, 1)" }
             ],
             "leavesBackLayerGradient":[
               { "position":0, "color":"hsla(100, 35%, 5%, 1)" },

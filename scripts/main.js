@@ -22,7 +22,7 @@ var level;
 var currentLevelName;
 var globalScale;
 var debugMode = true;
-var roughMode = false;
+var roughMode = true;
 var progressiveDrawMode = false;
 var progressiveDraw = null;
 var readyToPlay = false;
