@@ -77,6 +77,15 @@ class SvgHelper {
     return path + this.closePath();
   }
 
+  // Full path for a triangle
+  path_Triangle(refCoords, startCoords, sizeCoords, orientation, angle){
+    startCoords.x -= sizeCoords.x/2;
+    let path = this.startPath(this.getAbsoluteCoords(refCoords, startCoords, orientation));
+    path += this.lineToRelative(sizeCoords.x/2, -sizeCoords.y, orientation+angle); // go up to the middle
+    path += this.lineToRelative(sizeCoords.x/2, sizeCoords.y, orientation+angle); // go down to the right
+    return path + this.closePath();
+  }
+
   // Full path for a rounded rectangle
   path_Rectangle_Rounded(refCoords, startCoords, sizeCoords, orientation, angle, radius){
     radius = Math.min(radius, sizeCoords.x/2, sizeCoords.y/2);
