@@ -141,7 +141,8 @@ var levelConfigs = JSON.parse(`[
             "strokeColor":"black",
             "baseGradient":[
               { "position":0, "color":"hsla(41,23%,12%,0.6)" },
-              { "position":1, "color":"hsla(41,23%,20%,0.8)" }
+              { "position":0.3, "color":"hsla(41,23%,20%,0.8)" },
+              { "position":1, "color":"hsla(85,20%,10%,0.8)" }
             ],
             "topGradient":[
               { "position":0, "color":"hsla(185,65%,92%,1)" },
@@ -179,77 +180,14 @@ var levelConfigs = JSON.parse(`[
             "randomShadowWidth":8,
             "treeClusterDensity":[
               { "y":0,"density":0,"scale":0 },
-              { "y":0.3,"density":0,"scale":0.8 },
-              { "y":1,"density":0.8,"scale":1 }
+              { "y":0.3,"density":0,"scale":0.7 },
+              { "y":0.5,"density":0.5,"scale":1.1 },
+              { "y":1,"density":1,"scale":1.8 }
             ],
-            "treeClusterSize":15,
+            "treeClusterSize":25,
             "treeClusterYStep":30,
-            "treeCountPerCluster":5,
+            "treeCountPerCluster":10,
             "treeSize":{"x":2,"y":6},
-            "roughness":0.5
-          }
-        },
-        {
-          "id":"764fbfe3-cbb0-4a8b-bc2c-5f14520c3fb8",
-          "parent":null,
-          "type":"background_mountains",
-          "config":{
-            "topLeftCoords":{
-              "x":0,
-              "y":250
-            },
-            "sizeCoords":{
-              "x":1500,
-              "y":210
-            },
-            "orientation":0,
-            "strokeStrength":0.3,
-            "strokeColor":"black",
-            "baseGradient":[
-              { "position":0, "color":"hsla(130,40%,30%,1)" },
-              { "position":1, "color":"hsla(110,45%,45%,1)" }
-            ],
-            "topGradient":[
-              { "position":0, "color":"hsla(120,35%,25%,1)" },
-              { "position":1, "color":"hsla(100,45%,40%,1)" }
-            ],
-            "topShadowGradient":[
-              { "position":0, "color":"hsla(0,0%,0%,0.30)" },
-              { "position":1, "color":"hsla(0,0%,0%,0.50)" }
-            ],
-            "randomShadowGradient":[
-              { "position":0, "color":"hsla(0,0%,0%,0.30)" },
-              { "position":1, "color":"hsla(0,0%,0%,0.50)" }
-            ],
-            "rockGradient":[
-              { "position":0, "color":"hsla(130,40%,20%,1)" },
-              { "position":1, "color":"hsla(110,50%,30%,1)" }
-            ],
-            "treeGradient":[
-              { "position":0, "color":"hsla(41,23%,12%,1)" },
-              { "position":1, "color":"hsla(41,23%,20%,1)" }
-            ],
-            "yMin":0,
-            "yMax":50,
-            "yMinSnow":0,
-            "yMaxSnow":0,
-            "xStep":8,
-            "yStepMin":0,
-            "yStepMax":2,
-            "yInvertProbability":0.15,
-            "rockDensity":0.8,
-            "randomShadowDensity":1,
-            "randomShadowLength":16,
-            "randomShadowWidth":10,
-            "treeClusterDensity":[
-              { "y":0,"density":0,"scale":0 },
-              { "y":0.3,"density":0,"scale":0 },
-              { "y":1,"density":0,"scale":0 }
-            ],
-            "treeClusterSize":0,
-            "treeClusterYStep":10,
-            "treeCountPerCluster":0,
-            "treeSize":{"x":0,"y":0},
             "roughness":0.5
           }
         },

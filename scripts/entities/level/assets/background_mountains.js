@@ -214,7 +214,7 @@ class Background_Mountains {
         let properties = this.treeClusterPropertiesForHeight(hRelative);
         if(properties.density > 0){
           if(randomHandler.giveNumber(randomIndex) < properties.density){
-            randomIndex = this.addTreeCluster(treeArray, new Coordinates(currentCoords.x, currentCoords.y + h), randomIndex+1);
+            randomIndex = this.addTreeCluster(treeArray, new Coordinates(currentCoords.x, currentCoords.y + h), properties.scale, randomIndex+1);
           }
           randomIndex++;
         }
@@ -311,12 +311,12 @@ class Background_Mountains {
       scale: this.treeClusterDensity[j].scale + (this.treeClusterDensity[i].scale - this.treeClusterDensity[j].scale)*factor,
     };
   }
-  addTreeCluster(treeArray, startCoords, randomIndex){
+  addTreeCluster(treeArray, startCoords, scale, randomIndex){
     for(let i = 0; i < this.treeCountPerCluster; i++){
       let x = randomHandler.giveNumber(randomIndex)-.5;
       let y = randomHandler.giveNumber(randomIndex+1)-.5;
       randomIndex+=2;
-      treeArray.push(startCoords.clone().addOffset(new Coordinates(x*this.treeClusterSize,y*this.treeClusterSize)));
+      treeArray.push({coords:startCoords.clone().addOffset(new Coordinates(x*this.treeClusterSize,y*this.treeClusterSize)),scale:scale});
     }
     return randomIndex;
   }
@@ -328,7 +328,7 @@ class Background_Mountains {
     }
     canvasContext.fillStyle = canvasGradient;
     for(let i = 0; i < treeArray.length; i++){
-      let path = svgHelper.path_Triangle(treeArray[i].clone(), new Coordinates(0,0), this.treeSize.clone(), 0, 0);
+      let path = svgHelper.path_Triangle(treeArray[i].coords.clone(), new Coordinates(0,0), new Coordinates(this.treeSize.x*treeArray[i].scale, this.treeSize.y*treeArray[i].scale), 0, 0);
       canvasContext.beginPath();
       canvasContext.fill(new Path2D(path));
     }
