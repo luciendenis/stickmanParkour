@@ -1,1280 +1,1317 @@
-var levelConfigs = JSON.parse(`[
+var levelConfigs = [
   {
-    "name":"level0",
-    "config":{
-      "spawn":{
-        "coordinates":{
-          "x":150,
-          "y":45
+    name:"level0",
+    config:{
+      spawn:{
+        coordinates:{
+          x:150,
+          y:45
         },
-        "direction":1,
-        "frontSide":"left",
-        "action":"idling"
+        direction:1,
+        frontSide:"left",
+        action:"idling"
       },
-      "exit":{
-        "coordinates":{
-          "x":450,
-          "y":20
+      exit:{
+        coordinates:{
+          x:450,
+          y:20
         }
       },
-      "levelLimits":{
-        "width":1500,
-        "height":800,
-        "xLeft":20,
-        "xRight":20,
-        "yGround":20,
-        "yCeiling":20,
-        "color":"black",
-        "linesRoughOptions":{
-          "stroke":"black",
-          "strokeWidth":2,
-          "bowing":0,
-          "roughness":0.8
+      levelLimits:{
+        width:1500,
+        height:800,
+        xLeft:20,
+        xRight:20,
+        yGround:20,
+        yCeiling:20,
+        color:"black",
+        linesRoughOptions:{
+          stroke:"black",
+          strokeWidth:2,
+          bowing:0,
+          roughness:0.8
         },
-        "rectRoughOptions":{
-          "stroke":"transparent",
-          "strokeWidth":2,
-          "fillStyle":"solid",
-          "fill":"black",
-          "roughness":0
+        rectRoughOptions:{
+          stroke:"transparent",
+          strokeWidth:2,
+          fillStyle:"solid",
+          fill:"black",
+          roughness:0
         }
       },
-      "blocks":{
-        "roughOptions":{
-          "stroke":"transparent",
-          "strokeWidth":0,
-          "fillStyle":"solid"
+      blocks:{
+        roughOptions:{
+          stroke:"transparent",
+          strokeWidth:0,
+          fillStyle:"solid"
         },
-        "instances":[
+        instances:[
           {
-            "xLeft":20,
-            "xWidth":1500,
-            "yBottom":0,
-            "yHeight":45,
-            "color":"transparent"
+            xLeft:20,
+            xWidth:1500,
+            yBottom:0,
+            yHeight:45,
+            color:"transparent"
           }
         ]
       },
-      "climbingHolds":{
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "fillStyle":"hachure",
-          "hachureAngle":40,
-          "fillWeight":1,
-          "roughness":0.2,
-          "fill":"white"
+      climbingHolds:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.2,
+          fill:"white"
         },
-        "instances":[]
+        instances:[]
       },
-      "ladders":{
-        "width":80,
-        "yStep":30,
-        "lineWidth":5,
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "roughness":0.8
+      ladders:{
+        width:80,
+        yStep:30,
+        lineWidth:5,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
         },
-        "instances":[]
+        instances:[]
       },
-      "ropes":{
-        "lineWidth":4,
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "roughness":0.8
+      ropes:{
+        lineWidth:4,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
         },
-        "instances":[]
+        instances:[]
       },
-      "hazards":{
-        "spikes":{
-          "color":"black",
-          "lineWidth":4,
-          "roughOptions":{
-            "stroke":"white",
-            "strokeWidth":2,
-            "roughness":0.8
+      hazards:{
+        spikes:{
+          color:"black",
+          lineWidth:4,
+          roughOptions:{
+            stroke:"white",
+            strokeWidth:2,
+            roughness:0.8
           },
-          "instances":[]
+          instances:[]
         }
       },
-      "collectibles":{
-        "gears":{
-          "color":"black",
-          "lineWidth":2,
-          "roughOptions":{
-            "stroke":"white",
-            "strokeWidth":2,
-            "roughness":0.5
+      collectibles:{
+        gears:{
+          color:"black",
+          lineWidth:2,
+          roughOptions:{
+            stroke:"white",
+            strokeWidth:2,
+            roughness:0.5
           },
-          "instances":[]
+          instances:[]
         }
       },
-      "assets":[
+      assets:[
         {
-          "id":"8651ad00-d0da-44ba-b66b-b9fc0de33d5a",
-          "parent":null,
-          "type":"background_sky",
-          "config":{
-            "gradient":[
-              { "position":0, "color":"hsla(222,88%,56%,1)" },
-              { "position":1, "color":"hsla(195,87%,67%,1)" }
+          id:"8651ad00-d0da-44ba-b66b-b9fc0de33d5a",
+          parent:null,
+          type:"background_sky",
+          config:{
+            gradient:[
+              { position:0, color:"hsla(222,88%,56%,1)" },
+              { position:1, color:"hsla(195,87%,67%,1)" }
             ]
           }
         },
         {
-          "id":"48d14c6e-7107-4c16-b139-169eead40b7e",
-          "parent":null,
-          "type":"background_mountains",
-          "config":{
-            "topLeftCoords":{
-              "x":0,
-              "y":380
+          id:"48d14c6e-7107-4c16-b139-169eead40b7e",
+          parent:null,
+          type:"background_mountains",
+          config:{
+            topLeftCoords:{
+              x:0,
+              y:380
             },
-            "sizeCoords":{
-              "x":1500,
-              "y":210
+            sizeCoords:{
+              x:1500,
+              y:210
             },
-            "orientation":0,
-            "strokeStrength":0.3,
-            "strokeColor":"black",
-            "baseGradient":[
-              { "position":0, "color":"hsla(41,23%,12%,0.6)" },
-              { "position":0.3, "color":"hsla(41,23%,20%,0.8)" },
-              { "position":1, "color":"hsla(85,20%,10%,0.8)" }
+            orientation:0,
+            strokeStrength:0.3,
+            strokeColor:"black",
+            baseGradient:[
+              { position:0, color:"hsla(41,23%,12%,0.6)" },
+              { position:0.3, color:"hsla(41,23%,20%,0.8)" },
+              { position:1, color:"hsla(85,20%,10%,0.8)" }
             ],
-            "topGradient":[
-              { "position":0, "color":"hsla(185,65%,92%,1)" },
-              { "position":1, "color":"hsla(195,65%,85%,1)" }
+            topGradient:[
+              { position:0, color:"hsla(185,65%,92%,1)" },
+              { position:1, color:"hsla(195,65%,85%,1)" }
             ],
-            "topShadowGradient":[
-              { "position":0, "color":"hsla(195,60%,20%,0.30)" },
-              { "position":1, "color":"hsla(205,60%,20%,0.55)" }
+            topShadowGradient:[
+              { position:0, color:"hsla(195,60%,20%,0.30)" },
+              { position:1, color:"hsla(205,60%,20%,0.55)" }
             ],
-            "randomShadowGradient":[
-              { "position":0, "color":"hsla(195,45%,20%,0.25)" },
-              { "position":0.25, "color":"hsla(205,45%,20%,0.35)" },
-              { "position":0.35, "color":"hsla(0,0%,20%,0.3)" },
-              { "position":1, "color":"hsla(0,0%,20%,0.5)" }
+            randomShadowGradient:[
+              { position:0, color:"hsla(195,45%,20%,0.25)" },
+              { position:0.25, color:"hsla(205,45%,20%,0.35)" },
+              { position:0.35, color:"hsla(0,0%,20%,0.3)" },
+              { position:1, color:"hsla(0,0%,20%,0.5)" }
             ],
-            "rockGradient":[
-              { "position":0, "color":"hsla(41,23%,12%,0.6)" },
-              { "position":1, "color":"hsla(41,23%,20%,0.8)" }
+            rockGradient:[
+              { position:0, color:"hsla(41,23%,12%,0.6)" },
+              { position:1, color:"hsla(41,23%,20%,0.8)" }
             ],
-            "treeGradient":[
-              { "position":0, "color":"hsla(85,15%,16%,0.6)" },
-              { "position":1, "color":"hsla(85,15%,16%,0.8)" }
+            treeGradient:[
+              { position:0, color:"hsla(85,15%,16%,0.6)" },
+              { position:1, color:"hsla(85,15%,16%,0.8)" }
             ],
-            "yMin":0,
-            "yMax":50,
-            "yMinSnow":80,
-            "yMaxSnow":120,
-            "xStep":3,
-            "yStepMin":0,
-            "yStepMax":5,
-            "yInvertProbability":0.2,
-            "rockDensity":0.5,
-            "randomShadowDensity":1,
-            "randomShadowLength":30,
-            "randomShadowWidth":8,
-            "treeClusterDensity":[
-              { "y":0,"density":0,"scale":0 },
-              { "y":0.3,"density":0,"scale":0.7 },
-              { "y":0.5,"density":0.5,"scale":1.1 },
-              { "y":1,"density":1,"scale":1.8 }
+            yMin:0,
+            yMax:50,
+            yMinSnow:80,
+            yMaxSnow:120,
+            xStep:3,
+            yStepMin:0,
+            yStepMax:5,
+            yInvertProbability:0.2,
+            rockDensity:0.5,
+            randomShadowDensity:1,
+            randomShadowLength:30,
+            randomShadowWidth:8,
+            treeClusterDensity:[
+              { y:0,density:0,scale:0 },
+              { y:0.35,density:0,scale:0.7 },
+              { y:0.5,density:0.5,scale:1.1 },
+              { y:1,density:1,scale:1.8 }
             ],
-            "treeClusterSize":25,
-            "treeClusterYStep":30,
-            "treeCountPerCluster":10,
-            "treeSize":{"x":2,"y":6},
-            "roughness":0.5
+            treeClusterSize:25,
+            treeClusterYStep:30,
+            treeCountPerCluster:8,
+            treeSize:{x:2,y:6},
+            roughness:0.5
           }
         },
         {
-          "id":"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
-          "parent":null,
-          "type":"ground_depth_grass",
-          "layer":0,
-          "order":0,
-          "config":{
-            "startCoords":{
-              "x":0,
-              "y":190
+          id:"48a6611c-bc7d-4c58-8817-019377a4a346",
+          parent:null,
+          type:"background_mist",
+          config:{
+            topLeftCoords:{
+              x:0,
+              y:450
             },
-            "orientation":1.571,
-            "strokeColor":"black",
-            "strokeStrength":0.2,
-            "depthPolygon":{
-              "startScale":0.12,
-              "endScale":0.8,
-              "points":[
-                {"distance":0,"offset":0,"length":1500},
-                {"distance":140,"offset":0,"length":1500}
+            sizeCoords:{
+              x:1500,
+              y:280
+            },
+            orientation:0,
+            baseGradient:[
+              { position:0, color:"hsla(185,65%,92%,0)" },
+              { position:0.7, color:"hsla(195,65%,85%,0.2)" },
+              { position:1, color:"hsla(195,65%,85%,0.5)" }
+            ],
+            cloudGradient:[
+              { position:0, color:"hsla(185,65%,92%,0.1)" },
+              { position:0.7, color:"hsla(195,65%,85%,0.02)" },
+              { position:1, color:"hsla(195,65%,85%,0)" }
+            ],
+            cloudClusterDensity:[
+              { y:0,density:0,scale:0 },
+              { y:0.4,density:0,scale:0.7 },
+              { y:0.7,density:0.5,scale:1.1 },
+              { y:1,density:1,scale:2 }
+            ],
+            cloudClusterSize:25,
+            cloudClusterXStep:20,
+            cloudClusterYStep:15,
+            cloudCountPerCluster:8,
+            cloudSize:{x:10,y:6}
+          }
+        },
+        {
+          id:"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
+          parent:null,
+          type:"ground_depth_grass",
+          layer:0,
+          order:0,
+          config:{
+            startCoords:{
+              x:0,
+              y:190
+            },
+            orientation:1.571,
+            strokeColor:"black",
+            strokeStrength:0.2,
+            depthPolygon:{
+              startScale:0.12,
+              endScale:0.8,
+              points:[
+                {distance:0,offset:0,length:1500},
+                {distance:140,offset:0,length:1500}
               ]
             },
-            "backgroundGradient":[
-              { "position":0, "color":"hsla(142,40%,30%,1)" },
-              { "position":1, "color":"hsla(92,64%,49%,1)" }
+            backgroundGradient:[
+              { position:0, color:"hsla(142,40%,30%,1)" },
+              { position:1, color:"hsla(92,64%,49%,1)" }
             ],
-            "grassGradient":[
-              { "position":0, "color":"hsla(120,35%,35%,0.95)" },
-              { "position":1, "color":"hsla(95,60%,45%,0.95)" }
+            grassGradient:[
+              { position:0, color:"hsla(120,35%,35%,0.95)" },
+              { position:1, color:"hsla(95,60%,45%,0.95)" }
             ],
-            "grassVariationGradient":[
-              { "position":0, "color":"hsla(10,10%,25%,0)" },
-              { "position":1, "color":"hsla(30,35%,40%,0)" }
+            grassVariationGradient:[
+              { position:0, color:"hsla(10,10%,25%,0)" },
+              { position:1, color:"hsla(30,35%,40%,0)" }
             ],
-            "tuftSize":180,
-            "tuftBowing":1.5,
-            "tuftMaxGapVertical":12,
-            "tuftMaxGapHorizontal":14,
-            "leafColorVariation":"hsla(20,30%,15%,0)",
-            "leafDensity":0.4,
-            "leafAngle":0.7,
-            "leafBowing":0.5,
-            "leafMinWidth":1.5,
-            "leafMaxWidth":5,
-            "leafWidthRandomness":0.5,
-            "leafMinHeight":8,
-            "leafMaxHeight":30,
-            "leafHeightRandomness":0.4,
-            "leafStrokeProbability":0.15,
-            "roughness":0.2
+            tuftSize:180,
+            tuftBowing:1.5,
+            tuftMaxGapVertical:12,
+            tuftMaxGapHorizontal:14,
+            leafColorVariation:"hsla(20,30%,15%,0)",
+            leafDensity:0.4,
+            leafAngle:0.7,
+            leafBowing:0.5,
+            leafMinWidth:1.5,
+            leafMaxWidth:5,
+            leafWidthRandomness:0.5,
+            leafMinHeight:8,
+            leafMaxHeight:30,
+            leafHeightRandomness:0.4,
+            leafStrokeProbability:0.15,
+            roughness:0.2
           }
         },
         {
-          "id":"2c6ccf1a-0c8a-4213-89e5-d7cfaf43a98c",
-          "parent":"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
-          "type":"tree",
-          "layer":0,
-          "order":0,
-          "config":{
-            "startCoords":{
-              "x":500,
-              "y":100
+          id:"2c6ccf1a-0c8a-4213-89e5-d7cfaf43a98c",
+          parent:"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
+          type:"tree",
+          layer:0,
+          order:0,
+          config:{
+            startCoords:{
+              x:500,
+              y:100
             },
-            "orientation":4.712,
-            "baseWidth":20,
-            "minWidthForTrunc":5,
-            "truncLines":9,
-            "truncLinesCuts":15,
-            "truncLinesRoughness":2,
-            "minWidth":1,
-            "widthLossfactor":0.2,
-            "baseLength":35,
-            "minLength":5,
-            "lengthLossfactor":0.08,
-            "maxDeviation":0.3,
-            "segmentsLimit":20,
-            "layerCount":4,
-            "splitProbability":0.5,
-            "maxWidthForSplit":12,
-            "splitAngle":0.6,
-            "splitAngleRandom":0.2,
-            "splitAngleDistribution":1,
-            "splitWidthFactor":0.7,
-            "minSegmentForLeaves":2,
-            "maxWidthForLeaves":6,
-            "leavesAreaSize":25,
-            "leavesCountPerBush":15,
-            "leavesSize":{"x":25,"y":1},
-            "branchesGradient":[
-              { "position":0, "color":"hsla(14, 20%, 15%, 1)" },
-              { "position":1, "color":"hsla(33, 30%, 25%, 1)" }
+            orientation:4.712,
+            baseWidth:20,
+            minWidthForTrunc:5,
+            truncLines:9,
+            truncLinesCuts:15,
+            truncLinesRoughness:2,
+            minWidth:1,
+            widthLossfactor:0.2,
+            baseLength:35,
+            minLength:5,
+            lengthLossfactor:0.08,
+            maxDeviation:0.3,
+            segmentsLimit:20,
+            layerCount:4,
+            splitProbability:0.5,
+            maxWidthForSplit:12,
+            splitAngle:0.6,
+            splitAngleRandom:0.2,
+            splitAngleDistribution:1,
+            splitWidthFactor:0.7,
+            minSegmentForLeaves:2,
+            maxWidthForLeaves:6,
+            leavesAreaSize:25,
+            leavesCountPerBush:15,
+            leavesSize:{x:25,y:1},
+            branchesGradient:[
+              { position:0, color:"hsla(14, 20%, 15%, 1)" },
+              { position:1, color:"hsla(33, 30%, 25%, 1)" }
             ],
-            "leavesBackLayerGradient":[
-              { "position":0, "color":"hsla(100, 35%, 5%, 1)" },
-              { "position":1, "color":"hsla(100, 55%, 40%, 1)" }
+            leavesBackLayerGradient:[
+              { position:0, color:"hsla(100, 35%, 5%, 1)" },
+              { position:1, color:"hsla(100, 55%, 40%, 1)" }
             ],
-            "leavesShadowLayerGradient":[
-              { "position":0, "color":"hsla(100, 30%, 10%, 0.5)" },
-              { "position":1, "color":"hsla(100, 30%, 10%, 0.5)" }
+            leavesShadowLayerGradient:[
+              { position:0, color:"hsla(100, 30%, 10%, 0.5)" },
+              { position:1, color:"hsla(100, 30%, 10%, 0.5)" }
             ],
-            "leavesFrontLayerGradient":[
-              { "position":0, "color":"hsla(100, 30%, 10%, 1)" },
-              { "position":1, "color":"hsla(100, 60%, 50%, 1)" }
+            leavesFrontLayerGradient:[
+              { position:0, color:"hsla(100, 30%, 10%, 1)" },
+              { position:1, color:"hsla(100, 60%, 50%, 1)" }
             ],
-            "strokeStrength":0.5,
-            "roughness":0.3
+            strokeStrength:0.5,
+            roughness:0.3
           }
         },
         {
-          "id":"45acd900-d3fa-4626-9c97-6c76c26f3b3c",
-          "parent":"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
-          "type":"tree",
-          "layer":0,
-          "order":0,
-          "config":{
-            "startCoords":{
-              "x":1000,
-              "y":100
+          id:"45acd900-d3fa-4626-9c97-6c76c26f3b3c",
+          parent:"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
+          type:"tree",
+          layer:0,
+          order:0,
+          config:{
+            startCoords:{
+              x:1000,
+              y:100
             },
-            "orientation":4.712,
-            "baseWidth":20,
-            "minWidthForTrunc":5,
-            "truncLines":9,
-            "truncLinesCuts":15,
-            "truncLinesRoughness":2,
-            "minWidth":1,
-            "widthLossfactor":0.2,
-            "baseLength":35,
-            "minLength":5,
-            "lengthLossfactor":0.08,
-            "maxDeviation":0.3,
-            "segmentsLimit":20,
-            "layerCount":4,
-            "splitProbability":0.5,
-            "maxWidthForSplit":12,
-            "splitAngle":0.6,
-            "splitAngleRandom":0.2,
-            "splitAngleDistribution":1,
-            "splitWidthFactor":0.7,
-            "minSegmentForLeaves":2,
-            "maxWidthForLeaves":6,
-            "leavesAreaSize":25,
-            "leavesCountPerBush":30,
-            "leavesSize":{"x":25,"y":3},
-            "branchesGradient":[
-              { "position":0, "color":"hsla(14, 20%, 15%, 1)" },
-              { "position":1, "color":"hsla(33, 30%, 25%, 1)" }
+            orientation:4.712,
+            baseWidth:20,
+            minWidthForTrunc:5,
+            truncLines:9,
+            truncLinesCuts:15,
+            truncLinesRoughness:2,
+            minWidth:1,
+            widthLossfactor:0.2,
+            baseLength:35,
+            minLength:5,
+            lengthLossfactor:0.08,
+            maxDeviation:0.3,
+            segmentsLimit:20,
+            layerCount:4,
+            splitProbability:0.5,
+            maxWidthForSplit:12,
+            splitAngle:0.6,
+            splitAngleRandom:0.2,
+            splitAngleDistribution:1,
+            splitWidthFactor:0.7,
+            minSegmentForLeaves:2,
+            maxWidthForLeaves:6,
+            leavesAreaSize:25,
+            leavesCountPerBush:30,
+            leavesSize:{x:25,y:3},
+            branchesGradient:[
+              { position:0, color:"hsla(14, 20%, 15%, 1)" },
+              { position:1, color:"hsla(33, 30%, 25%, 1)" }
             ],
-            "leavesBackLayerGradient":[
-              { "position":0, "color":"hsla(100, 35%, 5%, 1)" },
-              { "position":1, "color":"hsla(100, 55%, 40%, 1)" }
+            leavesBackLayerGradient:[
+              { position:0, color:"hsla(100, 35%, 5%, 1)" },
+              { position:1, color:"hsla(100, 55%, 40%, 1)" }
             ],
-            "leavesShadowLayerGradient":[
-              { "position":0, "color":"hsla(100, 30%, 10%, 0.5)" },
-              { "position":1, "color":"hsla(100, 30%, 10%, 0.5)" }
+            leavesShadowLayerGradient:[
+              { position:0, color:"hsla(100, 30%, 10%, 0.5)" },
+              { position:1, color:"hsla(100, 30%, 10%, 0.5)" }
             ],
-            "leavesFrontLayerGradient":[
-              { "position":0, "color":"hsla(100, 30%, 10%, 1)" },
-              { "position":1, "color":"hsla(100, 60%, 50%, 1)" }
+            leavesFrontLayerGradient:[
+              { position:0, color:"hsla(100, 30%, 10%, 1)" },
+              { position:1, color:"hsla(100, 60%, 50%, 1)" }
             ],
-            "strokeStrength":0.5,
-            "roughness":0.3
+            strokeStrength:0.5,
+            roughness:0.3
           }
         },
         {
-          "id":"c70f6fa0-591f-4808-bfd4-292b456c0213",
-          "parent":null,
-          "type":"wall_bricks",
-          "layer":0,
-          "order":0,
-          "config":{
-            "bottomLeftCoords":{
-              "x":0,
-              "y":50
+          id:"c70f6fa0-591f-4808-bfd4-292b456c0213",
+          parent:null,
+          type:"wall_bricks",
+          layer:0,
+          order:0,
+          config:{
+            bottomLeftCoords:{
+              x:0,
+              y:50
             },
-            "height":80,
-            "width":190,
-            "orientation":0,
-            "layerHeightMin":15,
-            "layerHeightMax":20,
-            "brickWidthMin":50,
-            "brickWidthMax":55,
-            "brickBorderRadius":3,
-            "jointThickness":0.2,
-            "strokeStrength":0.4,
-            "strokeColor":"black",
-            "roughOptions":{
-              "roughness":0.6
+            height:80,
+            width:190,
+            orientation:0,
+            layerHeightMin:15,
+            layerHeightMax:20,
+            brickWidthMin:50,
+            brickWidthMax:55,
+            brickBorderRadius:3,
+            jointThickness:0.2,
+            strokeStrength:0.4,
+            strokeColor:"black",
+            roughOptions:{
+              roughness:0.6
             },
-            "brickColors":[
+            brickColors:[
               "#b55b37",
               "#94472a",
               "#c8613a",
               "#dd5c38",
               "#d46239"
             ],
-            "jointColor":"#6f6d64",
-            "brickRoughness":6
+            jointColor:"#6f6d64",
+            brickRoughness:6
           }
         },
         {
-          "id":"b869ff32-25d5-464f-8f34-f94befcdee77",
-          "parent":null,
-          "type":"wall_bricks",
-          "layer":0,
-          "order":0,
-          "config":{
-            "bottomLeftCoords":{
-              "x":0,
-              "y":128
+          id:"b869ff32-25d5-464f-8f34-f94befcdee77",
+          parent:null,
+          type:"wall_bricks",
+          layer:0,
+          order:0,
+          config:{
+            bottomLeftCoords:{
+              x:0,
+              y:128
             },
-            "height":8,
-            "width":195,
-            "orientation":0,
-            "layerHeightMin":20,
-            "layerHeightMax":20,
-            "brickWidthMin":110,
-            "brickWidthMax":130,
-            "brickBorderRadius":0,
-            "jointThickness":1.5,
-            "strokeStrength":0.4,
-            "strokeColor":"black",
-            "roughOptions":{
-              "roughness":0.4
+            height:8,
+            width:195,
+            orientation:0,
+            layerHeightMin:20,
+            layerHeightMax:20,
+            brickWidthMin:110,
+            brickWidthMax:130,
+            brickBorderRadius:0,
+            jointThickness:1.5,
+            strokeStrength:0.4,
+            strokeColor:"black",
+            roughOptions:{
+              roughness:0.4
             },
-            "brickColors":[
+            brickColors:[
               "#c6c5c0",
               "#c3c1bc",
               "#bfbdb8"
             ],
-            "jointColor":"#ededeb",
-            "brickRoughness":10
+            jointColor:"#ededeb",
+            brickRoughness:10
           }
         },
         {
-          "id":"9446dde9-75b8-4681-a1ad-1ecb0adc7343",
-          "parent":null,
-          "type":"fence_metal_bars",
-          "layer":0,
-          "order":0,
-          "config":{
-            "bottomLeftCoords":{
-              "x":0,
-              "y":136
+          id:"9446dde9-75b8-4681-a1ad-1ecb0adc7343",
+          parent:null,
+          type:"fence_metal_bars",
+          layer:0,
+          order:0,
+          config:{
+            bottomLeftCoords:{
+              x:0,
+              y:136
             },
-            "height":150,
-            "width":190,
-            "orientation":0,
-            "strokeStrength":0.4,
-            "strokeColor":"black",
-            "roughOptions":{
-              "roughness":0.4
+            height:150,
+            width:190,
+            orientation:0,
+            strokeStrength:0.4,
+            strokeColor:"black",
+            roughOptions:{
+              roughness:0.4
             },
-            "pillarThickness":8,
-            "pillarTopShape":"spear",
-            "pillarTopTransition":{"x":2,"y":8},
-            "pillarTopSize":{"x":30,"y":20},
-            "pillarColor":"#545454",
-            "barThickness":4,
-            "horizontalBarThickness":4,
-            "horizontalBarColor":"#545454",
-            "horizontalBars":[20,130],
-            "barGap":15,
-            "barsBetweenPillars":10,
-            "barIndexStart":0,
-            "barsHeights":[5],
-            "barsLengths":[130,138,144,148,150,148,144,138],
-            "barsTopShapes":["ball","spike"],
-            "barsTopTransitions":[{"x":2,"y":6},{"x":4,"y":0}],
-            "barsTopSizes":[{"x":3,"y":0},{"x":0,"y":12}],
-            "barsColors":["#545454"]
+            pillarThickness:8,
+            pillarTopShape:"spear",
+            pillarTopTransition:{x:2,y:8},
+            pillarTopSize:{x:30,y:20},
+            pillarColor:"#545454",
+            barThickness:4,
+            horizontalBarThickness:4,
+            horizontalBarColor:"#545454",
+            horizontalBars:[20,130],
+            barGap:15,
+            barsBetweenPillars:10,
+            barIndexStart:0,
+            barsHeights:[5],
+            barsLengths:[130,138,144,148,150,148,144,138],
+            barsTopShapes:["ball","spike"],
+            barsTopTransitions:[{x:2,y:6},{x:4,y:0}],
+            barsTopSizes:[{x:3,y:0},{x:0,y:12}],
+            barsColors:["#545454"]
           }
         },
         {
-          "id":"a44213d1-af81-47fa-99fa-926b022a5f4c",
-          "parent":null,
-          "type":"wall_bricks",
-          "layer":0,
-          "order":0,
-          "config":{
-            "bottomLeftCoords":{
-              "x":185,
-              "y":50
+          id:"a44213d1-af81-47fa-99fa-926b022a5f4c",
+          parent:null,
+          type:"wall_bricks",
+          layer:0,
+          order:0,
+          config:{
+            bottomLeftCoords:{
+              x:185,
+              y:50
             },
-            "height":250,
-            "width":50,
-            "orientation":0,
-            "layerHeightMin":15,
-            "layerHeightMax":20,
-            "brickWidthMin":50,
-            "brickWidthMax":55,
-            "brickBorderRadius":3,
-            "jointThickness":0.2,
-            "strokeStrength":0.4,
-            "strokeColor":"black",
-            "roughOptions":{
-              "roughness":0.6
+            height:250,
+            width:50,
+            orientation:0,
+            layerHeightMin:15,
+            layerHeightMax:20,
+            brickWidthMin:50,
+            brickWidthMax:55,
+            brickBorderRadius:3,
+            jointThickness:0.2,
+            strokeStrength:0.4,
+            strokeColor:"black",
+            roughOptions:{
+              roughness:0.6
             },
-            "brickColors":[
+            brickColors:[
               "#b55b37",
               "#94472a",
               "#c8613a",
               "#dd5c38",
               "#d46239"
             ],
-            "jointColor":"#6f6d64",
-            "brickRoughness":6
+            jointColor:"#6f6d64",
+            brickRoughness:6
           }
         },
         {
-          "id":"406c3fca-70f0-44c2-98a2-af9baf037e88",
-          "parent":null,
-          "type":"wall_bricks",
-          "layer":0,
-          "order":0,
-          "config":{
-            "bottomLeftCoords":{
-              "x":180,
-              "y":298
+          id:"406c3fca-70f0-44c2-98a2-af9baf037e88",
+          parent:null,
+          type:"wall_bricks",
+          layer:0,
+          order:0,
+          config:{
+            bottomLeftCoords:{
+              x:180,
+              y:298
             },
-            "height":8,
-            "width":60,
-            "orientation":0,
-            "layerHeightMin":20,
-            "layerHeightMax":20,
-            "brickWidthMin":110,
-            "brickWidthMax":130,
-            "brickBorderRadius":0,
-            "jointThickness":1.5,
-            "strokeStrength":0.4,
-            "strokeColor":"black",
-            "roughOptions":{
-              "roughness":0.4
+            height:8,
+            width:60,
+            orientation:0,
+            layerHeightMin:20,
+            layerHeightMax:20,
+            brickWidthMin:110,
+            brickWidthMax:130,
+            brickBorderRadius:0,
+            jointThickness:1.5,
+            strokeStrength:0.4,
+            strokeColor:"black",
+            roughOptions:{
+              roughness:0.4
             },
-            "brickColors":[
+            brickColors:[
               "#c6c5c0",
               "#c3c1bc",
               "#bfbdb8"
             ],
-            "jointColor":"#ededeb",
-            "brickRoughness":10
+            jointColor:"#ededeb",
+            brickRoughness:10
           }
         },
         {
-          "id":"2c7ca2d8-65d7-45e4-b6f6-eacba2895b0e",
-          "parent":null,
-          "type":"fence_metal_grid",
-          "layer":0,
-          "order":0,
-          "config":{
-            "bottomLeftCoords":{
-              "x":238,
-              "y":50
+          id:"2c7ca2d8-65d7-45e4-b6f6-eacba2895b0e",
+          parent:null,
+          type:"fence_metal_grid",
+          layer:0,
+          order:0,
+          config:{
+            bottomLeftCoords:{
+              x:238,
+              y:50
             },
-            "height":200,
-            "width":420,
-            "orientation":0,
-            "strokeStrength":0.35,
-            "strokeColor":"black",
-            "roughOptions":{
-              "roughness":0.4
+            height:200,
+            width:420,
+            orientation:0,
+            strokeStrength:0.35,
+            strokeColor:"black",
+            roughOptions:{
+              roughness:0.4
             },
-            "pillarThickness":5,
-            "pillarColor":"silver",
-            "pillarGap":77,
-            "horizontalBarThickness":5,
-            "horizontalBarColor":"silver",
-            "horizontalBars":[95],
-            "horizontalStrings":[10,195],
-            "stringThickness":1,
-            "gridColor":"silver",
-            "gridGap":8
+            pillarThickness:5,
+            pillarColor:"silver",
+            pillarGap:77,
+            horizontalBarThickness:5,
+            horizontalBarColor:"silver",
+            horizontalBars:[95],
+            horizontalStrings:[10,195],
+            stringThickness:1,
+            gridColor:"silver",
+            gridGap:8
           }
         },
         {
-          "id":"05a08d17-6c24-4447-9320-7a4261cd02d0",
-          "parent":null,
-          "type":"fence_wood_vertical",
-          "layer":0,
-          "order":0,
-          "config":{
-            "bottomLeftCoords":{
-              "x":1020,
-              "y":50
+          id:"05a08d17-6c24-4447-9320-7a4261cd02d0",
+          parent:null,
+          type:"fence_wood_vertical",
+          layer:0,
+          order:0,
+          config:{
+            bottomLeftCoords:{
+              x:1020,
+              y:50
             },
-            "height":84,
-            "width":480,
-            "orientation":0,
-            "strokeStrength":0.4,
-            "strokeColor":"black",
-            "roughOptions":{
-              "roughness":0.4
+            height:84,
+            width:480,
+            orientation:0,
+            strokeStrength:0.4,
+            strokeColor:"black",
+            roughOptions:{
+              roughness:0.4
             },
-            "pillarThickness":8,
-            "pillarTopShape":"spear",
-            "pillarTopTransition":{"x":2,"y":8},
-            "pillarTopSize":{"x":30,"y":20},
-            "pillarColor":"#523c21",
-            "barThickness":15,
-            "horizontalBarThickness":4,
-            "horizontalBarColor":"#523c21",
-            "horizontalBars":[10,70],
-            "barGap":1.5,
-            "barsBetweenPillars":10,
-            "barIndexStart":0,
-            "barsHeights":[2],
-            "barsLengths":[80],
-            "barsTopShapes":["spike"],
-            "barsTopTransitions":[{"x":15,"y":0}],
-            "barsTopSizes":[{"x":8,"y":8}],
-            "barsColors":["#523c21"],
-            "woodRoughness":4
+            pillarThickness:8,
+            pillarTopShape:"spear",
+            pillarTopTransition:{x:2,y:8},
+            pillarTopSize:{x:30,y:20},
+            pillarColor:"#523c21",
+            barThickness:15,
+            horizontalBarThickness:4,
+            horizontalBarColor:"#523c21",
+            horizontalBars:[10,70],
+            barGap:1.5,
+            barsBetweenPillars:10,
+            barIndexStart:0,
+            barsHeights:[2],
+            barsLengths:[80],
+            barsTopShapes:["spike"],
+            barsTopTransitions:[{x:15,y:0}],
+            barsTopSizes:[{x:8,y:8}],
+            barsColors:["#523c21"],
+            woodRoughness:4
           }
         },
         {
-          "id":"1802cbf8-2e0a-427e-9edf-6de9e930926b",
-          "parent":null,
-          "type":"ground_depth_concrete",
-          "layer":0,
-          "order":0,
-          "config":{
-            "startCoords":{
-              "x":0,
-              "y":50
+          id:"1802cbf8-2e0a-427e-9edf-6de9e930926b",
+          parent:null,
+          type:"ground_depth_concrete",
+          layer:0,
+          order:0,
+          config:{
+            startCoords:{
+              x:0,
+              y:50
             },
-            "orientation":1.571,
-            "depthPolygon":{
-              "startScale":0.1,
-              "endScale":0.8,
-              "points":[
-                {"distance":0,"offset":0,"length":1500},
-                {"distance":50,"offset":0,"length":1500}
+            orientation:1.571,
+            depthPolygon:{
+              startScale:0.1,
+              endScale:0.8,
+              points:[
+                {distance:0,offset:0,length:1500},
+                {distance:50,offset:0,length:1500}
               ]
             },
-            "backgroundGradient":[
-              { "position":0, "color":"hsla(197,1%,38%,1)" },
-              { "position":1, "color":"hsla(197,1%,31%,1)" }
+            backgroundGradient:[
+              { position:0, color:"hsla(197,1%,31%,1)" },
+              { position:1, color:"hsla(197,1%,38%,1)" }
             ],
-            "strokeColor":"hsla(0,0%,50%,1)",
-            "strokeMaxGapVertical":6,
-            "strokeMaxGapHorizontal":50,
-            "strokeMinWidth":1,
-            "strokeMaxWidth":5,
-            "strokeWidthRandomness":0.8
+            strokeColor:"hsla(0,0%,50%,1)",
+            strokeMaxGapVertical:6,
+            strokeMaxGapHorizontal:50,
+            strokeMinWidth:1,
+            strokeMaxWidth:5,
+            strokeWidthRandomness:0.8
           }
         }
       ],
-      "background":{
-        "color":"white",
-        "roughOptions":[
+      background:{
+        color:"white",
+        roughOptions:[
           {
-            "stroke":"transparent",
-            "fillStyle":"solid",
-            "fill":"#3057E1"
+            stroke:"transparent",
+            fillStyle:"solid",
+            fill:"#3057E1"
           },
           {
-            "stroke":"transparent",
-            "strokeWidth":2,
-            "roughness":0,
-            "fillStyle":"cross-hatch",
-            "fillWeight":0.5,
-            "hachureAngle":0,
-            "hachureGap":200,
-            "fill":"white"
+            stroke:"transparent",
+            strokeWidth:2,
+            roughness:0,
+            fillStyle:"cross-hatch",
+            fillWeight:0.5,
+            hachureAngle:0,
+            hachureGap:200,
+            fill:"white"
           },
           {
-            "stroke":"transparent",
-            "strokeWidth":2,
-            "roughness":0,
-            "fillStyle":"cross-hatch",
-            "fillWeight":0.2,
-            "hachureAngle":0,
-            "hachureGap":40,
-            "fill":"white"
+            stroke:"transparent",
+            strokeWidth:2,
+            roughness:0,
+            fillStyle:"cross-hatch",
+            fillWeight:0.2,
+            hachureAngle:0,
+            hachureGap:40,
+            fill:"white"
           }
         ]
       }
     }
   },
   {
-    "name":"level1",
-    "config":{
-      "spawn":{
-        "coordinates":{
-          "x":300,
-          "y":20
+    name:"level1",
+    config:{
+      spawn:{
+        coordinates:{
+          x:300,
+          y:20
         },
-        "direction":1,
-        "frontSide":"left",
-        "action":"idling"
+        direction:1,
+        frontSide:"left",
+        action:"idling"
       },
-      "exit":{
-        "coordinates":{
-          "x":2400,
-          "y":20
+      exit:{
+        coordinates:{
+          x:2400,
+          y:20
         }
       },
-      "levelLimits":{
-        "width":2550,
-        "height":1600,
-        "xLeft":20,
-        "xRight":20,
-        "yGround":20,
-        "yCeiling":20,
-        "color":"black",
-        "linesRoughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "bowing":0,
-          "roughness":0.8
+      levelLimits:{
+        width:2550,
+        height:1600,
+        xLeft:20,
+        xRight:20,
+        yGround:20,
+        yCeiling:20,
+        color:"black",
+        linesRoughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          bowing:0,
+          roughness:0.8
         },
-        "rectRoughOptions":{
-          "stroke":"transparent",
-          "strokeWidth":2,
-          "bowing":0,
-          "fillStyle":"cross-hatch",
-          "hachureAngle":40,
-          "fillWeight":1,
-          "roughness":0.8,
-          "fill":"white"
+        rectRoughOptions:{
+          stroke:"transparent",
+          strokeWidth:2,
+          bowing:0,
+          fillStyle:"cross-hatch",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
         }
       },
-      "blocks":{
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "fillStyle":"hachure",
-          "hachureAngle":40,
-          "fillWeight":1,
-          "roughness":0.8,
-          "fill":"white"
+      blocks:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
         },
-        "instances":[
+        instances:[
           {
-            "xLeft":400,
-            "xWidth":350,
-            "yBottom":1250,
-            "yHeight":50,
-            "color":"black"
+            xLeft:400,
+            xWidth:350,
+            yBottom:1250,
+            yHeight:50,
+            color:"black"
           },
           {
-            "xLeft":300,
-            "xWidth":500,
-            "yBottom":250,
-            "yHeight":100,
-            "color":"black"
+            xLeft:300,
+            xWidth:500,
+            yBottom:250,
+            yHeight:100,
+            color:"black"
           },
           {
-            "xLeft":1100,
-            "xWidth":400,
-            "yBottom":20,
-            "yHeight":220,
-            "color":"black"
+            xLeft:1100,
+            xWidth:400,
+            yBottom:20,
+            yHeight:220,
+            color:"black"
           },
           {
-            "xLeft":1300,
-            "xWidth":50,
-            "yBottom":240,
-            "yHeight":220,
-            "color":"black"
+            xLeft:1300,
+            xWidth:50,
+            yBottom:240,
+            yHeight:220,
+            color:"black"
           },
           {
-            "xLeft":1500,
-            "xWidth":40,
-            "yBottom":480,
-            "yHeight":40,
-            "color":"black"
+            xLeft:1500,
+            xWidth:40,
+            yBottom:480,
+            yHeight:40,
+            color:"black"
           },
           {
-            "xLeft":1640,
-            "xWidth":40,
-            "yBottom":410,
-            "yHeight":40,
-            "color":"black"
+            xLeft:1640,
+            xWidth:40,
+            yBottom:410,
+            yHeight:40,
+            color:"black"
           },
           {
-            "xLeft":1800,
-            "xWidth":300,
-            "yBottom":390,
-            "yHeight":40,
-            "color":"black"
+            xLeft:1800,
+            xWidth:300,
+            yBottom:390,
+            yHeight:40,
+            color:"black"
           },
           {
-            "xLeft":1700,
-            "xWidth":400,
-            "yBottom":700,
-            "yHeight":100,
-            "color":"black"
+            xLeft:1700,
+            xWidth:400,
+            yBottom:700,
+            yHeight:100,
+            color:"black"
           },
           {
-            "xLeft":20,
-            "xWidth":860,
-            "yBottom":700,
-            "yHeight":120,
-            "color":"black"
+            xLeft:20,
+            xWidth:860,
+            yBottom:700,
+            yHeight:120,
+            color:"black"
           },
           {
-            "xLeft":500,
-            "xWidth":40,
-            "yBottom":350,
-            "yHeight":250,
-            "color":"black"
+            xLeft:500,
+            xWidth:40,
+            yBottom:350,
+            yHeight:250,
+            color:"black"
           },
           {
-            "xLeft":1700,
-            "xWidth":100,
-            "yBottom":1000,
-            "yHeight":400,
-            "color":"black"
+            xLeft:1700,
+            xWidth:100,
+            yBottom:1000,
+            yHeight:400,
+            color:"black"
           },
           {
-            "xLeft":2100,
-            "xWidth":100,
-            "yBottom":20,
-            "yHeight":1350,
-            "color":"black"
+            xLeft:2100,
+            xWidth:100,
+            yBottom:20,
+            yHeight:1350,
+            color:"black"
           }
         ]
       },
-      "climbingHolds":{
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "fillStyle":"hachure",
-          "hachureAngle":40,
-          "fillWeight":1,
-          "roughness":0.2,
-          "fill":"white"
+      climbingHolds:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.2,
+          fill:"white"
         },
-        "instances":[]
+        instances:[]
       },
-      "ladders":{
-        "width":80,
-        "yStep":30,
-        "lineWidth":5,
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "roughness":0.8
+      ladders:{
+        width:80,
+        yStep:30,
+        lineWidth:5,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
         },
-        "instances":[
+        instances:[
           {
-            "xLeft":800,
-            "yBottom":20,
-            "yHeight":800,
-            "color":"black"
+            xLeft:800,
+            yBottom:20,
+            yHeight:800,
+            color:"black"
           }
         ]
       },
-      "ropes":{
-        "lineWidth":4,
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "roughness":0.8
+      ropes:{
+        lineWidth:4,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
         },
-        "instances":[
+        instances:[
           {
-            "anchorLeft":{
-              "x":750,
-              "y":1500
+            anchorLeft:{
+              x:750,
+              y:1500
             },
-            "anchorRight":{
-              "x":1700,
-              "y":1000
+            anchorRight:{
+              x:1700,
+              y:1000
             },
-            "color":"black"
+            color:"black"
           }
         ]
       },
-      "hazards":{
-        "spikes":{
-          "color":"black",
-          "lineWidth":4,
-          "roughOptions":{
-            "stroke":"white",
-            "strokeWidth":2,
-            "roughness":0.8
+      hazards:{
+        spikes:{
+          color:"black",
+          lineWidth:4,
+          roughOptions:{
+            stroke:"white",
+            strokeWidth:2,
+            roughness:0.8
           },
-          "instances":[
+          instances:[
             {
-              "xLeft":1500,
-              "xWidth":600,
-              "yBottom":20,
-              "yHeight":80,
-              "patternRepeat":15,
-              "direction":"up"
+              xLeft:1500,
+              xWidth:600,
+              yBottom:20,
+              yHeight:80,
+              patternRepeat:15,
+              direction:"up"
             }
           ]
         }
       },
-      "collectibles":{
-        "gears":{
-          "color":"black",
-          "lineWidth":2,
-          "roughOptions":{
-            "stroke":"white",
-            "strokeWidth":2,
-            "roughness":0.5
+      collectibles:{
+        gears:{
+          color:"black",
+          lineWidth:2,
+          roughOptions:{
+            stroke:"white",
+            strokeWidth:2,
+            roughness:0.5
           },
-          "instances":[
+          instances:[
             {
-              "coordinates":{
-                "x":450,
-                "y":400
+              coordinates:{
+                x:450,
+                y:400
               }
             },
             {
-              "coordinates":{
-                "x":1600,
-                "y":1000
+              coordinates:{
+                x:1600,
+                y:1000
               }
             },
             {
-              "coordinates":{
-                "x":1950,
-                "y":900
+              coordinates:{
+                x:1950,
+                y:900
               }
             },
             {
-              "coordinates":{
-                "x":450,
-                "y":1350
+              coordinates:{
+                x:450,
+                y:1350
               }
             }
           ]
         }
       },
-      "assets":[],
-      "background":{
-        "color":"white",
-        "roughOptions":[
+      assets:[],
+      background:{
+        color:"white",
+        roughOptions:[
           {
-            "stroke":"transparent",
-            "fillStyle":"solid",
-            "fill":"#3057E1"
+            stroke:"transparent",
+            fillStyle:"solid",
+            fill:"#3057E1"
           },
           {
-            "stroke":"transparent",
-            "strokeWidth":2,
-            "roughness":0,
-            "fillStyle":"cross-hatch",
-            "fillWeight":0.5,
-            "hachureAngle":0,
-            "hachureGap":200,
-            "fill":"white"
+            stroke:"transparent",
+            strokeWidth:2,
+            roughness:0,
+            fillStyle:"cross-hatch",
+            fillWeight:0.5,
+            hachureAngle:0,
+            hachureGap:200,
+            fill:"white"
           },
           {
-            "stroke":"transparent",
-            "strokeWidth":2,
-            "roughness":0,
-            "fillStyle":"cross-hatch",
-            "fillWeight":0.2,
-            "hachureAngle":0,
-            "hachureGap":40,
-            "fill":"white"
+            stroke:"transparent",
+            strokeWidth:2,
+            roughness:0,
+            fillStyle:"cross-hatch",
+            fillWeight:0.2,
+            hachureAngle:0,
+            hachureGap:40,
+            fill:"white"
           }
         ]
       }
     }
   },
   {
-    "name":"level2",
-    "config":{
-      "spawn":{
-        "coordinates":{
-          "x":300,
-          "y":1120
+    name:"level2",
+    config:{
+      spawn:{
+        coordinates:{
+          x:300,
+          y:1120
         },
-        "direction":1,
-        "frontSide":"left",
-        "action":"idling"
+        direction:1,
+        frontSide:"left",
+        action:"idling"
       },
-      "exit":{
-        "coordinates":{
-          "x":450,
-          "y":20
+      exit:{
+        coordinates:{
+          x:450,
+          y:20
         }
       },
-      "levelLimits":{
-        "width":2500,
-        "height":1600,
-        "xLeft":20,
-        "xRight":20,
-        "yGround":20,
-        "yCeiling":20,
-        "color":"black",
-        "linesRoughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "bowing":0,
-          "roughness":0.8
+      levelLimits:{
+        width:2500,
+        height:1600,
+        xLeft:20,
+        xRight:20,
+        yGround:20,
+        yCeiling:20,
+        color:"black",
+        linesRoughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          bowing:0,
+          roughness:0.8
         },
-        "rectRoughOptions":{
-          "stroke":"transparent",
-          "strokeWidth":2,
-          "bowing":0,
-          "fillStyle":"cross-hatch",
-          "hachureAngle":40,
-          "fillWeight":1,
-          "roughness":0.8,
-          "fill":"white"
+        rectRoughOptions:{
+          stroke:"transparent",
+          strokeWidth:2,
+          bowing:0,
+          fillStyle:"cross-hatch",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
         }
       },
-      "blocks":{
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "fillStyle":"hachure",
-          "hachureAngle":40,
-          "fillWeight":1,
-          "roughness":0.8,
-          "fill":"white"
+      blocks:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
         },
-        "instances":[
+        instances:[
           {
-            "xLeft":20,
-            "xWidth":400,
-            "yBottom":20,
-            "yHeight":1100,
-            "color":"black"
+            xLeft:20,
+            xWidth:400,
+            yBottom:20,
+            yHeight:1100,
+            color:"black"
           },
           {
-            "xLeft":420,
-            "xWidth":400,
-            "yBottom":20,
-            "yHeight":1000,
-            "color":"black"
+            xLeft:420,
+            xWidth:400,
+            yBottom:20,
+            yHeight:1000,
+            color:"black"
           },
           {
-            "xLeft":820,
-            "xWidth":400,
-            "yBottom":20,
-            "yHeight":950,
-            "color":"black"
+            xLeft:820,
+            xWidth:400,
+            yBottom:20,
+            yHeight:950,
+            color:"black"
           },
           {
-            "xLeft":1120,
-            "xWidth":100,
-            "yBottom":1050,
-            "yHeight":100,
-            "color":"black"
+            xLeft:1120,
+            xWidth:100,
+            yBottom:1050,
+            yHeight:100,
+            color:"black"
           },
           {
-            "xLeft":1760,
-            "xWidth":30,
-            "yBottom":20,
-            "yHeight":90,
-            "color":"black"
+            xLeft:1760,
+            xWidth:30,
+            yBottom:20,
+            yHeight:90,
+            color:"black"
           },
           {
-            "xLeft":1930,
-            "xWidth":30,
-            "yBottom":20,
-            "yHeight":150,
-            "color":"black"
+            xLeft:1930,
+            xWidth:30,
+            yBottom:20,
+            yHeight:150,
+            color:"black"
           },
           {
-            "xLeft":2070,
-            "xWidth":30,
-            "yBottom":20,
-            "yHeight":85,
-            "color":"black"
+            xLeft:2070,
+            xWidth:30,
+            yBottom:20,
+            yHeight:85,
+            color:"black"
           }
         ]
       },
-      "climbingHolds":{
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "fillStyle":"hachure",
-          "hachureAngle":40,
-          "fillWeight":1,
-          "roughness":0.2,
-          "fill":"white"
+      climbingHolds:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.2,
+          fill:"white"
         },
-        "instances":[
+        instances:[
           {
-            "coordinates":{
-              "x":420,
-              "y":1350
+            coordinates:{
+              x:420,
+              y:1350
             },
-            "size":30,
-            "type":"pole",
-            "hangWithLegs":false,
-            "color":"black"
+            size:30,
+            type:"pole",
+            hangWithLegs:false,
+            color:"black"
           },{
-            "coordinates":{
-              "x":1220,
-              "y":600
+            coordinates:{
+              x:1220,
+              y:600
             },
-            "size":30,
-            "type":"sideLeft",
-            "hangWithLegs":true,
-            "color":"black"
+            size:30,
+            type:"sideLeft",
+            hangWithLegs:true,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":1220,
-              "y":830
+            coordinates:{
+              x:1220,
+              y:830
             },
-            "size":30,
-            "type":"sideLeft",
-            "hangWithLegs":true,
-            "color":"black"
+            size:30,
+            type:"sideLeft",
+            hangWithLegs:true,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":1220,
-              "y":450
+            coordinates:{
+              x:1220,
+              y:450
             },
-            "size":30,
-            "type":"sideLeft",
-            "hangWithLegs":true,
-            "color":"black"
+            size:30,
+            type:"sideLeft",
+            hangWithLegs:true,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":1220,
-              "y":240
+            coordinates:{
+              x:1220,
+              y:240
             },
-            "size":30,
-            "type":"sideLeft",
-            "hangWithLegs":true,
-            "color":"black"
+            size:30,
+            type:"sideLeft",
+            hangWithLegs:true,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":1400,
-              "y":950
+            coordinates:{
+              x:1400,
+              y:950
             },
-            "size":30,
-            "type":"front",
-            "hangWithLegs":true,
-            "color":"black"
+            size:30,
+            type:"front",
+            hangWithLegs:true,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":1420,
-              "y":220
+            coordinates:{
+              x:1420,
+              y:220
             },
-            "size":30,
-            "type":"front",
-            "hangWithLegs":false,
-            "color":"black"
+            size:30,
+            type:"front",
+            hangWithLegs:false,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":1600,
-              "y":220
+            coordinates:{
+              x:1600,
+              y:220
             },
-            "size":30,
-            "type":"front",
-            "hangWithLegs":false,
-            "color":"black"
+            size:30,
+            type:"front",
+            hangWithLegs:false,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":1650,
-              "y":360
+            coordinates:{
+              x:1650,
+              y:360
             },
-            "size":30,
-            "type":"front",
-            "hangWithLegs":false,
-            "color":"black"
+            size:30,
+            type:"front",
+            hangWithLegs:false,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":2290,
-              "y":360
+            coordinates:{
+              x:2290,
+              y:360
             },
-            "size":30,
-            "type":"front",
-            "hangWithLegs":true,
-            "color":"black"
+            size:30,
+            type:"front",
+            hangWithLegs:true,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":2230,
-              "y":250
+            coordinates:{
+              x:2230,
+              y:250
             },
-            "size":30,
-            "type":"front",
-            "hangWithLegs":false,
-            "color":"black"
+            size:30,
+            type:"front",
+            hangWithLegs:false,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":2370,
-              "y":275
+            coordinates:{
+              x:2370,
+              y:275
             },
-            "size":30,
-            "type":"front",
-            "hangWithLegs":true,
-            "color":"black"
+            size:30,
+            type:"front",
+            hangWithLegs:true,
+            color:"black"
           },
           {
-            "coordinates":{
-              "x":2520,
-              "y":295
+            coordinates:{
+              x:2520,
+              y:295
             },
-            "size":30,
-            "type":"sideRight",
-            "hangWithLegs":true,
-            "color":"black"
+            size:30,
+            type:"sideRight",
+            hangWithLegs:true,
+            color:"black"
           }
         ]
       },
-      "ladders":{
-        "width":80,
-        "yStep":30,
-        "lineWidth":5,
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "roughness":0.8
+      ladders:{
+        width:80,
+        yStep:30,
+        lineWidth:5,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
         },
-        "instances":[]
+        instances:[]
       },
-      "ropes":{
-        "lineWidth":4,
-        "roughOptions":{
-          "stroke":"white",
-          "strokeWidth":2,
-          "roughness":0.8
+      ropes:{
+        lineWidth:4,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
         },
-        "instances":[]
+        instances:[]
       },
-      "hazards":{
-        "spikes":{
-          "color":"black",
-          "lineWidth":4,
-          "roughOptions":{
-            "stroke":"white",
-            "strokeWidth":2,
-            "roughness":0.8
+      hazards:{
+        spikes:{
+          color:"black",
+          lineWidth:4,
+          roughOptions:{
+            stroke:"white",
+            strokeWidth:2,
+            roughness:0.8
           },
-          "instances":[]
+          instances:[]
         }
       },
-      "collectibles":{
-        "gears":{
-          "color":"black",
-          "lineWidth":2,
-          "roughOptions":{
-            "stroke":"white",
-            "strokeWidth":2,
-            "roughness":0.5
+      collectibles:{
+        gears:{
+          color:"black",
+          lineWidth:2,
+          roughOptions:{
+            stroke:"white",
+            strokeWidth:2,
+            roughness:0.5
           },
-          "instances":[]
+          instances:[]
         }
       },
-      "assets":[],
-      "background":{
-        "color":"white",
-        "roughOptions":[
+      assets:[],
+      background:{
+        color:"white",
+        roughOptions:[
           {
-            "stroke":"transparent",
-            "fillStyle":"solid",
-            "fill":"#3057E1"
+            stroke:"transparent",
+            fillStyle:"solid",
+            fill:"#3057E1"
           },
           {
-            "stroke":"transparent",
-            "strokeWidth":2,
-            "roughness":0,
-            "fillStyle":"cross-hatch",
-            "fillWeight":0.5,
-            "hachureAngle":0,
-            "hachureGap":200,
-            "fill":"white"
+            stroke:"transparent",
+            strokeWidth:2,
+            roughness:0,
+            fillStyle:"cross-hatch",
+            fillWeight:0.5,
+            hachureAngle:0,
+            hachureGap:200,
+            fill:"white"
           },
           {
-            "stroke":"transparent",
-            "strokeWidth":2,
-            "roughness":0,
-            "fillStyle":"cross-hatch",
-            "fillWeight":0.2,
-            "hachureAngle":0,
-            "hachureGap":40,
-            "fill":"white"
+            stroke:"transparent",
+            strokeWidth:2,
+            roughness:0,
+            fillStyle:"cross-hatch",
+            fillWeight:0.2,
+            hachureAngle:0,
+            hachureGap:40,
+            fill:"white"
           }
         ]
       }
     }
   }
-]`);
+];
 var levelConfig = LoadConfig(levelConfigs,"level1");

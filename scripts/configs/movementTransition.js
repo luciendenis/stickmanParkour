@@ -1,433 +1,433 @@
-var movementTransitionConfigs = JSON.parse(`[
+var movementTransitionConfigs = [
   {
-    "from":"running",
-    "to":"falling",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"running",
+    to:"falling",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":null
+        endJunction:"fronthand",
+        direction:null
       },
       {
-        "endJunction":"backhand",
-        "direction":null
+        endJunction:"backhand",
+        direction:null
       }
     ]
   },
   {
-    "from":"running",
-    "to":"idling",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"running",
+    to:"idling",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":null
+        endJunction:"fronthand",
+        direction:null
       },
       {
-        "endJunction":"backhand",
-        "direction":null
+        endJunction:"backhand",
+        direction:null
       }
     ]
   },
   {
-    "from":"falling",
-    "to":"idling",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"falling",
+    to:"idling",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":null
+        endJunction:"fronthand",
+        direction:null
       },
       {
-        "endJunction":"backhand",
-        "direction":null
+        endJunction:"backhand",
+        direction:null
       }
     ]
   },
   {
-    "from":"falling",
-    "to":"edgePreventFall",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"falling",
+    to:"edgePreventFall",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":null
+        endJunction:"fronthand",
+        direction:null
       },
       {
-        "endJunction":"backhand",
-        "direction":null
+        endJunction:"backhand",
+        direction:null
       }
     ]
   },
   {
-    "from":"ropeDownSliding",
-    "to":"falling",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"ropeDownSliding",
+    to:"falling",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       },
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"ropeClimbing",
-    "to":"falling",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"ropeClimbing",
+    to:"falling",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       },
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"edgeHanging",
-    "to":"falling",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"edgeHanging",
+    to:"falling",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       },
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"edgeHanging",
-    "to":"edgeClimbing",
-    "sideSwitch":null,
-    "frameCount":35,
-    "rotationDirections":[]
+    from:"edgeHanging",
+    to:"edgeClimbing",
+    sideSwitch:null,
+    frameCount:35,
+    rotationDirections:[]
   },
   {
-    "from":"wallClimbing",
-    "to":"edgeHanging",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"wallClimbing",
+    to:"edgeHanging",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":1
+        endJunction:"fronthand",
+        direction:1
       },
       {
-        "endJunction":"backhand",
-        "direction":1
+        endJunction:"backhand",
+        direction:1
       }
     ]
   },
   {
-    "from":"edgeHangingWithLegs",
-    "to":"falling",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"edgeHangingWithLegs",
+    to:"falling",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       },
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"falling",
-    "to":"edgeHangingWithLegs",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"falling",
+    to:"edgeHangingWithLegs",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":1
+        endJunction:"fronthand",
+        direction:1
       },
       {
-        "endJunction":"backhand",
-        "direction":1
+        endJunction:"backhand",
+        direction:1
       }
     ]
   },
   {
-    "from":"wallPrepareJumping",
-    "to":"wallClimbing",
-    "sideSwitch":null,
-    "frameCount":8,
-    "rotationDirections":[]
+    from:"wallPrepareJumping",
+    to:"wallClimbing",
+    sideSwitch:null,
+    frameCount:8,
+    rotationDirections:[]
   },
   {
-    "from":"running",
-    "to":"crouchSliding",
-    "sideSwitch":null,
-    "frameCount":20,
-    "rotationDirections":[]
+    from:"running",
+    to:"crouchSliding",
+    sideSwitch:null,
+    frameCount:20,
+    rotationDirections:[]
   },
   {
-    "from":"crouchSliding",
-    "to":"falling",
-    "sideSwitch":null,
-    "frameCount":25,
-    "rotationDirections":[]
+    from:"crouchSliding",
+    to:"falling",
+    sideSwitch:null,
+    frameCount:25,
+    rotationDirections:[]
   },
   {
-    "from":"oneFootBalance",
-    "to":"wallClimbing",
-    "sideSwitch":null,
-    "rotationDirections":[
+    from:"oneFootBalance",
+    to:"wallClimbing",
+    sideSwitch:null,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":1
+        endJunction:"fronthand",
+        direction:1
       },
       {
-        "endJunction":"backhand",
-        "direction":1
+        endJunction:"backhand",
+        direction:1
       }
     ]
   },
   {
-    "from":"oneFootBalance",
-    "to":"oneFootBalanceTurning",
-    "sideSwitch":null,
-    "frameCount":18,
-    "rotationDirections":[]
+    from:"oneFootBalance",
+    to:"oneFootBalanceTurning",
+    sideSwitch:null,
+    frameCount:18,
+    rotationDirections:[]
   },
   {
-    "from":"oneFootBalanceTurning",
-    "to":"oneFootBalance",
-    "sideSwitch":null,
-    "frameCount":14,
-    "rotationDirections":[]
+    from:"oneFootBalanceTurning",
+    to:"oneFootBalance",
+    sideSwitch:null,
+    frameCount:14,
+    rotationDirections:[]
   },
   {
-    "from":"idling",
-    "to":"edgeHopping",
-    "sideSwitch":null,
-    "frameCount":12,
-    "rotationDirections":[]
+    from:"idling",
+    to:"edgeHopping",
+    sideSwitch:null,
+    frameCount:12,
+    rotationDirections:[]
   },
   {
-    "from":"crouching",
-    "to":"edgeHopping",
-    "sideSwitch":null,
-    "frameCount":10,
-    "rotationDirections":[]
+    from:"crouching",
+    to:"edgeHopping",
+    sideSwitch:null,
+    frameCount:10,
+    rotationDirections:[]
   },
   {
-    "from":"oneFootBalance",
-    "to":"edgeHopping",
-    "sideSwitch":null,
-    "frameCount":12,
-    "rotationDirections":[]
+    from:"oneFootBalance",
+    to:"edgeHopping",
+    sideSwitch:null,
+    frameCount:12,
+    rotationDirections:[]
   },
   {
-    "from":"edgeClimbing",
-    "to":"edgeHopping",
-    "sideSwitch":null,
-    "frameCount":10,
-    "rotationDirections":[]
+    from:"edgeClimbing",
+    to:"edgeHopping",
+    sideSwitch:null,
+    frameCount:10,
+    rotationDirections:[]
   },
   {
-    "from":"edgeHopping",
-    "to":"falling",
-    "sideSwitch":null,
-    "frameCount":12,
-    "rotationDirections":[]
+    from:"edgeHopping",
+    to:"falling",
+    sideSwitch:null,
+    frameCount:12,
+    rotationDirections:[]
   },
   {
-    "from":"oneFootBalance",
-    "to":"hoppingForwardJumping",
-    "sideSwitch":null,
-    "frameCount":10,
-    "rotationDirections":[]
+    from:"oneFootBalance",
+    to:"hoppingForwardJumping",
+    sideSwitch:null,
+    frameCount:10,
+    rotationDirections:[]
   },
   {
-    "from":"hoppingForwardLanding",
-    "to":"oneFootBalance",
-    "sideSwitch":null,
-    "frameCount":16,
-    "rotationDirections":[]
+    from:"hoppingForwardLanding",
+    to:"oneFootBalance",
+    sideSwitch:null,
+    frameCount:16,
+    rotationDirections:[]
   },
   {
-    "from":"hoppingForwardLanding",
-    "to":"hoppingForwardJumping",
-    "sideSwitch":null,
-    "frameCount":16,
-    "rotationDirections":[]
+    from:"hoppingForwardLanding",
+    to:"hoppingForwardJumping",
+    sideSwitch:null,
+    frameCount:16,
+    rotationDirections:[]
   },
   {
-    "from":"hoppingForwardLanding",
-    "to":"edgePreventFall",
-    "sideSwitch":null,
-    "frameCount":18,
-    "rotationDirections":[
+    from:"hoppingForwardLanding",
+    to:"edgePreventFall",
+    sideSwitch:null,
+    frameCount:18,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":1
+        endJunction:"fronthand",
+        direction:1
       },
       {
-        "endJunction":"backhand",
-        "direction":1
+        endJunction:"backhand",
+        direction:1
       }
     ]
   },
   {
-    "from":"edgeHangingFrontWithLegs",
-    "to":"edgeHangingFrontWithLegsReady",
-    "sideSwitch":null,
-    "frameCount":18,
-    "rotationDirections":[
+    from:"edgeHangingFrontWithLegs",
+    to:"edgeHangingFrontWithLegsReady",
+    sideSwitch:null,
+    frameCount:18,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"edgeHangingFrontWithLegsReady",
-    "to":"edgeHangingFrontWithLegs",
-    "sideSwitch":true,
-    "frameCount":18,
-    "rotationDirections":[
+    from:"edgeHangingFrontWithLegsReady",
+    to:"edgeHangingFrontWithLegs",
+    sideSwitch:true,
+    frameCount:18,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"edgeHangingFrontWithLegsReady",
-    "to":"edgeHangingFrontWithLegs",
-    "sideSwitch":false,
-    "frameCount":18,
-    "rotationDirections":[
+    from:"edgeHangingFrontWithLegsReady",
+    to:"edgeHangingFrontWithLegs",
+    sideSwitch:false,
+    frameCount:18,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":1
+        endJunction:"fronthand",
+        direction:1
       }
     ]
   },
   {
-    "from":"edgeHangingFrontWithLegs",
-    "to":"edgeHangingFrontWithLegsSideJumping",
-    "sideSwitch":false,
-    "frameCount":6,
-    "rotationDirections":[
+    from:"edgeHangingFrontWithLegs",
+    to:"edgeHangingFrontWithLegsSideJumping",
+    sideSwitch:false,
+    frameCount:6,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"edgeHangingFrontWithLegs",
-    "to":"edgeHangingFrontWithLegsSideJumping",
-    "sideSwitch":true,
-    "frameCount":6,
-    "rotationDirections":[
+    from:"edgeHangingFrontWithLegs",
+    to:"edgeHangingFrontWithLegsSideJumping",
+    sideSwitch:true,
+    frameCount:6,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":1
+        endJunction:"fronthand",
+        direction:1
       }
     ]
   },
   {
-    "from":"edgeHangingFrontWithLegsSideJumping",
-    "to":"jumping",
-    "sideSwitch":null,
-    "indexTo":1,
-    "frameCount":16,
-    "rotationDirections":[]
+    from:"edgeHangingFrontWithLegsSideJumping",
+    to:"jumping",
+    sideSwitch:null,
+    indexTo:1,
+    frameCount:16,
+    rotationDirections:[]
   },
   {
-    "from":"edgeHangingFrontWithLegs",
-    "to":"edgeHangingFrontWithLegsJumping",
-    "sideSwitch":null,
-    "frameCount":6,
-    "rotationDirections":[]
+    from:"edgeHangingFrontWithLegs",
+    to:"edgeHangingFrontWithLegsJumping",
+    sideSwitch:null,
+    frameCount:6,
+    rotationDirections:[]
   },
   {
-    "from":"edgeHangingFrontWithLegsJumping",
-    "to":"wallClimbingFront",
-    "sideSwitch":null,
-    "frameCount":16,
-    "rotationDirections":[]
+    from:"edgeHangingFrontWithLegsJumping",
+    to:"wallClimbingFront",
+    sideSwitch:null,
+    frameCount:16,
+    rotationDirections:[]
   },
   {
-    "from":"wallClimbingFront",
-    "to":"falling",
-    "sideSwitch":null,
-    "frameCount":18,
-    "rotationDirections":[
+    from:"wallClimbingFront",
+    to:"falling",
+    sideSwitch:null,
+    frameCount:18,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"edgeHangingFrontSwinging",
-    "to":"edgeHangingFrontSwingingOutForward",
-    "sideSwitch":null,
-    "frameCount":10,
-    "rotationDirections":[]
+    from:"edgeHangingFrontSwinging",
+    to:"edgeHangingFrontSwingingOutForward",
+    sideSwitch:null,
+    frameCount:10,
+    rotationDirections:[]
   },
   {
-    "from":"edgeHangingFrontSwinging",
-    "to":"edgeHangingFrontSwingingOutUp",
-    "sideSwitch":null,
-    "frameCount":18,
-    "rotationDirections":[]
+    from:"edgeHangingFrontSwinging",
+    to:"edgeHangingFrontSwingingOutUp",
+    sideSwitch:null,
+    frameCount:18,
+    rotationDirections:[]
   },
   {
-    "from":"poleSwinging",
-    "to":"poleSwingingSwichingSide",
-    "sideSwitch":null,
-    "frameCount":15,
-    "rotationDirections":[]
+    from:"poleSwinging",
+    to:"poleSwingingSwichingSide",
+    sideSwitch:null,
+    frameCount:15,
+    rotationDirections:[]
   },
   {
-    "from":"poleSwingingSwichingSide",
-    "to":"poleSwinging",
-    "sideSwitch":null,
-    "frameCount":15,
-    "rotationDirections":[]
+    from:"poleSwingingSwichingSide",
+    to:"poleSwinging",
+    sideSwitch:null,
+    frameCount:15,
+    rotationDirections:[]
   },
   {
-    "from":"poleHanging",
-    "to":"edgeClimbing",
-    "sideSwitch":null,
-    "frameCount":35,
-    "rotationDirections":[]
+    from:"poleHanging",
+    to:"edgeClimbing",
+    sideSwitch:null,
+    frameCount:35,
+    rotationDirections:[]
   },
   {
-    "from":"poleSwinging",
-    "to":"poleSwingingToOneFootBalance",
-    "sideSwitch":null,
-    "frameCount":24,
-    "rotationDirections":[
+    from:"poleSwinging",
+    to:"poleSwingingToOneFootBalance",
+    sideSwitch:null,
+    frameCount:24,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       },
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"poleSwingingToOneFootBalance",
-    "to":"oneFootBalance",
-    "sideSwitch":null,
-    "frameCount":20,
-    "rotationDirections":[]
+    from:"poleSwingingToOneFootBalance",
+    to:"oneFootBalance",
+    sideSwitch:null,
+    frameCount:20,
+    rotationDirections:[]
   }
-]`);
+];

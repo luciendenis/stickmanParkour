@@ -32,12 +32,12 @@ class Background_Mountains {
     this.seed = seed;
   }
   draw(context){
-    var t0 = performance.now();
-
-    var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    this.drawGlobal(context, false);
   }
   drawRough(context){
+    this.drawGlobal(context, true);
+  }
+  drawGlobal(context, rough){
     var t0 = performance.now();
     let randomIndex = this.seed;
     let currentWidth = 0;
@@ -231,16 +231,25 @@ class Background_Mountains {
 
     let path = svgHelper.path_Polygon_Absolute(coordsArray);
     this.fillWithGradient(path, this.topGradient);
-    context.path(
-      path,
-      {
-        fill: "transparent",
-        fillStyle: 'solid',
-        strokeWidth: this.strokeStrength,
-        stroke: (this.strokeStrength == 0 ? 'transparent' : this.strokeColor),
-        roughness: this.roughness
-      }
-    );
+
+    if(rough){
+      context.path(
+        path,
+        {
+          fill: "transparent",
+          fillStyle: 'solid',
+          strokeWidth: this.strokeStrength,
+          stroke: (this.strokeStrength == 0 ? 'transparent' : this.strokeColor),
+          roughness: this.roughness
+        }
+      );
+    }
+    else{
+      context.lineWidth = this.strokeStrength;
+      context.strokeStyle = this.strokeColor;
+      context.stroke(new Path2D(path));
+    }
+
     path = svgHelper.path_Polygon_Absolute(transitionLimitArray);
     this.fillWithGradient(path, this.baseGradient);
     for(let i = 0; i < transitionAreas.length; i++){

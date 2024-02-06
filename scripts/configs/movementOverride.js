@@ -1,37 +1,37 @@
-var movementOverrideConfigs = JSON.parse(`[
+var movementOverrideConfigs = [
   {
-    "name":"prepareJump",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "positions":[
+    name:"prepareJump",
+    config:{
+      cycle:false,
+      switchSide:false,
+      positions:[
         {
-          "elements":[
+          elements:[
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":2.5,
-                "z":1,
-                "forceRotationDirection":1
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:2.5,
+                z:1,
+                forceRotationDirection:1
               },
-              "extension":0.95
+              extension:0.95
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":2.2,
-                "z":1,
-                "forceRotationDirection":1
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:2.2,
+                z:1,
+                forceRotationDirection:1
               },
-              "extension":0.8
+              extension:0.8
             }
         	]
         }
@@ -39,94 +39,94 @@ var movementOverrideConfigs = JSON.parse(`[
     }
   },
   {
-    "name":"jumpingForward",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "positions":[
+    name:"jumpingForward",
+    config:{
+      cycle:false,
+      switchSide:false,
+      positions:[
         {
-          "offsets":{
-            "velocity":{
-              "x":8,
-              "y":-12
+          offsets:{
+            velocity:{
+              x:8,
+              y:-12
             }
           },
-          "elements":[]
+          elements:[]
         }
       ]
     }
   },
   {
-    "name":"oneFootBalanceJumpingForward",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "positions":[
+    name:"oneFootBalanceJumpingForward",
+    config:{
+      cycle:false,
+      switchSide:false,
+      positions:[
         {
-          "offsets":{
-            "velocity":{
-              "x":8,
-              "y":-9
+          offsets:{
+            velocity:{
+              x:8,
+              y:-9
             }
           },
-          "elements":[]
+          elements:[]
         }
       ]
     }
   },
   {
-    "name":"edgeHangingFrontJumpingForward",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "positions":[
+    name:"edgeHangingFrontJumpingForward",
+    config:{
+      cycle:false,
+      switchSide:false,
+      positions:[
         {
-          "offsets":{
-            "velocity":{
-              "x":6,
-              "y":-12
+          offsets:{
+            velocity:{
+              x:6,
+              y:-12
             }
           },
-          "elements":[]
+          elements:[]
         }
       ]
     }
   },
   {
-    "name":"edgeHangingTurningFall",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "positions":[
+    name:"edgeHangingTurningFall",
+    config:{
+      cycle:false,
+      switchSide:false,
+      positions:[
         {
-          "offsets":{
-            "velocity":{
-              "x":3,
-              "y":0
+          offsets:{
+            velocity:{
+              x:3,
+              y:0
             }
           },
-          "elements":[]
+          elements:[]
         }
       ]
     }
   },
   {
-    "name":"edgeHangingFrontForwardFall",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "positions":[
+    name:"edgeHangingFrontForwardFall",
+    config:{
+      cycle:false,
+      switchSide:false,
+      positions:[
         {
-          "offsets":{
-            "velocity":{
-              "x":3,
-              "y":0
+          offsets:{
+            velocity:{
+              x:3,
+              y:0
             }
           },
-          "elements":[]
+          elements:[]
         }
       ]
     }
   }
-]`);
+];
 var movementOverrideConfig = LoadConfig(movementOverrideConfigs,"prepareJump");

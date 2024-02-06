@@ -1,88 +1,87 @@
-var bodyConfigs = JSON.parse(`
-[
+var bodyConfigs = [
   {
-    "name":"default",
-    "config":{
-      "lengths":[
+    name:"default",
+    config:{
+      lengths:[
         {
-          "name":"",
-          "value":0
+          name:"",
+          value:0
         },
         {
-          "name":"neck",
-          "value":18
+          name:"neck",
+          value:18
         },
         {
-          "name":"chest",
-          "value":20
+          name:"chest",
+          value:20
         },
         {
-          "name":"upperarm",
-          "value":28
+          name:"upperarm",
+          value:28
         },
         {
-          "name":"forearm",
-          "value":24
+          name:"forearm",
+          value:24
         },
         {
-          "name":"thighs",
-          "value":36
+          name:"thighs",
+          value:36
         },
         {
-          "name":"calves",
-          "value":32
+          name:"calves",
+          value:32
         }
       ],
-      "junctions":[
+      junctions:[
         {
-          "name":"head",
-          "sizeModifier":2.5
+          name:"head",
+          sizeModifier:2.5
         },
         {
-          "name":"shoulders",
-          "sizeModifier":1
+          name:"shoulders",
+          sizeModifier:1
         },
         {
-          "name":"leftelbow",
-          "sizeModifier":1
+          name:"leftelbow",
+          sizeModifier:1
         },
         {
-          "name":"rightelbow",
-          "sizeModifier":1
+          name:"rightelbow",
+          sizeModifier:1
         },
         {
-          "name":"lefthand",
-          "sizeModifier":1
+          name:"lefthand",
+          sizeModifier:1
         },
         {
-          "name":"righthand",
-          "sizeModifier":1
+          name:"righthand",
+          sizeModifier:1
         },
         {
-          "name":"hips",
-          "sizeModifier":1
+          name:"hips",
+          sizeModifier:1
         },
         {
-          "name":"leftknee",
-          "sizeModifier":1
+          name:"leftknee",
+          sizeModifier:1
         },
         {
-          "name":"rightknee",
-          "sizeModifier":1
+          name:"rightknee",
+          sizeModifier:1
         },
         {
-          "name":"leftfoot",
-          "sizeModifier":1
+          name:"leftfoot",
+          sizeModifier:1
         },
         {
-          "name":"rightfoot",
-          "sizeModifier":1
+          name:"rightfoot",
+          sizeModifier:1
         }
       ],
-      "drawInstructions":[
+      drawInstructions:[
         {
-          "startName":"shoulders",
-          "endNames":[
+          startName:"shoulders",
+          endNames:[
             "head",
             "hips",
             "leftelbow",
@@ -90,47 +89,47 @@ var bodyConfigs = JSON.parse(`
           ]
         },
         {
-          "startName":"leftelbow",
-          "endNames":[
+          startName:"leftelbow",
+          endNames:[
             "lefthand"
           ]
         },
         {
-          "startName":"rightelbow",
-          "endNames":[
+          startName:"rightelbow",
+          endNames:[
             "righthand"
           ]
         },
         {
-          "startName":"hips",
-          "endNames":[
+          startName:"hips",
+          endNames:[
             "leftknee",
             "rightknee"
           ]
         },
         {
-          "startName":"leftknee",
-          "endNames":[
+          startName:"leftknee",
+          endNames:[
             "leftfoot"
           ]
         },
         {
-          "startName":"rightknee",
-          "endNames":[
+          startName:"rightknee",
+          endNames:[
             "rightfoot"
           ]
         }
       ],
-      "color":"black",
-      "size":13,
-      "roughOptions":{
-        "stroke":"black",
-        "strokeWidth":6,
-        "roughness":0.8,
-        "fill":"black",
-        "fillStyle":"solid"
+      color:"black",
+      size:13,
+      roughOptions:{
+        stroke:"black",
+        strokeWidth:6,
+        roughness:0.8,
+        fill:"black",
+        fillStyle:"solid"
       }
     }
   }
-]`);
+];
 var bodyConfig = LoadConfig(bodyConfigs,"default");

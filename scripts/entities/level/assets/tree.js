@@ -65,7 +65,6 @@ class Tree {
   }
   draw(context){
     var t0 = performance.now();
-    console.log("Branch count : " + this.branches.length);
     for(let i = 0; i < this.branches.length ; i++){
       this.seed = this.branches[i].drawLeavesBackLayer(this.seed,{gradient:this.leavesBackLayerGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, maxWidthForLeaves:this.maxWidthForLeaves, minSegmentForLeaves:this.minSegmentForLeaves, leavesAreaSize:this.leavesAreaSize, leavesSize:this.leavesSize, leavesCountPerBush:this.leavesCountPerBush});
     }
@@ -83,7 +82,6 @@ class Tree {
   }
   drawRough(context){
     var t0 = performance.now();
-    console.log("Branch count : " + this.branches.length);
     for(let i = 0; i < this.branches.length ; i++){
       this.seed = this.branches[i].drawLeavesBackLayer(this.seed,{gradient:this.leavesBackLayerGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, maxWidthForLeaves:this.maxWidthForLeaves, minSegmentForLeaves:this.minSegmentForLeaves, leavesAreaSize:this.leavesAreaSize, leavesSize:this.leavesSize, leavesCountPerBush:this.leavesCountPerBush});
     }

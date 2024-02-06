@@ -59,6 +59,8 @@ class Level {
     }
   }
   draw(context){
+    var t0 = performance.now();
+
     this.background.draw(context);
     for(let i = 0 ; i < this.blocks.length ; i++){
       this.blocks[i].draw(context);
@@ -79,6 +81,9 @@ class Level {
       if(this.assets[i].parent == null) this.assets[i].object.draw(context);
     }
     this.levelLimits.draw(context);
+
+    var t1 = performance.now();
+    console.log("Total render time : " + (t1 - t0) + " ms");
   }
   drawCollectibles(context){
     for(let i = 0 ; i < this.collectiblesToDraw ; i++){
@@ -102,6 +107,8 @@ class Level {
     }
   }
   drawRough(context){
+    var t0 = performance.now();
+
     this.background.drawRough(context);
     for(let i = 0 ; i < this.blocks.length ; i++){
       this.blocks[i].drawRough(context);
@@ -122,6 +129,9 @@ class Level {
       if(this.assets[i].parent == null) this.assets[i].object.drawRough(context);
     }
     this.levelLimits.drawRough(context);
+
+    var t1 = performance.now();
+    console.log("Total render time : " + (t1 - t0) + " ms");
   }
   drawCollectiblesRough(context){
     for(let i = 0 ; i < this.collectiblesToDraw ; i++){

@@ -1,280 +1,280 @@
 // This file must be loaded after movementTransition.js since it adds movements to the list movementTransitionConfigs that is declared in the file
 
 // Movements starting from PunchMid
-movementTransitionConfigs = movementTransitionConfigs.concat(JSON.parse(`[
+movementTransitionConfigs = movementTransitionConfigs.concat([
   {
-    "from":"frontHandPunchMid",
-    "to":"backHandPunchMid",
-    "sideSwitch":false,
-    "indexTo":1
+    from:"frontHandPunchMid",
+    to:"backHandPunchMid",
+    sideSwitch:false,
+    indexTo:1
   },
   {
-    "from":"backHandPunchMid",
-    "to":"frontHandPunchMid",
-    "sideSwitch":false,
-    "indexTo":1
+    from:"backHandPunchMid",
+    to:"frontHandPunchMid",
+    sideSwitch:false,
+    indexTo:1
   },
   {
-    "from":"frontHandPunchMid",
-    "to":"frontHandPunchMid",
-    "sideSwitch":true,
-    "indexTo":0,
-    "rotationDirections":[
+    from:"frontHandPunchMid",
+    to:"frontHandPunchMid",
+    sideSwitch:true,
+    indexTo:0,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":1
+        endJunction:"fronthand",
+        direction:1
       }
     ]
   },
   {
-    "from":"backHandPunchMid",
-    "to":"backHandPunchMid",
-    "sideSwitch":true,
-    "indexTo":0,
-    "rotationDirections":[
+    from:"backHandPunchMid",
+    to:"backHandPunchMid",
+    sideSwitch:true,
+    indexTo:0,
+    rotationDirections:[
       {
-        "endJunction":"backhand",
-        "direction":1
+        endJunction:"backhand",
+        direction:1
       }
     ]
   },
   {
-    "from":"frontHandPunchMid",
-    "to":"backHandPunchHigh",
-    "sideSwitch":false,
-    "indexTo":1,
-    "rotationDirections":[
+    from:"frontHandPunchMid",
+    to:"backHandPunchHigh",
+    sideSwitch:false,
+    indexTo:1,
+    rotationDirections:[
       {
-        "endJunction":"backhand",
-        "direction":1
+        endJunction:"backhand",
+        direction:1
       }
     ]
   },
   {
-    "from":"backHandPunchMid",
-    "to":"frontHandPunchHigh",
-    "sideSwitch":false,
-    "indexTo":1,
-    "rotationDirections":[
+    from:"backHandPunchMid",
+    to:"frontHandPunchHigh",
+    sideSwitch:false,
+    indexTo:1,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":1
+        endJunction:"fronthand",
+        direction:1
       }
     ]
   },
   {
-    "from":"frontHandPunchMid",
-    "to":"frontHandPunchHigh",
-    "sideSwitch":true,
-    "indexTo":0,
-    "rotationDirections":[
+    from:"frontHandPunchMid",
+    to:"frontHandPunchHigh",
+    sideSwitch:true,
+    indexTo:0,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":1
+        endJunction:"fronthand",
+        direction:1
       }
     ]
   },
   {
-    "from":"backHandPunchMid",
-    "to":"backHandPunchHigh",
-    "sideSwitch":true,
-    "indexTo":0,
-    "rotationDirections":[
+    from:"backHandPunchMid",
+    to:"backHandPunchHigh",
+    sideSwitch:true,
+    indexTo:0,
+    rotationDirections:[
       {
-        "endJunction":"backhand",
-        "direction":1
+        endJunction:"backhand",
+        direction:1
       }
     ]
   },
   {
-    "from":"frontHandPunchMid",
-    "to":"backHandPunchLow",
-    "sideSwitch":false,
-    "indexTo":1
+    from:"frontHandPunchMid",
+    to:"backHandPunchLow",
+    sideSwitch:false,
+    indexTo:1
   },
   {
-    "from":"backHandPunchMid",
-    "to":"frontHandPunchLow",
-    "sideSwitch":false,
-    "indexTo":1,
-    "rotationDirections":[
+    from:"backHandPunchMid",
+    to:"frontHandPunchLow",
+    sideSwitch:false,
+    indexTo:1,
+    rotationDirections:[
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"frontHandPunchMid",
-    "to":"frontHandPunchLow",
-    "sideSwitch":true,
-    "indexTo":0,
-    "rotationDirections":[
+    from:"frontHandPunchMid",
+    to:"frontHandPunchLow",
+    sideSwitch:true,
+    indexTo:0,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"backHandPunchMid",
-    "to":"backHandPunchLow",
-    "sideSwitch":true,
-    "indexTo":0,
-    "rotationDirections":[
+    from:"backHandPunchMid",
+    to:"backHandPunchLow",
+    sideSwitch:true,
+    indexTo:0,
+    rotationDirections:[
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       }
     ]
   }
-]`));
+]);
 
 
 
 
 // Movements starting from PunchHigh
-movementTransitionConfigs = movementTransitionConfigs.concat(JSON.parse(`[
+movementTransitionConfigs = movementTransitionConfigs.concat([
   {
-    "from":"frontHandPunchHigh",
-    "to":"backHandPunchMid",
-    "sideSwitch":false,
-    "indexTo":1
+    from:"frontHandPunchHigh",
+    to:"backHandPunchMid",
+    sideSwitch:false,
+    indexTo:1
   },
   {
-    "from":"backHandPunchHigh",
-    "to":"frontHandPunchMid",
-    "sideSwitch":false,
-    "indexTo":1
+    from:"backHandPunchHigh",
+    to:"frontHandPunchMid",
+    sideSwitch:false,
+    indexTo:1
   },
   {
-    "from":"frontHandPunchHigh",
-    "to":"frontHandPunchMid",
-    "sideSwitch":true,
-    "indexTo":0,
-    "rotationDirections":[
+    from:"frontHandPunchHigh",
+    to:"frontHandPunchMid",
+    sideSwitch:true,
+    indexTo:0,
+    rotationDirections:[
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"backHandPunchHigh",
-    "to":"backHandPunchMid",
-    "sideSwitch":true,
-    "indexTo":0,
-    "rotationDirections":[
+    from:"backHandPunchHigh",
+    to:"backHandPunchMid",
+    sideSwitch:true,
+    indexTo:0,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"frontHandPunchHigh",
-    "to":"backHandPunchHigh",
-    "sideSwitch":false,
-    "indexTo":0,
-    "frameCount":6
+    from:"frontHandPunchHigh",
+    to:"backHandPunchHigh",
+    sideSwitch:false,
+    indexTo:0,
+    frameCount:6
   },
   {
-    "from":"backHandPunchHigh",
-    "to":"frontHandPunchHigh",
-    "sideSwitch":false,
-    "indexTo":0,
-    "frameCount":6
+    from:"backHandPunchHigh",
+    to:"frontHandPunchHigh",
+    sideSwitch:false,
+    indexTo:0,
+    frameCount:6
   },
   {
-    "from":"frontHandPunchHigh",
-    "to":"frontHandPunchHigh",
-    "sideSwitch":true,
-    "indexTo":0,
-    "rotationDirections":[
+    from:"frontHandPunchHigh",
+    to:"frontHandPunchHigh",
+    sideSwitch:true,
+    indexTo:0,
+    rotationDirections:[
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       },
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"backHandPunchHigh",
-    "to":"backHandPunchHigh",
-    "sideSwitch":true,
-    "indexTo":0,
-    "rotationDirections":[
+    from:"backHandPunchHigh",
+    to:"backHandPunchHigh",
+    sideSwitch:true,
+    indexTo:0,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       },
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"frontHandPunchHigh",
-    "to":"backHandPunchLow",
-    "sideSwitch":false,
-    "indexTo":1,
-    "frameCount":14,
-    "rotationDirections":[
+    from:"frontHandPunchHigh",
+    to:"backHandPunchLow",
+    sideSwitch:false,
+    indexTo:1,
+    frameCount:14,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":1
+        endJunction:"fronthand",
+        direction:1
       }
     ]
   },
   {
-    "from":"backHandPunchHigh",
-    "to":"frontHandPunchLow",
-    "sideSwitch":false,
-    "indexTo":1,
-    "frameCount":14,
-    "rotationDirections":[
+    from:"backHandPunchHigh",
+    to:"frontHandPunchLow",
+    sideSwitch:false,
+    indexTo:1,
+    frameCount:14,
+    rotationDirections:[
       {
-        "endJunction":"backhand",
-        "direction":1
+        endJunction:"backhand",
+        direction:1
       }
     ]
   },
   {
-    "from":"frontHandPunchHigh",
-    "to":"frontHandPunchLow",
-    "sideSwitch":true,
-    "indexTo":0,
-    "frameCount":14,
-    "rotationDirections":[
+    from:"frontHandPunchHigh",
+    to:"frontHandPunchLow",
+    sideSwitch:true,
+    indexTo:0,
+    frameCount:14,
+    rotationDirections:[
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       },
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       }
     ]
   },
   {
-    "from":"backHandPunchHigh",
-    "to":"backHandPunchLow",
-    "sideSwitch":true,
-    "indexTo":0,
-    "frameCount":14,
-    "rotationDirections":[
+    from:"backHandPunchHigh",
+    to:"backHandPunchLow",
+    sideSwitch:true,
+    indexTo:0,
+    frameCount:14,
+    rotationDirections:[
       {
-        "endJunction":"backhand",
-        "direction":-1
+        endJunction:"backhand",
+        direction:-1
       },
       {
-        "endJunction":"fronthand",
-        "direction":-1
+        endJunction:"fronthand",
+        direction:-1
       }
     ]
   }
-]`));
+]);

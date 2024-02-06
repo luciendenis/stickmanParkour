@@ -1,45 +1,44 @@
-var propsConfigs = JSON.parse(`
-[
+var propsConfigs = [
   {
-    "name":"gear",
-    "config":{
-      "bounceMaxHeight":40,
-      "bounceSpeed":0.5,
-      "angleFrameDiff":0.03,
-      "teethCount":5,
-      "centerDiameter":16,
-      "innerLength":18,
-      "outerLength":22,
-      "teethFlatAngleProportion":0.35
+    name:"gear",
+    config:{
+      bounceMaxHeight:40,
+      bounceSpeed:0.5,
+      angleFrameDiff:0.03,
+      teethCount:5,
+      centerDiameter:16,
+      innerLength:18,
+      outerLength:22,
+      teethFlatAngleProportion:0.35
     }
   },
   {
-    "name":"door",
-    "config":{
-      "color":"black",
-      "lineWidth":3,
-      "curtainHeight":170,
-      "curtainWidth":100,
-      "curtainStep":5,
-      "totalWidth":140,
-      "sideHeight":200,
-      "curtainSpeed":6,
-      "fadeSpeed":0.01,
-      "roughOptions":{
-        "stroke":"white",
-        "strokeWidth":2,
-        "roughness":0.8
+    name:"door",
+    config:{
+      color:"black",
+      lineWidth:3,
+      curtainHeight:170,
+      curtainWidth:100,
+      curtainStep:5,
+      totalWidth:140,
+      sideHeight:200,
+      curtainSpeed:6,
+      fadeSpeed:0.01,
+      roughOptions:{
+        stroke:"white",
+        strokeWidth:2,
+        roughness:0.8
       },
-      "curtainRoughOptions":{
-        "stroke":"transparent",
-        "strokeWidth":2,
-        "fillStyle":"hachure",
-        "hachureAngle":90,
-        "fillWeight":1,
-        "roughness":0.8,
-        "fill":"white"
+      curtainRoughOptions:{
+        stroke:"transparent",
+        strokeWidth:2,
+        fillStyle:"hachure",
+        hachureAngle:90,
+        fillWeight:1,
+        roughness:0.8,
+        fill:"white"
       }
     }
   }
-]`);
+];
 var propConfig = LoadConfig(propsConfigs,"gear");

@@ -1,191 +1,191 @@
 // This file must be loaded after movement.js since it adds movements to the list movementConfigs that is declared in the file
-movementConfigs = movementConfigs.concat(JSON.parse(`[
+movementConfigs = movementConfigs.concat([
   {
-    "name":"frontHandPunchMid",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "resetAfter":true,
-      "positions":[
+    name:"frontHandPunchMid",
+    config:{
+      cycle:false,
+      switchSide:false,
+      resetAfter:true,
+      positions:[
         {
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":4.2,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:4.2,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.7,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":5,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":6.2,
-                "z":1
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:6.2,
+                z:1
               },
-              "extension":0.5
+              extension:0.5
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":2,
-                "z":1
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:2,
+                z:1
               },
-              "extension":0.1
+              extension:0.1
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2,
+                z:-1
               },
-              "extension":0.88
+              extension:0.88
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1.1781,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1.1781,
+                z:-1
               },
-              "extension":0.85
+              extension:0.85
             }
           ]
         },
         {
-          "offsets":{
-            "position":{
-              "x":12,
-              "y":0
+          offsets:{
+            position:{
+              x:12,
+              y:0
             }
           },
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":5.5,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:5.5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.7,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":5.5,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:5.5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":2,
-                "z":1
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:2,
+                z:1
               },
-              "extension":0.3
+              extension:0.3
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":6,
-                "z":0.1
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:6,
+                z:0.1
               },
-              "extension":0.99
+              extension:0.99
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2.2,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2.2,
+                z:-1
               },
-              "extension":0.99
+              extension:0.99
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1.3781,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1.3781,
+                z:-1
               },
-              "extension":0.82
+              extension:0.82
             }
           ]
         }
@@ -193,191 +193,191 @@ movementConfigs = movementConfigs.concat(JSON.parse(`[
     }
   },
   {
-    "name":"backHandPunchMid",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "resetAfter":true,
-      "positions":[
+    name:"backHandPunchMid",
+    config:{
+      cycle:false,
+      switchSide:false,
+      resetAfter:true,
+      positions:[
         {
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":4.2,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:4.2,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.7,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":5,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":2,
-                "z":1
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:2,
+                z:1
               },
-              "extension":0.1
+              extension:0.1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-              "xy":6.2,
-              "z":1
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+              xy:6.2,
+              z:1
               },
-              "extension":0.5
+              extension:0.5
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2,
+                z:-1
               },
-              "extension":0.88
+              extension:0.88
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1.1781,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1.1781,
+                z:-1
               },
-              "extension":0.85
+              extension:0.85
             }
           ]
         },
         {
-          "offsets":{
-            "position":{
-              "x":12,
-              "y":0
+          offsets:{
+            position:{
+              x:12,
+              y:0
             }
           },
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":6,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:6,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.7,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":5.5,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:5.5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":5.9,
-                "z":0.1
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:5.9,
+                z:0.1
               },
-              "extension":0.99
+              extension:0.99
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":2.8,
-                "z":1
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:2.8,
+                z:1
               },
-              "extension":0.8
+              extension:0.8
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2.2,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2.2,
+                z:-1
               },
-              "extension":0.99
+              extension:0.99
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1.3781,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1.3781,
+                z:-1
               },
-              "extension":0.82
+              extension:0.82
             }
           ]
         }
@@ -385,200 +385,200 @@ movementConfigs = movementConfigs.concat(JSON.parse(`[
     }
   },
   {
-    "name":"frontHandPunchHigh",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "resetAfter":true,
-      "positions":[
+    name:"frontHandPunchHigh",
+    config:{
+      cycle:false,
+      switchSide:false,
+      resetAfter:true,
+      positions:[
         {
-          "offsets":{
-            "position":{
-              "x":10,
-              "y":0
+          offsets:{
+            position:{
+              x:10,
+              y:0
             }
           },
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":5.5,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:5.5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.7,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":5.5,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:5.5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":6.2,
-                "z":0.3
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:6.2,
+                z:0.3
               },
-              "extension":0.5
+              extension:0.5
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":2.5,
-                "z":1,
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:2.5,
+                z:1,
                 "forceRotationDirection":1
               },
-              "extension":0.7
+              extension:0.7
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2.2,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2.2,
+                z:-1
               },
-              "extension":0.88
+              extension:0.88
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1.2781,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1.2781,
+                z:-1
               },
-              "extension":0.75
+              extension:0.75
             }
           ]
         },
         {
-          "offsets":{
-            "position":{
-              "x":18,
-              "y":0
+          offsets:{
+            position:{
+              x:18,
+              y:0
             }
           },
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":5,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.7,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":4.8,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:4.8,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":2.5,
-                "z":1,
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:2.5,
+                z:1,
                 "forceRotationDirection":1
               },
-              "extension":0.15
+              extension:0.15
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":5,
-                "z":1,
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:5,
+                z:1,
                 "forceRotationDirection":-1
               },
-              "extension":0.99
+              extension:0.99
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2.2,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2.2,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1.5,
-                "z":-0.5
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1.5,
+                z:-0.5
               },
-              "extension":0.82
+              extension:0.82
             }
           ]
         }
@@ -586,200 +586,200 @@ movementConfigs = movementConfigs.concat(JSON.parse(`[
     }
   },
   {
-    "name":"backHandPunchHigh",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "resetAfter":true,
-      "positions":[
+    name:"backHandPunchHigh",
+    config:{
+      cycle:false,
+      switchSide:false,
+      resetAfter:true,
+      positions:[
         {
-          "offsets":{
-            "position":{
-              "x":10,
-              "y":0
+          offsets:{
+            position:{
+              x:10,
+              y:0
             }
           },
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":5.5,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:5.5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.7,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":5.5,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:5.5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":2.5,
-                "z":1,
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:2.5,
+                z:1,
                 "forceRotationDirection":1
               },
-              "extension":0.7
+              extension:0.7
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":6.2,
-                "z":0.3
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:6.2,
+                z:0.3
               },
-              "extension":0.5
+              extension:0.5
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2.2,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2.2,
+                z:-1
               },
-              "extension":0.88
+              extension:0.88
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1.2781,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1.2781,
+                z:-1
               },
-              "extension":0.75
+              extension:0.75
             }
           ]
         },
         {
-          "offsets":{
-            "position":{
-              "x":18,
-              "y":0
+          offsets:{
+            position:{
+              x:18,
+              y:0
             }
           },
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":5,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:5,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.7,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":4.8,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:4.8,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":5,
-                "z":1,
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:5,
+                z:1,
                 "forceRotationDirection":-1
               },
-              "extension":0.99
+              extension:0.99
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":2.5,
-                "z":1,
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:2.5,
+                z:1,
                 "forceRotationDirection":1
               },
-              "extension":0.15
+              extension:0.15
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2.2,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2.2,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1.5,
-                "z":-0.5
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1.5,
+                z:-0.5
               },
-              "extension":0.82
+              extension:0.82
             }
           ]
         }
@@ -787,199 +787,199 @@ movementConfigs = movementConfigs.concat(JSON.parse(`[
     }
   },
   {
-    "name":"frontHandPunchLow",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "resetAfter":true,
-      "positions":[
+    name:"frontHandPunchLow",
+    config:{
+      cycle:false,
+      switchSide:false,
+      resetAfter:true,
+      positions:[
         {
-          "offsets":{
-            "position":{
-              "x":20,
-              "y":0
+          offsets:{
+            position:{
+              x:20,
+              y:0
             }
           },
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":5.7,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:5.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.8,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.8,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":5.7,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:5.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":0.5,
-                "z":0.3,
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:0.5,
+                z:0.3,
                 "forceRotationDirection":-1
               },
-              "extension":0.5
+              extension:0.5
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":3,
-                "z":0.1,
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:3,
+                z:0.1,
                 "forceRotationDirection":1
               },
-              "extension":0.7
+              extension:0.7
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2.6,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2.6,
+                z:-1
               },
-              "extension":0.95
+              extension:0.95
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1.2781,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1.2781,
+                z:-1
               },
-              "extension":0.55
+              extension:0.55
             }
           ]
         },
         {
-          "offsets":{
-            "position":{
-              "x":22,
-              "y":0
+          offsets:{
+            position:{
+              x:22,
+              y:0
             }
           },
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":6,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:6,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.9,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.9,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":0,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:0,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":3.5,
-                "z":1
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:3.5,
+                z:1
               },
-              "extension":0.99
+              extension:0.99
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":0.1,
-                "z":1
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:0.1,
+                z:1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2.85,
-                "z":0.8
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2.85,
+                z:0.8
               },
-              "extension":0.97
+              extension:0.97
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1,
+                z:-1
               },
-              "extension":0.35
+              extension:0.35
             }
           ]
         }
@@ -987,203 +987,203 @@ movementConfigs = movementConfigs.concat(JSON.parse(`[
     }
   },
   {
-    "name":"backHandPunchLow",
-    "config":{
-      "cycle":false,
-      "switchSide":false,
-      "resetAfter":true,
-      "positions":[
+    name:"backHandPunchLow",
+    config:{
+      cycle:false,
+      switchSide:false,
+      resetAfter:true,
+      positions:[
         {
-          "offsets":{
-            "position":{
-              "x":20,
-              "y":0
+          offsets:{
+            position:{
+              x:20,
+              y:0
             }
           },
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":5.7,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:5.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.8,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.8,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":5.7,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:5.7,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":3,
-                "z":0.1,
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:3,
+                z:0.1,
                 "forceRotationDirection":1
               },
-              "extension":0.7
+              extension:0.7
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":0.5,
-                "z":0.3,
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:0.5,
+                z:0.3,
                 "forceRotationDirection":-1
               },
-              "extension":0.5
+              extension:0.5
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2.6,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2.6,
+                z:-1
               },
-              "extension":0.95
+              extension:0.95
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1.2781,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1.2781,
+                z:-1
               },
-              "extension":0.55
+              extension:0.55
             }
           ]
         },
         {
-          "offsets":{
-            "position":{
-              "x":22,
-              "y":0
+          offsets:{
+            position:{
+              x:22,
+              y:0
             }
           },
-          "elements":[
+          elements:[
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"shoulders",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":6,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"shoulders",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:6,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"center",
-              "middleJunction":"",
-              "endJunction":"hips",
-              "startLength":"chest",
-              "endLength":"",
-              "angles":{
-                "xy":1.9,
-                "z":-1
+              startJunction:"center",
+              middleJunction:"",
+              endJunction:"hips",
+              startLength:"chest",
+              endLength:"",
+              angles:{
+                xy:1.9,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"",
-              "endJunction":"head",
-              "startLength":"neck",
-              "endLength":"",
-              "angles":{
-                "xy":0,
-                "z":-1
+              startJunction:"shoulders",
+              middleJunction:"",
+              endJunction:"head",
+              startLength:"neck",
+              endLength:"",
+              angles:{
+                xy:0,
+                z:-1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"backelbow",
-              "endJunction":"backhand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":0.1,
-                "z":1
+              startJunction:"shoulders",
+              middleJunction:"backelbow",
+              endJunction:"backhand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:0.1,
+                z:1
               },
-              "extension":1
+              extension:1
             },
             {
-              "startJunction":"shoulders",
-              "middleJunction":"frontelbow",
-              "endJunction":"fronthand",
-              "startLength":"upperarm",
-              "endLength":"forearm",
-              "angles":{
-                "xy":3.5,
-                "z":1
+              startJunction:"shoulders",
+              middleJunction:"frontelbow",
+              endJunction:"fronthand",
+              startLength:"upperarm",
+              endLength:"forearm",
+              angles:{
+                xy:3.5,
+                z:1
               },
-              "extension":0.99
+              extension:0.99
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"backknee",
-              "endJunction":"backfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":2.85,
-                "z":0.8
+              startJunction:"hips",
+              middleJunction:"backknee",
+              endJunction:"backfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:2.85,
+                z:0.8
               },
-              "extension":0.97
+              extension:0.97
             },
             {
-              "startJunction":"hips",
-              "middleJunction":"frontknee",
-              "endJunction":"frontfoot",
-              "startLength":"thighs",
-              "endLength":"calves",
-              "angles":{
-                "xy":1,
-                "z":-1
+              startJunction:"hips",
+              middleJunction:"frontknee",
+              endJunction:"frontfoot",
+              startLength:"thighs",
+              endLength:"calves",
+              angles:{
+                xy:1,
+                z:-1
               },
-              "extension":0.35
+              extension:0.35
             }
           ]
         }
       ]
     }
   }
-]`));
+]);

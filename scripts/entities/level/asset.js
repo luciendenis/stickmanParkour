@@ -29,6 +29,9 @@ function AdaptAssetToScale(asset, levelLimits, scale){
     case "background_mountains":
       object = new Background_Mountains(asset.config, levelLimits, scale, seed);
     break;
+    case "background_mist":
+      object = new Background_Mist(asset.config, levelLimits, scale, seed);
+    break;
     default:
       object = null;
   }
