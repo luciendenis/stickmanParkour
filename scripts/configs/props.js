@@ -23,7 +23,7 @@ var propsConfigs = [
       totalWidth:140,
       sideHeight:200,
       curtainSpeed:6,
-      fadeSpeed:0.01,
+      fadeSpeed:0.05,
       roughOptions:{
         stroke:"white",
         strokeWidth:2,

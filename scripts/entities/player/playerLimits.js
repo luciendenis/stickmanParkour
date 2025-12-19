@@ -108,6 +108,7 @@ Player.prototype.updatePlayerLimits = function(){ // computing what the player l
   let bottomGap = newLimits.bottom - this.limits.bottom;
   this.limits = newLimits;
   this.checkForFall(bottomGap);
+  if(newLimits.canUseExit) EndCurrentLevel();
 }
 Player.prototype.searchForUsableHold = function(xMin, xMax, yMin, yMax, direction, sortBy, sortDirection){  //checking if there is a usable hold for the player in the area
   let type = direction == 1 ? "sideRight" : "sideLeft";
@@ -259,7 +260,7 @@ Player.prototype.giveEdgeClimbingPositionIndexStartForHeight = function(height){
 }
 Player.prototype.canClimbRope = function(offsetCoords){
   offsetCoords = (offsetCoords == null) ? new Coordinates(0,0) : offsetCoords;
-  return this.limits.usableRope != null && (this.velocity.y <= 5 || (this.coordinates.y + offsetCoords.y - this.body.hitBox.totalHeight() < this.limits.usableRope.giveYforX(this.coordinates.x + offsetCoords.x)));
+  return this.limits.usableRope != null && (this.velocity.y <= 0 || (this.coordinates.y + offsetCoords.y - this.body.hitBox.totalHeight() < this.limits.usableRope.giveYforX(this.coordinates.x + offsetCoords.x)));
 }
 Player.prototype.canClimbLadder = function(offsetCoords){
   offsetCoords = (offsetCoords == null) ? new Coordinates(0,0) : offsetCoords;

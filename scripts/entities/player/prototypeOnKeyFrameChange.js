@@ -19,6 +19,12 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
         this.forceFrameCount = 20 + Math.round(Math.random()*40);
         if(this.readyToJump){
           this.crouchFactor = Math.max(settings.crouchFactorMin, this.crouchFactor - settings.crouchFactorDiff);
+          if(!this.controls.jump){
+            this.readyToJump = false;
+            this.limits.usableHold = null;
+            this.anchor = null;
+            this.jump("oneFootBalanceJumpingForward");
+          }
         }
         else if(this.wantsToKeepDirection()){
           if(this.canHopForward(null) || this.canReachHoldForward(null)){
@@ -48,17 +54,26 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
       }
     break;
     case "edgeHangingWithLegs":
-      if(!this.inTransition){
-        if(this.controls.jump){
-          this.keepNextKeyFrameReference = true;
-          this.readyToJump = true;
+      if(!this.inTransition && (this.controls.down || this.wantsToChangeDirection())){
+        this.limits.usableHold = null;
+        if(this.wantsToChangeDirection()){
+          this.direction *= -1;
+          this.setMovement("edgeHangingWithLegsTurning");
+        }
+        else{
+          this.fallFromAnchor(null);
+        }
+      }
+      else if(this.controls.jump){
+        this.readyToJump = true;
+        if(!this.inTransition){
           this.forceFrameCount = 14;
           this.setMovement("wallPrepareJumping");
         }
-        else if(this.controls.up || this.wantsToKeepDirection()){
-          if(this.canClimbEdgeFromHanging()){
-            this.climbEdgeAfterHanging();
-          }
+      }
+      else if(!this.inTransition && (this.controls.up || this.wantsToKeepDirection())){
+        if(this.canClimbEdgeFromHanging()){
+          this.climbEdgeAfterHanging();
         }
       }
     break;
@@ -401,7 +416,6 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     case "edgeHangingFront":
       if(!this.wantsNoDirection()){
         let nextDirection = this.controls.left ? -1 : 1;
-        console.log("Left ? " + this.controls.left + ", Right ? " + this.controls.right + ", next direction : " + nextDirection + ", current direction : " + this.direction);
         this.sideSwitch = (this.direction != nextDirection);
         this.forceFrameCount = 15;
         this.direction = nextDirection;

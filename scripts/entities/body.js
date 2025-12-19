@@ -132,6 +132,7 @@ class Body {
       this.junctions[config.junctions[i].name] = new Junction(this.coordinates,config.junctions[i].sizeModifier*this.bodySize,colors);
     }
     this.roughOptions = AdaptRoughOptionsToScale(config.roughOptions, scale);
+    this.roughOptionsCircle = AdaptRoughOptionsToScale(config.roughOptions, scale*.8);
   }
   draw(context){
     if(debugMode){ // drawing body hitbox
@@ -160,7 +161,7 @@ class Body {
   }
   drawRough(context){
     for(let key in this.junctions){
-      this.junctions[key].drawRough(context, this.roughOptions);
+      this.junctions[key].drawRough(context, this.roughOptionsCircle);
     }
     for(let i = 0; i < this.drawInstructions.length ; i++){
       for(let j = 0; j <this.drawInstructions[i].endNames.length; j++){

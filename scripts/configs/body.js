@@ -123,10 +123,10 @@ var bodyConfigs = [
       color:"black",
       size:13,
       roughOptions:{
-        stroke:"black",
+        stroke:"white",
         strokeWidth:6,
         roughness:0.8,
-        fill:"black",
+        fill:"white",
         fillStyle:"solid"
       }
     }

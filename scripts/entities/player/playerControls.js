@@ -8,6 +8,7 @@ class PlayerControls {
     this.jump = false;
     this.punch = false;
     this.kick = false;
+    this.parkour = false;
     this.lockedControls = [];
   }
   set(keys, down){
@@ -18,6 +19,10 @@ class PlayerControls {
           case "jump":
             this.jump = down;
             action = true;
+            break;
+          case "parkour":
+            this.parkour = down;
+            if(!action && !down) action = true;
             break;
           case "up":
             this.up = down;
@@ -62,6 +67,7 @@ class PlayerControls {
       case "right": this.right = down; break;
       case "punch": this.punch = down; break;
       case "kick":  this.kick = down; break;
+      case "parkour":  this.parkour = down; break;
     }
     setTimeout(() => {
       this.release(name);
@@ -79,7 +85,11 @@ class PlayerControls {
       case "right": this.right = GetKeyStatus(name); break;
       case "punch": this.punch = GetKeyStatus(name); break;
       case "kick":  this.kick = GetKeyStatus(name); break;
+      case "parkour":  this.parkour = GetKeyStatus(name); break;
     }
+  }
+  killAllControls(){
+    this.set(["jump", "up", "down", "left", "right", "punch", "kick", "parkour"], false);
   }
 }
 
@@ -105,4 +115,7 @@ Player.prototype.wantsToKeepDirection = function(){
 }
 Player.prototype.wantsToChangeDirection = function(){
   return ((this.direction == -1 && this.controls.right && !this.controls.left) || (this.direction == 1 && this.controls.left && !this.controls.right));
+}
+Player.prototype.killAllControls = function(){
+  this.controls.killAllControls();
 }

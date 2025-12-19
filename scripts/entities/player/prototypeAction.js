@@ -1,9 +1,6 @@
 // This file must be loaded after class Player declared player.js
 // triggered when player presses or releases a control key
 Player.prototype.action = function(){
-  if(this.limits.canUseExit && this.controls.up){
-    console.log("THE END");
-  }
   if(this.controls.punch || this.controls.kick){
     return this.fightAction(false);
   }
@@ -161,10 +158,7 @@ Player.prototype.action = function(){
       }
     break;
     case "wallPrepareJumping":
-      if(this.limits.usableHold != null && this.inTransition){
-        // in that case we prevents any action until transition is complete
-      }
-      else if(this.readyToJump && !this.controls.jump){
+      if(this.readyToJump && !this.controls.jump){
         if((this.direction == 1 && this.obstacleRight(this.coordinates)) || (this.direction == -1 && this.obstacleLeft(this.coordinates))){
           this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
           if(this.controls.up){
@@ -327,6 +321,7 @@ Player.prototype.action = function(){
           this.setMovement("edgeHangingWithLegsTurning");
         }
         else{
+          this.forceControlTemp("up", false, 250);  // prevents player from hanging again to the same hold or edge
           this.fallFromAnchor(null);
         }
       }
@@ -439,7 +434,6 @@ Player.prototype.action = function(){
         this.setMovement("poleSwingingSwichingSide");
       }
       else if(!this.inTransition && this.controls.up){
-        console.log(JSON.stringify(this.limits.usableHold));
         this.climbEdgeAfterHanging();
       }
     break;

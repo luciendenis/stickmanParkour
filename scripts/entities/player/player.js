@@ -41,46 +41,6 @@ class Player {
     this.intermediateOffsetSettings = {};
     this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
   }
-  reset(levelSpawn){
-    this.controls = new PlayerControls();
-    this.coordinates = new Coordinates(levelSpawn.coordinates.x,levelSpawn.coordinates.y);
-    this.anchor = null;
-    this.fightActions = [];
-    this.drawStartJunction = "hitboxbottom";
-    this.forcePathSettings = null;
-    this.limits = new PlayerLimits(level.levelLimits.xLeft, level.levelLimits.yCeiling, level.levelLimits.xRight, level.levelLimits.yGround);
-    this.previousAction = levelSpawn.action;
-    this.currentAction = levelSpawn.action;
-    this.currentMovement = LoadConfig(movementConfigs,this.currentAction);
-    this.currentMovementOverride = null;
-    this.currentMovementOverrideIndex = 0;
-    this.newMovement = false;
-    this.inTransition = false;
-    this.keepNextKeyFrameReference = false;
-    this.direction = levelSpawn.direction;
-    this.sideSwitch = false;
-    this.velocity = new Coordinates(0,0);
-    this.acceleration = new Coordinates(0,0);
-    this.gravityOn = false;
-    this.frontSide = levelSpawn.frontSide;
-    this.backSide = levelSpawn.frontSide == 'left' ? 'right' : 'left';
-    this.overrideFrontSide = levelSpawn.frontSide;
-    this.overrideBackSide = levelSpawn.frontSide == 'left' ? 'right' : 'left';
-    this.crouchFactor = 1;
-    this.readyToJump = false;
-    this.lastPositionKeyFrame = ApplyPositionSettings(this.currentMovement.positions[0], this.currentMovementOverride, this.frontSide, this.backSide, this.direction, new Angles(0,0,0));
-    this.currentPosition = ApplyPositionSettings(this.currentMovement.positions[0], this.currentMovementOverride, this.frontSide, this.backSide, this.direction, new Angles(0,0,0));
-    this.nextPositionKeyFrame = ApplyPositionSettings(this.currentMovement.positions[0], this.currentMovementOverride, this.frontSide, this.backSide, this.direction, new Angles(0,0,0));
-    this.currentFrame = 0;
-    this.currentFrameCount = frameInterpolationCount;
-    this.forceFrameCount = 1;
-    this.freezeFrame = false;
-    this.currentPositionIndex = 0;
-    this.forcePositionIndex = 0;
-    this.intermediatePositionSettings = {};
-    this.intermediateOffsetSettings = {};
-    this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
-  }
   setMovement(movementName){
     this.previousAction = this.currentAction;
     if(movementName != null) this.currentAction = movementName;
@@ -370,7 +330,7 @@ class Player {
     this.overrideBackSide = this.backSide;
   }
   jump(movementOverride){
-    if(this.forceFrameCount == 0) this.forceFrameCount = 6;
+    this.forceFrameCount = Math.max(6,Math.min(this.forceFrameCount, 10));
     this.readyToJump = false;
     this.currentMovementOverride = (movementOverride == null) ? null : LoadConfig(movementOverrideConfigs,movementOverride);
     this.currentMovementOverrideIndex = 0;
@@ -400,7 +360,9 @@ class Player {
     currentCenterCoords.y -= this.currentPosition.offsets["position"].y;
     let currentOffsetCoords = new Coordinates(0,0);
     if(this.currentPosition.drawStartJunction != this.nextPositionKeyFrame.drawStartJunction){
-      currentOffsetCoords = this.body.getOffsetCoordsBetweenDrawStartJunctions(this.currentPosition.drawStartJunction, this.nextPositionKeyFrame.drawStartJunction);
+      // TODO check if this code might be useful in the future
+      console.log("switchDrawStartJunction, case this.currentPosition.drawStartJunction != this.nextPositionKeyFrame.drawStartJunction");
+      //currentOffsetCoords = this.body.getOffsetCoordsBetweenDrawStartJunctions(this.currentPosition.drawStartJunction, this.nextPositionKeyFrame.drawStartJunction);
     }
     let nextOffsetCoords = this.body.getOffsetCoords("absolute", newDrawStartJunction);
     this.coordinates.x = currentCenterCoords.x + currentOffsetCoords.x - nextOffsetCoords.x;

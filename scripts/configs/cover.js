@@ -1,0 +1,30 @@
+var coverConfig = {
+  color:"#3057E1",
+  roughOptions:[
+    {
+      stroke:"transparent",
+      fillStyle:"solid",
+      fill:"#3057E1"
+    },
+    {
+      stroke:"transparent",
+      strokeWidth:2,
+      roughness:0,
+      fillStyle:"cross-hatch",
+      fillWeight:0.5,
+      hachureAngle:0,
+      hachureGap:200,
+      fill:"hsla(0,0%,100%,0.2)"
+    },
+    {
+      stroke:"transparent",
+      strokeWidth:2,
+      roughness:0,
+      fillStyle:"cross-hatch",
+      fillWeight:0.2,
+      hachureAngle:0,
+      hachureGap:40,
+      fill:"hsla(0,0%,100%,0.3)"
+    }
+  ]
+};

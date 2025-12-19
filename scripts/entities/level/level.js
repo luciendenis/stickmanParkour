@@ -1,14 +1,14 @@
 class Level {
-  constructor(spawn, exit, levelLimits, background) {
+  constructor(spawn, exit, levelLimits) {
     this.spawn = spawn;
     this.exit = exit;
     this.levelLimits = levelLimits;
-    this.background = background;
     this.blocks = [];
     this.climbingHolds = [];
     this.ladders = [];
     this.ropes = [];
     this.collectibles = [];
+    this.texts = [];
     this.collectiblesToDraw = 1;
     this.assets = [];
     this.frameWait = 5;
@@ -40,8 +40,6 @@ class Level {
     }
   }
   giveProgressiveDrawInstructions(progressiveDrawObj){
-    this.background.giveProgressiveDrawInstructions(progressiveDrawObj);
-    this.levelLimits.giveProgressiveDrawInstructions(progressiveDrawObj);
     for(let i = 0 ; i < this.blocks.length ; i++){
       this.blocks[i].giveProgressiveDrawInstructions(progressiveDrawObj);
     }
@@ -59,9 +57,9 @@ class Level {
     }
   }
   draw(context){
-    var t0 = performance.now();
-
-    this.background.draw(context);
+    for(let i = 0 ; i < this.assets.length ; i++){
+      if(this.assets[i].parent == null) this.assets[i].object.draw(context);
+    }
     for(let i = 0 ; i < this.blocks.length ; i++){
       this.blocks[i].draw(context);
     }
@@ -77,13 +75,7 @@ class Level {
     for(let i = 0 ; i < this.hazards.length ; i++){
       this.hazards[i].draw(context);
     }
-    for(let i = 0 ; i < this.assets.length ; i++){
-      if(this.assets[i].parent == null) this.assets[i].object.draw(context);
-    }
     this.levelLimits.draw(context);
-
-    var t1 = performance.now();
-    console.log("Total render time : " + (t1 - t0) + " ms");
   }
   drawCollectibles(context){
     for(let i = 0 ; i < this.collectiblesToDraw ; i++){
@@ -107,9 +99,9 @@ class Level {
     }
   }
   drawRough(context){
-    var t0 = performance.now();
-
-    this.background.drawRough(context);
+    for(let i = 0 ; i < this.assets.length ; i++){
+      if(this.assets[i].parent == null) this.assets[i].object.drawRough(context);
+    }
     for(let i = 0 ; i < this.blocks.length ; i++){
       this.blocks[i].drawRough(context);
     }
@@ -125,13 +117,12 @@ class Level {
     for(let i = 0 ; i < this.hazards.length ; i++){
       this.hazards[i].drawRough(context);
     }
-    for(let i = 0 ; i < this.assets.length ; i++){
-      if(this.assets[i].parent == null) this.assets[i].object.drawRough(context);
-    }
     this.levelLimits.drawRough(context);
-
-    var t1 = performance.now();
-    console.log("Total render time : " + (t1 - t0) + " ms");
+  }
+  drawTexts(context){
+    for(let i = 0 ; i < this.texts.length ; i++){
+      this.texts[i].draw(context);
+    }
   }
   drawCollectiblesRough(context){
     for(let i = 0 ; i < this.collectiblesToDraw ; i++){
@@ -377,7 +368,10 @@ class LevelDoor {
       drawPlayer = true; // only starting to draw the player
     }
     else if(this.type == "spawn" && this.status() == "closing"){
-      readyToPlay = true; // when curtain just finished open player can start moving
+      StartLevel();
+    }
+    else if(this.type == "exit" && this.status() == "fading"){
+      drawPlayer = false; // stop drawing the player
     }
   }
   status(){
@@ -416,7 +410,6 @@ class LevelDoor {
     if(this.roughDrawCount == this.roughDrawInstructions.length){ // checking the door is fully drawn before drawing the curtain
       context.clearRect(this.coordinates.x - this.settings.curtainWidth/2, this.coordinates.y, this.settings.curtainWidth, -this.settings.curtainHeight);
     }
-    readyToPlay = true;
   }
   drawRough(roughContext, context){
     if(this.roughDrawInstructions.length == 0){
@@ -635,6 +628,29 @@ class LevelHazard {
   }
 }
 
+class LevelText {
+  constructor(coordinates, fontColor, fontSize, text) {
+    this.coordinates = coordinates;
+    this.fontColor = fontColor;
+    this.fontSize = fontSize;
+    this.text = text;
+  }
+  draw(context){
+    context.font = this.fontSize + "px Fredericka the Great";
+    context.lineWidth = this.fontSize*0.02;
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.strokeStyle = this.fontColor;
+    context.beginPath();
+    for(let i = 0; i < this.text.length; i++){
+      context.strokeText(this.text[i], this.coordinates.x, this.coordinates.y + i*(this.fontSize*1.5));
+    }
+  }
+  drawRough(context){
+    this.draw(context);
+  }
+}
+
 class LevelLimits {
   constructor(width, height, xLeft, xRight, yGround, yCeiling, color, linesRoughOptions, rectRoughOptions) {
     this.width = width;
@@ -676,32 +692,6 @@ class LevelLimits {
   }
 }
 
-class LevelBackground {
-  constructor(color, roughOptions) {
-    this.color = color;
-    this.roughOptions = roughOptions;
-  }
-  giveProgressiveDrawInstructions(progressiveDrawObj){
-    let gap = 50;
-    for(let wid = gap; wid <= innerWidth; wid+=gap){
-      let fullBg = "";
-      for(let i = 0; i < this.roughOptions.length; i++){
-        fullBg += "context.rectangle(0,0," + Math.min(wid+gap,innerWidth) + "," + innerHeight + "," + JSON.stringify(this.roughOptions[i]) + ");";
-      }
-      progressiveDrawObj.drawFunctions.push(new Function("context", fullBg));
-    }
-  }
-  draw(context){
-    context.fillStyle = this.color;
-    context.fillRect(0,0,innerWidth,innerHeight);
-  }
-  drawRough(context){
-    for(let i = 0; i < this.roughOptions.length; i++){
-      context.rectangle(0,0,innerWidth,innerHeight, this.roughOptions[i]);
-    }
-  }
-}
-
 class GearsState {
   constructor(settings) {
     this.settings = settings;
@@ -734,10 +724,6 @@ function AdaptLevelToScale(levelSettings, width, height, scale){
   // calculating the offsets to put the level at the center of the screen
   let xOffset = (width - (levelSettings.levelLimits.width + levelSettings.levelLimits.xLeft + levelSettings.levelLimits.xRight)*scale)/2;
   let yOffset = (height - (levelSettings.levelLimits.height + levelSettings.levelLimits.yCeiling + levelSettings.levelLimits.yGround)*scale)/2;
-  let backgroundRoughOptions = [];
-  for(let i = 0; i < levelSettings.background.roughOptions.length; i++){
-    backgroundRoughOptions.push(AdaptRoughOptionsToScale(levelSettings.background.roughOptions[i],scale));
-  }
   let limitslinesRoughOptions = AdaptRoughOptionsToScale(levelSettings.levelLimits.linesRoughOptions, scale);
   let limitsRectRoughOptions = AdaptRoughOptionsToScale(levelSettings.levelLimits.rectRoughOptions, scale);
   var newLevel = new Level(
@@ -760,8 +746,7 @@ function AdaptLevelToScale(levelSettings, width, height, scale){
       levelSettings.levelLimits.color,
       limitslinesRoughOptions,
       limitsRectRoughOptions
-    ),
-    new LevelBackground(levelSettings.background.color, levelSettings.background.roughOptions)
+    )
   );
   let blocksRoughOptions = AdaptRoughOptionsToScale(levelSettings.blocks.roughOptions, scale);
   for(let i = 0 ; i < levelSettings.blocks.instances.length ; i++){
@@ -823,7 +808,7 @@ function AdaptLevelToScale(levelSettings, width, height, scale){
       collectiblesGearsRoughOptions
     ));
   }
-  newLevel.collectiblesToDraw = progressiveDrawMode ? 1 : newLevel.collectibles.length;
+  newLevel.collectiblesToDraw = progressiveDrawMode ? 0 : newLevel.collectibles.length;
   let hazardsSpikesRoughOptions = AdaptRoughOptionsToScale(levelSettings.hazards.spikes.roughOptions, scale);
   for(let i = 0; i < levelSettings.hazards.spikes.instances.length ; i++){
     let spike = levelSettings.hazards.spikes.instances[i];
@@ -838,6 +823,15 @@ function AdaptLevelToScale(levelSettings, width, height, scale){
       levelSettings.hazards.spikes.color,
       levelSettings.hazards.spikes.lineWidth*scale,
       hazardsSpikesRoughOptions
+    ));
+  }
+  for(let i = 0; i < levelSettings.texts.length; i++){
+    let text = levelSettings.texts[i];
+    newLevel.texts.push(new LevelText(
+      new Coordinates(text.coordinates.x*scale+xOffset, height - text.coordinates.y*scale-yOffset),
+      text.fontColor,
+      text.fontSize*scale,
+      text.text
     ));
   }
   for(let i = 0; i < levelSettings.assets.length; i++){

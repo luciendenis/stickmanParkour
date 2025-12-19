@@ -2,12 +2,66 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Ragdoll run</title>
   </head>
   <body>
     <canvas id="playground"></canvas>
     <canvas id="level"></canvas>
+    <canvas id="cover"></canvas>
+    <div id="current-time">--:--.---</div>
+    <div class="menu-container">
+      <div id="main-menu" class="menu">
+        <div class="menu-header menu-header-title">Ragdoll run</div>
+        <div class="menu-item menu-select" data-destination="level-selection-menu">LEVELS</div>
+        <div class="menu-item menu-select" data-destination="controls-menu">CONTROLS</div>
+      </div>
+      <div id="level-selection-menu" class="menu">
+        <div class="menu-header">Level selection</div>
+        <div id="best-time">Best time : --:--.---</div>
+        <div id="menu-scroll-levels" class="menu-section">
+          <div class="menu-section-header">Tutorials</div>
+          <div class="menu-section-content">
+            <div class="level-select selectable" data-destination="tutorial1">1</div>
+            <div class="level-select" data-destination="tutorial2">2</div>
+            <div class="level-select" data-destination="tutorial3">3</div>
+            <div class="level-select" data-destination="tutorial4">4</div>
+            <div class="level-select" data-destination="tutorial5">5</div>
+            <div class="level-select" data-destination="tutorial6">6</div>
+          </div>
+          <div class="menu-section-separator"></div>
+        </div>
+        <div class="menu-item menu-select" data-destination="main-menu" data-shortcut="ESC">Back (ESC)</div>
+      </div>
+      <div id="controls-menu" class="menu">
+        <div class="menu-header">Controls</div>
+        <div class="menu-section">
+          <div class="menu-section-content">
+            - Use the arrow left and arrow right keys to move around<br/>
+            - Use the arrow down key to crouch, if you have enough speed you will slide on the floor<br/>
+            - Use the arrow up key to get up, use a ladder, a rope or climb an edge<br/>
+            - Press the spacebar to prepare for a jump, release to jump. Keep it down longer to jump higher. You can use it a second time if you are close to a wall and do a wall jump.<br/>
+          </div>
+        </div>
+        <div class="menu-item menu-select" data-destination="main-menu" data-shortcut="ESC">Back (ESC)</div>
+      </div>
+      <div id="pause-menu" class="menu">
+        <div class="menu-header">Pause</div>
+        <div class="menu-item menu-select" data-destination="resume" data-shortcut="ENTER">Resume (ENTER)</div>
+        <div class="menu-item menu-select" data-destination="restart" data-shortcut="R">Restart (R)</div>
+        <div class="menu-item menu-select" data-destination="main-menu" data-shortcut="ESC">Exit (ESC)</div>
+      </div>
+      <div id="level-end-menu" class="menu">
+        <div class="menu-header">Level cleared !</div>
+        <div id="end-menu-time" class="menu-header">Time : --:--.---</div>
+        <div id="next-level-selector" class="menu-item menu-select" data-destination="nextLevel" data-shortcut="ENTER">Next (ENTER)</div>
+        <div class="menu-item menu-select" data-destination="restart" data-shortcut="R">Restart (R)</div>
+        <div class="menu-item menu-select" data-destination="main-menu" data-shortcut="ESC">Exit (ESC)</div>
+      </div>
+    </div>
 
     <!--<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/rough.js/2.2.5/rough.min.js'></script>-->
     <script type="text/javascript" src='scripts/rough.min.js'></script>
@@ -16,6 +70,7 @@
 
     <script type="text/javascript" src="scripts/configs/settings.js"></script>
     <script type="text/javascript" src="scripts/configs/body.js"></script>
+    <script type="text/javascript" src="scripts/configs/cover.js"></script>
     <script type="text/javascript" src="scripts/configs/movement.js"></script>
     <script type="text/javascript" src="scripts/configs/movementFight.js"></script>
     <script type="text/javascript" src="scripts/configs/movementTransition.js"></script>
@@ -24,6 +79,7 @@
     <script type="text/javascript" src="scripts/configs/levels.js"></script>
     <script type="text/javascript" src="scripts/configs/props.js"></script>
 
+    <script type="text/javascript" src="scripts/entities/cover.js"></script>
     <script type="text/javascript" src="scripts/entities/body.js"></script>
     <script type="text/javascript" src="scripts/entities/player/player.js"></script>
     <script type="text/javascript" src="scripts/entities/player/prototypeAction.js"></script>
@@ -49,6 +105,7 @@
     <script type="text/javascript" src="scripts/entities/level/assets/background_mountains.js"></script>
     <script type="text/javascript" src="scripts/entities/level/assets/background_mist.js"></script>
 
+    <script type="text/javascript" src="scripts/TimerHelper.js"></script>
     <script type="text/javascript" src="scripts/tools.js"></script>
     <script type="text/javascript" src="scripts/randomHandler.js"></script>
     <script type="text/javascript" src="scripts/hslaColorHelper.js"></script>
@@ -56,6 +113,7 @@
     <script type="text/javascript" src="scripts/svgHelper.js"></script>
     <script type="text/javascript" src="scripts/settings.js"></script>
     <script type="text/javascript" src="scripts/drawing.js"></script>
+    <script type="text/javascript" src="scripts/menus.js"></script>
     <script type="text/javascript" src="scripts/main.js"></script>
   </body>
 </html>

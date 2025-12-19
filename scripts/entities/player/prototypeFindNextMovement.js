@@ -155,8 +155,12 @@ Player.prototype.findNextMovement = function(){
         this.limits.reachableBlockStandingPoint = null;
         this.sideSwitch = true;
         if(this.wantsToKeepDirection()){
-          if(this.canHopForward(null) || this.canReachHoldForward(null)){
+          if((this.canHopForward(null) || this.canReachHoldForward(null)) && this.controls.parkour){
             this.prepareHopForward();
+          }
+          else if(this.controls.jump){
+            this.readyToJump = true;
+            this.setMovement("oneFootBalance");
           }
           else{
             this.setMovement("edgePreventFall");
@@ -204,7 +208,7 @@ Player.prototype.findNextMovement = function(){
             this.setMovement("edgeHangingFrontWithLegsReady");
           }
         }
-        else if(this.wantsToKeepDirection()){
+        else if(this.wantsToKeepDirection() && this.controls.parkour){
           this.setMovement("edgeHangingFrontWithLegsHopping");
         }
         else if(this.wantsToChangeDirection()){

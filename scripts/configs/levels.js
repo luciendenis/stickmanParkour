@@ -1,11 +1,11 @@
 var levelConfigs = [
   {
-    name:"level0",
+    name:"tutorial1",
     config:{
       spawn:{
         coordinates:{
           x:150,
-          y:45
+          y:20
         },
         direction:1,
         frontSide:"left",
@@ -13,20 +13,20 @@ var levelConfigs = [
       },
       exit:{
         coordinates:{
-          x:450,
+          x:1350,
           y:20
         }
       },
       levelLimits:{
         width:1500,
-        height:800,
+        height:400,
         xLeft:20,
         xRight:20,
         yGround:20,
         yCeiling:20,
         color:"black",
         linesRoughOptions:{
-          stroke:"black",
+          stroke:"white",
           strokeWidth:2,
           bowing:0,
           roughness:0.8
@@ -34,26 +34,25 @@ var levelConfigs = [
         rectRoughOptions:{
           stroke:"transparent",
           strokeWidth:2,
-          fillStyle:"solid",
-          fill:"black",
-          roughness:0
+          bowing:0,
+          fillStyle:"cross-hatch",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
         }
       },
       blocks:{
         roughOptions:{
-          stroke:"transparent",
-          strokeWidth:0,
-          fillStyle:"solid"
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
         },
-        instances:[
-          {
-            xLeft:20,
-            xWidth:1500,
-            yBottom:0,
-            yHeight:45,
-            color:"transparent"
-          }
-        ]
+        instances:[]
       },
       climbingHolds:{
         roughOptions:{
@@ -92,13 +91,21 @@ var levelConfigs = [
           color:"black",
           lineWidth:4,
           roughOptions:{
-            stroke:"white",
+            stroke:"red",
             strokeWidth:2,
             roughness:0.8
           },
           instances:[]
         }
       },
+      texts:[
+        {
+          coordinates:{ x:500, y:300},
+          fontColor:"white",
+          fontSize:20,
+          text:["Use ARROW LEFT and ARROW RIGHT to move,", "move around to collect all the gears,","then go to the exit to finish the level"]
+        }
+      ],
       collectibles:{
         gears:{
           color:"black",
@@ -108,611 +115,25 @@ var levelConfigs = [
             strokeWidth:2,
             roughness:0.5
           },
-          instances:[]
+          instances:[
+            {
+              coordinates:{
+                x:900,
+                y:100
+              }
+            }
+          ]
         }
       },
-      assets:[
-        {
-          id:"8651ad00-d0da-44ba-b66b-b9fc0de33d5a",
-          parent:null,
-          type:"background_sky",
-          config:{
-            gradient:[
-              { position:0, color:"hsla(222,88%,56%,1)" },
-              { position:1, color:"hsla(195,87%,67%,1)" }
-            ]
-          }
-        },
-        {
-          id:"48d14c6e-7107-4c16-b139-169eead40b7e",
-          parent:null,
-          type:"background_mountains",
-          config:{
-            topLeftCoords:{
-              x:0,
-              y:380
-            },
-            sizeCoords:{
-              x:1500,
-              y:210
-            },
-            orientation:0,
-            strokeStrength:0.3,
-            strokeColor:"black",
-            baseGradient:[
-              { position:0, color:"hsla(41,23%,12%,0.6)" },
-              { position:0.3, color:"hsla(41,23%,20%,0.8)" },
-              { position:1, color:"hsla(85,20%,10%,0.8)" }
-            ],
-            topGradient:[
-              { position:0, color:"hsla(185,65%,92%,1)" },
-              { position:1, color:"hsla(195,65%,85%,1)" }
-            ],
-            topShadowGradient:[
-              { position:0, color:"hsla(195,60%,20%,0.30)" },
-              { position:1, color:"hsla(205,60%,20%,0.55)" }
-            ],
-            randomShadowGradient:[
-              { position:0, color:"hsla(195,45%,20%,0.25)" },
-              { position:0.25, color:"hsla(205,45%,20%,0.35)" },
-              { position:0.35, color:"hsla(0,0%,20%,0.3)" },
-              { position:1, color:"hsla(0,0%,20%,0.5)" }
-            ],
-            rockGradient:[
-              { position:0, color:"hsla(41,23%,12%,0.6)" },
-              { position:1, color:"hsla(41,23%,20%,0.8)" }
-            ],
-            treeGradient:[
-              { position:0, color:"hsla(85,15%,16%,0.6)" },
-              { position:1, color:"hsla(85,15%,16%,0.8)" }
-            ],
-            yMin:0,
-            yMax:50,
-            yMinSnow:80,
-            yMaxSnow:120,
-            xStep:3,
-            yStepMin:0,
-            yStepMax:5,
-            yInvertProbability:0.2,
-            rockDensity:0.5,
-            randomShadowDensity:1,
-            randomShadowLength:30,
-            randomShadowWidth:8,
-            treeClusterDensity:[
-              { y:0,density:0,scale:0 },
-              { y:0.35,density:0,scale:0.7 },
-              { y:0.5,density:0.5,scale:1.1 },
-              { y:1,density:1,scale:1.8 }
-            ],
-            treeClusterSize:25,
-            treeClusterYStep:30,
-            treeCountPerCluster:8,
-            treeSize:{x:2,y:6},
-            roughness:0.5
-          }
-        },
-        {
-          id:"48a6611c-bc7d-4c58-8817-019377a4a346",
-          parent:null,
-          type:"background_mist",
-          config:{
-            topLeftCoords:{
-              x:0,
-              y:450
-            },
-            sizeCoords:{
-              x:1500,
-              y:280
-            },
-            orientation:0,
-            baseGradient:[
-              { position:0, color:"hsla(185,65%,92%,0)" },
-              { position:0.7, color:"hsla(195,65%,85%,0.2)" },
-              { position:1, color:"hsla(195,65%,85%,0.5)" }
-            ],
-            cloudGradient:[
-              { position:0, color:"hsla(185,65%,92%,0.1)" },
-              { position:0.7, color:"hsla(195,65%,85%,0.02)" },
-              { position:1, color:"hsla(195,65%,85%,0)" }
-            ],
-            cloudClusterDensity:[
-              { y:0,density:0,scale:0 },
-              { y:0.4,density:0,scale:0.7 },
-              { y:0.7,density:0.5,scale:1.1 },
-              { y:1,density:1,scale:2 }
-            ],
-            cloudClusterSize:25,
-            cloudClusterXStep:20,
-            cloudClusterYStep:15,
-            cloudCountPerCluster:8,
-            cloudSize:{x:10,y:6}
-          }
-        },
-        {
-          id:"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
-          parent:null,
-          type:"ground_depth_grass",
-          layer:0,
-          order:0,
-          config:{
-            startCoords:{
-              x:0,
-              y:190
-            },
-            orientation:1.571,
-            strokeColor:"black",
-            strokeStrength:0.2,
-            depthPolygon:{
-              startScale:0.12,
-              endScale:0.8,
-              points:[
-                {distance:0,offset:0,length:1500},
-                {distance:140,offset:0,length:1500}
-              ]
-            },
-            backgroundGradient:[
-              { position:0, color:"hsla(142,40%,30%,1)" },
-              { position:1, color:"hsla(92,64%,49%,1)" }
-            ],
-            grassGradient:[
-              { position:0, color:"hsla(120,35%,35%,0.95)" },
-              { position:1, color:"hsla(95,60%,45%,0.95)" }
-            ],
-            grassVariationGradient:[
-              { position:0, color:"hsla(10,10%,25%,0)" },
-              { position:1, color:"hsla(30,35%,40%,0)" }
-            ],
-            tuftSize:180,
-            tuftBowing:1.5,
-            tuftMaxGapVertical:12,
-            tuftMaxGapHorizontal:14,
-            leafColorVariation:"hsla(20,30%,15%,0)",
-            leafDensity:0.4,
-            leafAngle:0.7,
-            leafBowing:0.5,
-            leafMinWidth:1.5,
-            leafMaxWidth:5,
-            leafWidthRandomness:0.5,
-            leafMinHeight:8,
-            leafMaxHeight:30,
-            leafHeightRandomness:0.4,
-            leafStrokeProbability:0.15,
-            roughness:0.2
-          }
-        },
-        {
-          id:"2c6ccf1a-0c8a-4213-89e5-d7cfaf43a98c",
-          parent:"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
-          type:"tree",
-          layer:0,
-          order:0,
-          config:{
-            startCoords:{
-              x:500,
-              y:100
-            },
-            orientation:4.712,
-            baseWidth:20,
-            minWidthForTrunc:5,
-            truncLines:9,
-            truncLinesCuts:15,
-            truncLinesRoughness:2,
-            minWidth:1,
-            widthLossfactor:0.2,
-            baseLength:35,
-            minLength:5,
-            lengthLossfactor:0.08,
-            maxDeviation:0.3,
-            segmentsLimit:20,
-            layerCount:4,
-            splitProbability:0.5,
-            maxWidthForSplit:12,
-            splitAngle:0.6,
-            splitAngleRandom:0.2,
-            splitAngleDistribution:1,
-            splitWidthFactor:0.7,
-            minSegmentForLeaves:2,
-            maxWidthForLeaves:6,
-            leavesAreaSize:25,
-            leavesCountPerBush:15,
-            leavesSize:{x:25,y:1},
-            branchesGradient:[
-              { position:0, color:"hsla(14, 20%, 15%, 1)" },
-              { position:1, color:"hsla(33, 30%, 25%, 1)" }
-            ],
-            leavesBackLayerGradient:[
-              { position:0, color:"hsla(100, 35%, 5%, 1)" },
-              { position:1, color:"hsla(100, 55%, 40%, 1)" }
-            ],
-            leavesShadowLayerGradient:[
-              { position:0, color:"hsla(100, 30%, 10%, 0.5)" },
-              { position:1, color:"hsla(100, 30%, 10%, 0.5)" }
-            ],
-            leavesFrontLayerGradient:[
-              { position:0, color:"hsla(100, 30%, 10%, 1)" },
-              { position:1, color:"hsla(100, 60%, 50%, 1)" }
-            ],
-            strokeStrength:0.5,
-            roughness:0.3
-          }
-        },
-        {
-          id:"45acd900-d3fa-4626-9c97-6c76c26f3b3c",
-          parent:"e52a1211-bc43-48f2-ac32-5fa9d5f693bf",
-          type:"tree",
-          layer:0,
-          order:0,
-          config:{
-            startCoords:{
-              x:1000,
-              y:100
-            },
-            orientation:4.712,
-            baseWidth:20,
-            minWidthForTrunc:5,
-            truncLines:9,
-            truncLinesCuts:15,
-            truncLinesRoughness:2,
-            minWidth:1,
-            widthLossfactor:0.2,
-            baseLength:35,
-            minLength:5,
-            lengthLossfactor:0.08,
-            maxDeviation:0.3,
-            segmentsLimit:20,
-            layerCount:4,
-            splitProbability:0.5,
-            maxWidthForSplit:12,
-            splitAngle:0.6,
-            splitAngleRandom:0.2,
-            splitAngleDistribution:1,
-            splitWidthFactor:0.7,
-            minSegmentForLeaves:2,
-            maxWidthForLeaves:6,
-            leavesAreaSize:25,
-            leavesCountPerBush:30,
-            leavesSize:{x:25,y:3},
-            branchesGradient:[
-              { position:0, color:"hsla(14, 20%, 15%, 1)" },
-              { position:1, color:"hsla(33, 30%, 25%, 1)" }
-            ],
-            leavesBackLayerGradient:[
-              { position:0, color:"hsla(100, 35%, 5%, 1)" },
-              { position:1, color:"hsla(100, 55%, 40%, 1)" }
-            ],
-            leavesShadowLayerGradient:[
-              { position:0, color:"hsla(100, 30%, 10%, 0.5)" },
-              { position:1, color:"hsla(100, 30%, 10%, 0.5)" }
-            ],
-            leavesFrontLayerGradient:[
-              { position:0, color:"hsla(100, 30%, 10%, 1)" },
-              { position:1, color:"hsla(100, 60%, 50%, 1)" }
-            ],
-            strokeStrength:0.5,
-            roughness:0.3
-          }
-        },
-        {
-          id:"c70f6fa0-591f-4808-bfd4-292b456c0213",
-          parent:null,
-          type:"wall_bricks",
-          layer:0,
-          order:0,
-          config:{
-            bottomLeftCoords:{
-              x:0,
-              y:50
-            },
-            height:80,
-            width:190,
-            orientation:0,
-            layerHeightMin:15,
-            layerHeightMax:20,
-            brickWidthMin:50,
-            brickWidthMax:55,
-            brickBorderRadius:3,
-            jointThickness:0.2,
-            strokeStrength:0.4,
-            strokeColor:"black",
-            roughOptions:{
-              roughness:0.6
-            },
-            brickColors:[
-              "#b55b37",
-              "#94472a",
-              "#c8613a",
-              "#dd5c38",
-              "#d46239"
-            ],
-            jointColor:"#6f6d64",
-            brickRoughness:6
-          }
-        },
-        {
-          id:"b869ff32-25d5-464f-8f34-f94befcdee77",
-          parent:null,
-          type:"wall_bricks",
-          layer:0,
-          order:0,
-          config:{
-            bottomLeftCoords:{
-              x:0,
-              y:128
-            },
-            height:8,
-            width:195,
-            orientation:0,
-            layerHeightMin:20,
-            layerHeightMax:20,
-            brickWidthMin:110,
-            brickWidthMax:130,
-            brickBorderRadius:0,
-            jointThickness:1.5,
-            strokeStrength:0.4,
-            strokeColor:"black",
-            roughOptions:{
-              roughness:0.4
-            },
-            brickColors:[
-              "#c6c5c0",
-              "#c3c1bc",
-              "#bfbdb8"
-            ],
-            jointColor:"#ededeb",
-            brickRoughness:10
-          }
-        },
-        {
-          id:"9446dde9-75b8-4681-a1ad-1ecb0adc7343",
-          parent:null,
-          type:"fence_metal_bars",
-          layer:0,
-          order:0,
-          config:{
-            bottomLeftCoords:{
-              x:0,
-              y:136
-            },
-            height:150,
-            width:190,
-            orientation:0,
-            strokeStrength:0.4,
-            strokeColor:"black",
-            roughOptions:{
-              roughness:0.4
-            },
-            pillarThickness:8,
-            pillarTopShape:"spear",
-            pillarTopTransition:{x:2,y:8},
-            pillarTopSize:{x:30,y:20},
-            pillarColor:"#545454",
-            barThickness:4,
-            horizontalBarThickness:4,
-            horizontalBarColor:"#545454",
-            horizontalBars:[20,130],
-            barGap:15,
-            barsBetweenPillars:10,
-            barIndexStart:0,
-            barsHeights:[5],
-            barsLengths:[130,138,144,148,150,148,144,138],
-            barsTopShapes:["ball","spike"],
-            barsTopTransitions:[{x:2,y:6},{x:4,y:0}],
-            barsTopSizes:[{x:3,y:0},{x:0,y:12}],
-            barsColors:["#545454"]
-          }
-        },
-        {
-          id:"a44213d1-af81-47fa-99fa-926b022a5f4c",
-          parent:null,
-          type:"wall_bricks",
-          layer:0,
-          order:0,
-          config:{
-            bottomLeftCoords:{
-              x:185,
-              y:50
-            },
-            height:250,
-            width:50,
-            orientation:0,
-            layerHeightMin:15,
-            layerHeightMax:20,
-            brickWidthMin:50,
-            brickWidthMax:55,
-            brickBorderRadius:3,
-            jointThickness:0.2,
-            strokeStrength:0.4,
-            strokeColor:"black",
-            roughOptions:{
-              roughness:0.6
-            },
-            brickColors:[
-              "#b55b37",
-              "#94472a",
-              "#c8613a",
-              "#dd5c38",
-              "#d46239"
-            ],
-            jointColor:"#6f6d64",
-            brickRoughness:6
-          }
-        },
-        {
-          id:"406c3fca-70f0-44c2-98a2-af9baf037e88",
-          parent:null,
-          type:"wall_bricks",
-          layer:0,
-          order:0,
-          config:{
-            bottomLeftCoords:{
-              x:180,
-              y:298
-            },
-            height:8,
-            width:60,
-            orientation:0,
-            layerHeightMin:20,
-            layerHeightMax:20,
-            brickWidthMin:110,
-            brickWidthMax:130,
-            brickBorderRadius:0,
-            jointThickness:1.5,
-            strokeStrength:0.4,
-            strokeColor:"black",
-            roughOptions:{
-              roughness:0.4
-            },
-            brickColors:[
-              "#c6c5c0",
-              "#c3c1bc",
-              "#bfbdb8"
-            ],
-            jointColor:"#ededeb",
-            brickRoughness:10
-          }
-        },
-        {
-          id:"2c7ca2d8-65d7-45e4-b6f6-eacba2895b0e",
-          parent:null,
-          type:"fence_metal_grid",
-          layer:0,
-          order:0,
-          config:{
-            bottomLeftCoords:{
-              x:238,
-              y:50
-            },
-            height:200,
-            width:420,
-            orientation:0,
-            strokeStrength:0.35,
-            strokeColor:"black",
-            roughOptions:{
-              roughness:0.4
-            },
-            pillarThickness:5,
-            pillarColor:"silver",
-            pillarGap:77,
-            horizontalBarThickness:5,
-            horizontalBarColor:"silver",
-            horizontalBars:[95],
-            horizontalStrings:[10,195],
-            stringThickness:1,
-            gridColor:"silver",
-            gridGap:8
-          }
-        },
-        {
-          id:"05a08d17-6c24-4447-9320-7a4261cd02d0",
-          parent:null,
-          type:"fence_wood_vertical",
-          layer:0,
-          order:0,
-          config:{
-            bottomLeftCoords:{
-              x:1020,
-              y:50
-            },
-            height:84,
-            width:480,
-            orientation:0,
-            strokeStrength:0.4,
-            strokeColor:"black",
-            roughOptions:{
-              roughness:0.4
-            },
-            pillarThickness:8,
-            pillarTopShape:"spear",
-            pillarTopTransition:{x:2,y:8},
-            pillarTopSize:{x:30,y:20},
-            pillarColor:"#523c21",
-            barThickness:15,
-            horizontalBarThickness:4,
-            horizontalBarColor:"#523c21",
-            horizontalBars:[10,70],
-            barGap:1.5,
-            barsBetweenPillars:10,
-            barIndexStart:0,
-            barsHeights:[2],
-            barsLengths:[80],
-            barsTopShapes:["spike"],
-            barsTopTransitions:[{x:15,y:0}],
-            barsTopSizes:[{x:8,y:8}],
-            barsColors:["#523c21"],
-            woodRoughness:4
-          }
-        },
-        {
-          id:"1802cbf8-2e0a-427e-9edf-6de9e930926b",
-          parent:null,
-          type:"ground_depth_concrete",
-          layer:0,
-          order:0,
-          config:{
-            startCoords:{
-              x:0,
-              y:50
-            },
-            orientation:1.571,
-            depthPolygon:{
-              startScale:0.1,
-              endScale:0.8,
-              points:[
-                {distance:0,offset:0,length:1500},
-                {distance:50,offset:0,length:1500}
-              ]
-            },
-            backgroundGradient:[
-              { position:0, color:"hsla(197,1%,31%,1)" },
-              { position:1, color:"hsla(197,1%,38%,1)" }
-            ],
-            strokeColor:"hsla(0,0%,50%,1)",
-            strokeMaxGapVertical:6,
-            strokeMaxGapHorizontal:50,
-            strokeMinWidth:1,
-            strokeMaxWidth:5,
-            strokeWidthRandomness:0.8
-          }
-        }
-      ],
-      background:{
-        color:"white",
-        roughOptions:[
-          {
-            stroke:"transparent",
-            fillStyle:"solid",
-            fill:"#3057E1"
-          },
-          {
-            stroke:"transparent",
-            strokeWidth:2,
-            roughness:0,
-            fillStyle:"cross-hatch",
-            fillWeight:0.5,
-            hachureAngle:0,
-            hachureGap:200,
-            fill:"white"
-          },
-          {
-            stroke:"transparent",
-            strokeWidth:2,
-            roughness:0,
-            fillStyle:"cross-hatch",
-            fillWeight:0.2,
-            hachureAngle:0,
-            hachureGap:40,
-            fill:"white"
-          }
-        ]
-      }
+      assets:[]
     }
   },
   {
-    name:"level1",
+    name:"tutorial2",
     config:{
       spawn:{
         coordinates:{
-          x:300,
+          x:150,
           y:20
         },
         direction:1,
@@ -721,13 +142,13 @@ var levelConfigs = [
       },
       exit:{
         coordinates:{
-          x:2400,
+          x:1600,
           y:20
         }
       },
       levelLimits:{
-        width:2550,
-        height:1600,
+        width:1700,
+        height:300,
         xLeft:20,
         xRight:20,
         yGround:20,
@@ -763,86 +184,16 @@ var levelConfigs = [
         instances:[
           {
             xLeft:400,
-            xWidth:350,
-            yBottom:1250,
-            yHeight:50,
+            xWidth:30,
+            yBottom:20,
+            yHeight:200,
             color:"black"
           },
           {
-            xLeft:300,
-            xWidth:500,
-            yBottom:250,
-            yHeight:100,
-            color:"black"
-          },
-          {
-            xLeft:1100,
+            xLeft:800,
             xWidth:400,
             yBottom:20,
-            yHeight:220,
-            color:"black"
-          },
-          {
-            xLeft:1300,
-            xWidth:50,
-            yBottom:240,
-            yHeight:220,
-            color:"black"
-          },
-          {
-            xLeft:1500,
-            xWidth:40,
-            yBottom:480,
-            yHeight:40,
-            color:"black"
-          },
-          {
-            xLeft:1640,
-            xWidth:40,
-            yBottom:410,
-            yHeight:40,
-            color:"black"
-          },
-          {
-            xLeft:1800,
-            xWidth:300,
-            yBottom:390,
-            yHeight:40,
-            color:"black"
-          },
-          {
-            xLeft:1700,
-            xWidth:400,
-            yBottom:700,
-            yHeight:100,
-            color:"black"
-          },
-          {
-            xLeft:20,
-            xWidth:860,
-            yBottom:700,
-            yHeight:120,
-            color:"black"
-          },
-          {
-            xLeft:500,
-            xWidth:40,
-            yBottom:350,
-            yHeight:250,
-            color:"black"
-          },
-          {
-            xLeft:1700,
-            xWidth:100,
-            yBottom:1000,
-            yHeight:400,
-            color:"black"
-          },
-          {
-            xLeft:2100,
-            xWidth:100,
-            yBottom:20,
-            yHeight:1350,
+            yHeight:200,
             color:"black"
           }
         ]
@@ -868,14 +219,7 @@ var levelConfigs = [
           strokeWidth:2,
           roughness:0.8
         },
-        instances:[
-          {
-            xLeft:800,
-            yBottom:20,
-            yHeight:800,
-            color:"black"
-          }
-        ]
+        instances:[]
       },
       ropes:{
         lineWidth:4,
@@ -884,41 +228,34 @@ var levelConfigs = [
           strokeWidth:2,
           roughness:0.8
         },
-        instances:[
-          {
-            anchorLeft:{
-              x:750,
-              y:1500
-            },
-            anchorRight:{
-              x:1700,
-              y:1000
-            },
-            color:"black"
-          }
-        ]
+        instances:[]
       },
       hazards:{
         spikes:{
           color:"black",
           lineWidth:4,
           roughOptions:{
-            stroke:"white",
+            stroke:"red",
             strokeWidth:2,
             roughness:0.8
           },
-          instances:[
-            {
-              xLeft:1500,
-              xWidth:600,
-              yBottom:20,
-              yHeight:80,
-              patternRepeat:15,
-              direction:"up"
-            }
-          ]
+          instances:[]
         }
       },
+      texts:[
+        {
+          coordinates:{ x:220, y:280},
+          fontColor:"white",
+          fontSize:20,
+          text:["Use ARROW UP to climb up"]
+        },
+        {
+          coordinates:{ x:1200, y:280},
+          fontColor:"white",
+          fontSize:20,
+          text:["Use ARROW DOWN to climb down"]
+        }
+      ],
       collectibles:{
         gears:{
           color:"black",
@@ -931,71 +268,23 @@ var levelConfigs = [
           instances:[
             {
               coordinates:{
-                x:450,
-                y:400
-              }
-            },
-            {
-              coordinates:{
-                x:1600,
-                y:1000
-              }
-            },
-            {
-              coordinates:{
-                x:1950,
-                y:900
-              }
-            },
-            {
-              coordinates:{
-                x:450,
-                y:1350
+                x:900,
+                y:250
               }
             }
           ]
         }
       },
-      assets:[],
-      background:{
-        color:"white",
-        roughOptions:[
-          {
-            stroke:"transparent",
-            fillStyle:"solid",
-            fill:"#3057E1"
-          },
-          {
-            stroke:"transparent",
-            strokeWidth:2,
-            roughness:0,
-            fillStyle:"cross-hatch",
-            fillWeight:0.5,
-            hachureAngle:0,
-            hachureGap:200,
-            fill:"white"
-          },
-          {
-            stroke:"transparent",
-            strokeWidth:2,
-            roughness:0,
-            fillStyle:"cross-hatch",
-            fillWeight:0.2,
-            hachureAngle:0,
-            hachureGap:40,
-            fill:"white"
-          }
-        ]
-      }
+      assets:[]
     }
   },
   {
-    name:"level2",
+    name:"tutorial3",
     config:{
       spawn:{
         coordinates:{
-          x:300,
-          y:1120
+          x:150,
+          y:20
         },
         direction:1,
         frontSide:"left",
@@ -1003,13 +292,186 @@ var levelConfigs = [
       },
       exit:{
         coordinates:{
-          x:450,
+          x:1850,
           y:20
         }
       },
       levelLimits:{
-        width:2500,
-        height:1600,
+        width:2000,
+        height:250,
+        xLeft:20,
+        xRight:20,
+        yGround:20,
+        yCeiling:20,
+        color:"black",
+        linesRoughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          bowing:0,
+          roughness:0.8
+        },
+        rectRoughOptions:{
+          stroke:"transparent",
+          strokeWidth:2,
+          bowing:0,
+          fillStyle:"cross-hatch",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
+        }
+      },
+      blocks:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
+        },
+        instances:[
+          {
+            xLeft:340,
+            xWidth:150,
+            yBottom:160,
+            yHeight:110,
+            color:"black"
+          },
+          {
+            xLeft:1600,
+            xWidth:150,
+            yBottom:160,
+            yHeight:110,
+            color:"black"
+          }
+        ]
+      },
+      climbingHolds:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.2,
+          fill:"white"
+        },
+        instances:[]
+      },
+      ladders:{
+        width:80,
+        yStep:30,
+        lineWidth:5,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
+        },
+        instances:[]
+      },
+      ropes:{
+        lineWidth:4,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
+        },
+        instances:[]
+      },
+      hazards:{
+        spikes:{
+          color:"black",
+          lineWidth:4,
+          roughOptions:{
+            stroke:"red",
+            strokeWidth:2,
+            roughness:0.8
+          },
+          instances:[
+            {
+              xLeft:340,
+              xWidth:150,
+              yBottom:130,
+              yHeight:30,
+              patternRepeat:8,
+              direction:"down"
+            },
+            {
+              xLeft:1600,
+              xWidth:150,
+              yBottom:130,
+              yHeight:30,
+              patternRepeat:8,
+              direction:"down"
+            }
+          ]
+        }
+      },
+      texts:[
+        {
+          coordinates:{ x:180, y:240},
+          fontColor:"white",
+          fontSize:20,
+          text:["Watch out for the spikes, use","ARROW DOWN to duck"]
+        },
+        {
+          coordinates:{ x:670, y:240},
+          fontColor:"white",
+          fontSize:20,
+          text:["Use ARROW UP to get up"]
+        },
+        {
+          coordinates:{ x:1350, y:240},
+          fontColor:"white",
+          fontSize:20,
+          text:["You can slide under these ones", "By ducking while running !"]
+        }
+      ],
+      collectibles:{
+        gears:{
+          color:"black",
+          lineWidth:2,
+          roughOptions:{
+            stroke:"white",
+            strokeWidth:2,
+            roughness:0.5
+          },
+          instances:[
+            {
+              coordinates:{
+                x:650,
+                y:100
+              }
+            }
+          ]
+        }
+      },
+      assets:[]
+    }
+  },
+  {
+    name:"tutorial4",
+    config:{
+      spawn:{
+        coordinates:{
+          x:150,
+          y:200
+        },
+        direction:1,
+        frontSide:"left",
+        action:"idling"
+      },
+      exit:{
+        coordinates:{
+          x:150,
+          y:650
+        }
+      },
+      levelLimits:{
+        width:1700,
+        height:1100,
         xLeft:20,
         xRight:20,
         yGround:20,
@@ -1045,51 +507,448 @@ var levelConfigs = [
         instances:[
           {
             xLeft:20,
-            xWidth:400,
+            xWidth:600,
             yBottom:20,
-            yHeight:1100,
+            yHeight:180,
             color:"black"
           },
           {
-            xLeft:420,
-            xWidth:400,
+            xLeft:1200,
+            xWidth:520,
             yBottom:20,
-            yHeight:1000,
+            yHeight:180,
             color:"black"
           },
           {
-            xLeft:820,
-            xWidth:400,
-            yBottom:20,
-            yHeight:950,
+            xLeft:20,
+            xWidth:420,
+            yBottom:600,
+            yHeight:50,
             color:"black"
           },
           {
-            xLeft:1120,
-            xWidth:100,
-            yBottom:1050,
-            yHeight:100,
+            xLeft:1200,
+            xWidth:520,
+            yBottom:600,
+            yHeight:50,
+            color:"black"
+          }
+        ]
+      },
+      climbingHolds:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.2,
+          fill:"white"
+        },
+        instances:[]
+      },
+      ladders:{
+        width:80,
+        yStep:30,
+        lineWidth:5,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
+        },
+        instances:[
+          {
+            xLeft:1600,
+            yBottom:200,
+            yHeight:450,
+            color:"black"
+          }
+        ]
+      },
+      ropes:{
+        lineWidth:4,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
+        },
+        instances:[]
+      },
+      hazards:{
+        spikes:{
+          color:"black",
+          lineWidth:4,
+          roughOptions:{
+            stroke:"red",
+            strokeWidth:2,
+            roughness:0.8
+          },
+          instances:[
+            {
+              xLeft:620,
+              xWidth:580,
+              yBottom:20,
+              yHeight:50,
+              patternRepeat:16,
+              direction:"up"
+            }
+          ]
+        }
+      },
+      texts:[
+        {
+          coordinates:{ x:350, y:500},
+          fontColor:"white",
+          fontSize:25,
+          text:["Press SPACEBAR to prepare your jump while running", "release at the right moment to make your jump !"]
+        },
+        {
+          coordinates:{ x:1330, y:500},
+          fontColor:"white",
+          fontSize:25,
+          text:["Use ARROW UP to climb up a ladder"]
+        },
+        {
+          coordinates:{ x:850, y:1000},
+          fontColor:"white",
+          fontSize:25,
+          text:["If you feel the gap is too wide,", "you can use ARROW UP", "to grab the edge and make it"]
+        }
+      ],
+      collectibles:{
+        gears:{
+          color:"black",
+          lineWidth:2,
+          roughOptions:{
+            stroke:"white",
+            strokeWidth:2,
+            roughness:0.5
+          },
+          instances:[
+            {
+              coordinates:{
+                x:900,
+                y:500
+              }
+            }
+          ]
+        }
+      },
+      assets:[]
+    }
+  },
+  {
+    name:"tutorial5",
+    config:{
+      spawn:{
+        coordinates:{
+          x:150,
+          y:20
+        },
+        direction:1,
+        frontSide:"left",
+        action:"idling"
+      },
+      exit:{
+        coordinates:{
+          x:150,
+          y:830
+        }
+      },
+      levelLimits:{
+        width:1700,
+        height:1100,
+        xLeft:20,
+        xRight:20,
+        yGround:20,
+        yCeiling:20,
+        color:"black",
+        linesRoughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          bowing:0,
+          roughness:0.8
+        },
+        rectRoughOptions:{
+          stroke:"transparent",
+          strokeWidth:2,
+          bowing:0,
+          fillStyle:"cross-hatch",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
+        }
+      },
+      blocks:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
+        },
+        instances:[
+          {
+            xLeft:490,
+            xWidth:40,
+            yBottom:20,
+            yHeight:600,
             color:"black"
           },
           {
-            xLeft:1760,
-            xWidth:30,
+            xLeft:1200,
+            xWidth:520,
             yBottom:20,
-            yHeight:90,
+            yHeight:180,
             color:"black"
           },
           {
-            xLeft:1930,
-            xWidth:30,
-            yBottom:20,
+            xLeft:1150,
+            xWidth:200,
+            yBottom:750,
+            yHeight:30,
+            color:"black"
+          },
+          {
+            xLeft:20,
+            xWidth:300,
+            yBottom:800,
+            yHeight:30,
+            color:"black"
+          }
+        ]
+      },
+      climbingHolds:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.2,
+          fill:"white"
+        },
+        instances:[]
+      },
+      ladders:{
+        width:80,
+        yStep:30,
+        lineWidth:5,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
+        },
+        instances:[]
+      },
+      ropes:{
+        lineWidth:4,
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          roughness:0.8
+        },
+        instances:[
+          {
+            anchorLeft:{
+              x:230,
+              y:1100
+            },
+            anchorRight:{
+              x:1300,
+              y:1100
+            },
+            color:"black"
+          }
+        ]
+      },
+      hazards:{
+        spikes:{
+          color:"black",
+          lineWidth:4,
+          roughOptions:{
+            stroke:"red",
+            strokeWidth:2,
+            roughness:0.8
+          },
+          instances:[
+            {
+              xLeft:530,
+              xWidth:670,
+              yBottom:20,
+              yHeight:50,
+              patternRepeat:16,
+              direction:"up"
+            }
+          ]
+        }
+      },
+      texts:[
+        {
+          coordinates:{ x:330, y:760},
+          fontColor:"white",
+          fontSize:25,
+          text:["Some obstacles are too high to make in one jump.", "After jumping one time towards the wall, ", "you can hit jump a second time on the wall", "while holding ARROW UP and reach higher !"]
+        },
+        {
+          coordinates:{ x:840, y:450},
+          fontColor:"white",
+          fontSize:25,
+          text:["Use ARROW DOWN to hang from the edge,", "then simply jump to clear the gap"]
+        },
+        {
+          coordinates:{ x:1300, y:720},
+          fontColor:"white",
+          fontSize:25,
+          text:["If you wall jump", "WITHOUT holding ARROW UP", "you can reach this edge"]
+        },
+        {
+          coordinates:{ x:850, y:1000},
+          fontColor:"white",
+          fontSize:25,
+          text:["You can grab onto this rope using ARROW UP", "and then move along with ARROW LEFT and RIGHT.", "To get off it use ARROW DOWN"]
+        }
+      ],
+      collectibles:{
+        gears:{
+          color:"black",
+          lineWidth:2,
+          roughOptions:{
+            stroke:"white",
+            strokeWidth:2,
+            roughness:0.5
+          },
+          instances:[
+            {
+              coordinates:{
+                x:1250,
+                y:850
+              }
+            }
+          ]
+        }
+      },
+      assets:[]
+    }
+  },
+  {
+    name:"tutorial6",
+    config:{
+      spawn:{
+        coordinates:{
+          x:150,
+          y:20
+        },
+        direction:1,
+        frontSide:"left",
+        action:"idling"
+      },
+      exit:{
+        coordinates:{
+          x:850,
+          y:460
+        }
+      },
+      levelLimits:{
+        width:1700,
+        height:1100,
+        xLeft:20,
+        xRight:20,
+        yGround:20,
+        yCeiling:20,
+        color:"black",
+        linesRoughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          bowing:0,
+          roughness:0.8
+        },
+        rectRoughOptions:{
+          stroke:"transparent",
+          strokeWidth:2,
+          bowing:0,
+          fillStyle:"cross-hatch",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.8,
+          fill:"white"
+        }
+      },
+      blocks:{
+        roughOptions:{
+          stroke:"white",
+          strokeWidth:2,
+          fillStyle:"hachure",
+          hachureAngle:40,
+          fillWeight:1,
+          roughness:0.3,
+          fill:"white"
+        },
+        instances:[
+          {
+            xLeft:20,
+            xWidth:1400,
+            yBottom:270,
+            yHeight:40,
+            color:"black"
+          },
+          {
+            xLeft:1380,
+            xWidth:40,
+            yBottom:310,
+            yHeight:700,
+            color:"black"
+          },
+          {
+            xLeft:1150,
+            xWidth:40,
+            yBottom:820,
+            yHeight:300,
+            color:"black"
+          },
+          {
+            xLeft:950,
+            xWidth:40,
+            yBottom:310,
+            yHeight:600,
+            color:"black"
+          },
+          {
+            xLeft:210,
+            xWidth:740,
+            yBottom:770,
+            yHeight:40,
+            color:"black"
+          },
+          {
+            xLeft:750,
+            xWidth:200,
+            yBottom:310,
             yHeight:150,
             color:"black"
           },
           {
-            xLeft:2070,
-            xWidth:30,
-            yBottom:20,
-            yHeight:85,
+            xLeft:150,
+            xWidth:40,
+            yBottom:430,
+            yHeight:40,
+            color:"black"
+          },
+          {
+            xLeft:310,
+            xWidth:40,
+            yBottom:410,
+            yHeight:40,
+            color:"black"
+          },
+          {
+            xLeft:470,
+            xWidth:40,
+            yBottom:420,
+            yHeight:40,
             color:"black"
           }
         ]
@@ -1107,130 +966,101 @@ var levelConfigs = [
         instances:[
           {
             coordinates:{
-              x:420,
-              y:1350
-            },
-            size:30,
-            type:"pole",
-            hangWithLegs:false,
-            color:"black"
-          },{
-            coordinates:{
-              x:1220,
+              x:1380,
               y:600
             },
             size:30,
-            type:"sideLeft",
+            type:"sideRight",
             hangWithLegs:true,
             color:"black"
           },
           {
             coordinates:{
-              x:1220,
-              y:830
-            },
-            size:30,
-            type:"sideLeft",
-            hangWithLegs:true,
-            color:"black"
-          },
-          {
-            coordinates:{
-              x:1220,
-              y:450
-            },
-            size:30,
-            type:"sideLeft",
-            hangWithLegs:true,
-            color:"black"
-          },
-          {
-            coordinates:{
-              x:1220,
-              y:240
-            },
-            size:30,
-            type:"sideLeft",
-            hangWithLegs:true,
-            color:"black"
-          },
-          {
-            coordinates:{
-              x:1400,
-              y:950
-            },
-            size:30,
-            type:"front",
-            hangWithLegs:true,
-            color:"black"
-          },
-          {
-            coordinates:{
-              x:1420,
-              y:220
-            },
-            size:30,
-            type:"front",
-            hangWithLegs:false,
-            color:"black"
-          },
-          {
-            coordinates:{
-              x:1600,
-              y:220
-            },
-            size:30,
-            type:"front",
-            hangWithLegs:false,
-            color:"black"
-          },
-          {
-            coordinates:{
-              x:1650,
-              y:360
-            },
-            size:30,
-            type:"front",
-            hangWithLegs:false,
-            color:"black"
-          },
-          {
-            coordinates:{
-              x:2290,
-              y:360
-            },
-            size:30,
-            type:"front",
-            hangWithLegs:true,
-            color:"black"
-          },
-          {
-            coordinates:{
-              x:2230,
-              y:250
-            },
-            size:30,
-            type:"front",
-            hangWithLegs:false,
-            color:"black"
-          },
-          {
-            coordinates:{
-              x:2370,
-              y:275
-            },
-            size:30,
-            type:"front",
-            hangWithLegs:true,
-            color:"black"
-          },
-          {
-            coordinates:{
-              x:2520,
-              y:295
+              x:1380,
+              y:850
             },
             size:30,
             type:"sideRight",
+            hangWithLegs:true,
+            color:"black"
+          },
+          {
+            coordinates:{
+              x:990,
+              y:700
+            },
+            size:30,
+            type:"sideLeft",
+            hangWithLegs:true,
+            color:"black"
+          },
+          {
+            coordinates:{
+              x:830,
+              y:1050
+            },
+            size:30,
+            type:"front",
+            hangWithLegs:true,
+            color:"black"
+          },
+          {
+            coordinates:{
+              x:640,
+              y:1070
+            },
+            size:30,
+            type:"front",
+            hangWithLegs:true,
+            color:"black"
+          },
+          {
+            coordinates:{
+              x:470,
+              y:1060
+            },
+            size:30,
+            type:"front",
+            hangWithLegs:true,
+            color:"black"
+          },
+          {
+            coordinates:{
+              x:310,
+              y:1040
+            },
+            size:30,
+            type:"front",
+            hangWithLegs:true,
+            color:"black"
+          },
+          {
+            coordinates:{
+              x:140,
+              y:1030
+            },
+            size:30,
+            type:"front",
+            hangWithLegs:false,
+            color:"black"
+          },
+          {
+            coordinates:{
+              x:20,
+              y:820
+            },
+            size:30,
+            type:"sideLeft",
+            hangWithLegs:true,
+            color:"black"
+          },
+          {
+            coordinates:{
+              x:20,
+              y:630
+            },
+            size:30,
+            type:"sideLeft",
             hangWithLegs:true,
             color:"black"
           }
@@ -1261,13 +1091,64 @@ var levelConfigs = [
           color:"black",
           lineWidth:4,
           roughOptions:{
-            stroke:"white",
+            stroke:"red",
             strokeWidth:2,
             roughness:0.8
           },
-          instances:[]
+          instances:[
+            {
+              xLeft:20,
+              xWidth:730,
+              yBottom:310,
+              yHeight:50,
+              patternRepeat:19,
+              direction:"up"
+            },
+            {
+              xLeft:990,
+              xWidth:390,
+              yBottom:310,
+              yHeight:50,
+              patternRepeat:10,
+              direction:"up"
+            },
+            {
+              xLeft:210,
+              xWidth:740,
+              yBottom:810,
+              yHeight:30,
+              patternRepeat:24,
+              direction:"up"
+            }
+          ]
         }
       },
+      texts:[
+        {
+          coordinates:{ x:1200, y:200},
+          fontColor:"white",
+          fontSize:25,
+          text:["With the right timing,", "you can chain wall jumps", "and reach the top of this wall"]
+        },
+        {
+          coordinates:{ x:1185, y:670},
+          fontColor:"white",
+          fontSize:20,
+          text:["Those are climbing holds", "Use ARROW UP to grab them,", "ARROW DOWN to let go", "and spacebar to jump from them,", "with ARROW UP to jump up"]
+        },
+        {
+          coordinates:{ x:580, y:970},
+          fontColor:"white",
+          fontSize:25,
+          text:["You don't always need to use ARROW UP to use holds.", "If you are close enough you will grab onto them automatically", "However you can use SHIFT to speed your way through"]
+        },
+        {
+          coordinates:{ x:570, y:730},
+          fontColor:"white",
+          fontSize:25,
+          text:["You will automatically jump between small blocks that are close.", "You can also use SHIFT to go faster", "For bigger gaps you still need to jump"]
+        }
+      ],
       collectibles:{
         gears:{
           color:"black",
@@ -1277,41 +1158,82 @@ var levelConfigs = [
             strokeWidth:2,
             roughness:0.5
           },
-          instances:[]
+          instances:[
+            {
+              coordinates:{
+                x:1350,
+                y:750
+              }
+            }
+          ]
         }
       },
-      assets:[],
-      background:{
-        color:"white",
-        roughOptions:[
-          {
-            stroke:"transparent",
-            fillStyle:"solid",
-            fill:"#3057E1"
-          },
-          {
-            stroke:"transparent",
-            strokeWidth:2,
-            roughness:0,
-            fillStyle:"cross-hatch",
-            fillWeight:0.5,
-            hachureAngle:0,
-            hachureGap:200,
-            fill:"white"
-          },
-          {
-            stroke:"transparent",
-            strokeWidth:2,
-            roughness:0,
-            fillStyle:"cross-hatch",
-            fillWeight:0.2,
-            hachureAngle:0,
-            hachureGap:40,
-            fill:"white"
+      assets:[
+        {
+          id:"c70f6fa0-591f-4808-bfd4-292b456c0213",
+          parent:null,
+          type:"wall_bricks",
+          layer:0,
+          order:0,
+          config:{
+            bottomLeftCoords:{
+              x:190,
+              y:790
+            },
+            height:200,
+            width:740,
+            orientation:0,
+            layerHeightMin:25,
+            layerHeightMax:40,
+            brickWidthMin:50,
+            brickWidthMax:100,
+            brickBorderRadius:3,
+            jointThickness:0.4,
+            strokeStrength:1.5,
+            strokeColor:"hsla(0,0%,100%,0.35)",
+            roughOptions:{
+              roughness:0.3
+            },
+            brickColors:[
+              "hsla(0,0%,0%,0)"
+            ],
+            jointColor:"hsla(0,0%,0%,0)",
+            brickRoughness:6
           }
-        ]
-      }
+        },
+        {
+          id:"c7084aa0-c224-88b6-bfd4-292b456c0213",
+          parent:null,
+          type:"wall_bricks",
+          layer:0,
+          order:0,
+          config:{
+            bottomLeftCoords:{
+              x:0,
+              y:992
+            },
+            height:103,
+            width:930,
+            orientation:0,
+            layerHeightMin:25,
+            layerHeightMax:40,
+            brickWidthMin:50,
+            brickWidthMax:100,
+            brickBorderRadius:3,
+            jointThickness:0.4,
+            strokeStrength:1.5,
+            strokeColor:"hsla(0,0%,100%,0.35)",
+            roughOptions:{
+              roughness:0.3
+            },
+            brickColors:[
+              "hsla(0,0%,0%,0)"
+            ],
+            jointColor:"hsla(0,0%,0%,0)",
+            brickRoughness:6
+          }
+        }
+      ]
     }
   }
 ];
-var levelConfig = LoadConfig(levelConfigs,"level1");

@@ -304,6 +304,18 @@ var movementTransitionConfigs = [
   },
   {
     from:"edgeHangingFrontWithLegsReady",
+    to:"edgeHangingFrontWithLegsHopping",
+    sideSwitch:null,
+    frameCount:18,
+    rotationDirections:[
+      {
+        endJunction:"fronthand",
+        direction:1
+      }
+    ]
+  },
+  {
+    from:"edgeHangingFrontWithLegsReady",
     to:"edgeHangingFrontWithLegs",
     sideSwitch:false,
     frameCount:18,

@@ -6,10 +6,10 @@ var upKeyDown = false;
 var downKeyDown = false;
 var punchKeyDown = false;
 var kickKeyDown = false;
+var shiftKeyDown = false;
 const delayForMultiKeyPress = 30 // delay in milliseconds to wait for checking a multiple key press
 const delayForKeyRelease = 120; // delay in milliseconds to wait for checking if player just pressed a key or if he is holding it
 var waitingForMultiKeyPress = false;
-
 
 function GetKeyStatus(name){
   switch (name) {
@@ -20,6 +20,7 @@ function GetKeyStatus(name){
     case "right": return rightKeyDown;
     case "punch": return punchKeyDown;
     case "kick":  return kickKeyDown;
+    case "parkour": return shiftKeyDown;
     default: return false;
   }
 }
@@ -30,11 +31,24 @@ window.addEventListener('keydown',
   function(event){
     event.preventDefault();
     event.stopPropagation();
-    if(readyToPlay){
+    if(!gameRunning){
+      // that is a menu interaction
+      let selection = null;
+      if(event.keyCode == 13) selection = "ENTER";
+      else if(event.keyCode == 27) selection = "ESC";
+      else if(event.keyCode == 82) selection = "R";
+      if(selection != null) menu.useShortcut(selection);
+    }
+    if(readyToPlay && gameRunning && !levelEnded){
       let keyList = [];
       if(!spacebarDown && event.keyCode == 32){  // spacebar
         spacebarDown = true;
         keyList.push("jump");
+        player.setControls(keyList, true);
+      }
+      else if(!shiftKeyDown && event.keyCode == 16){  // shift
+        shiftKeyDown = true;
+        keyList.push("parkour");
         player.setControls(keyList, true);
       }
       else if(!leftKeyDown && event.keyCode == 37){  // left
@@ -67,8 +81,8 @@ window.addEventListener('keydown',
         keyList.push("kick");
         player.setControls(keyList, true);
       }
-      else if(event.keyCode == 82){ // 'r'
-        Respawn();
+      else if(event.keyCode == 27){
+        PauseGame();
       }
     }
   }
@@ -81,6 +95,11 @@ window.addEventListener('keyup',
     if(spacebarDown && event.keyCode == 32){  // spacebar
       spacebarDown = false;
       keyList.push("jump");
+      player.setControls(keyList, false);
+    }
+    else if(shiftKeyDown && event.keyCode == 16){  // left
+      shiftKeyDown = false;
+      keyList.push("parkour");
       player.setControls(keyList, false);
     }
     else if(leftKeyDown && event.keyCode == 37){  // left

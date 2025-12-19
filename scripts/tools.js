@@ -19,7 +19,7 @@ function AngleXYfromCoords(startCoords, endCoords){
   let dx = endCoords.x-startCoords.x;
   let dy = endCoords.y-startCoords.y;
   if(dx == 0){
-    return dy > 0 ? Math.PI * .5 : Math.PI * -.5;
+    return dy > 0 ? Math.PI * .5 : Math.PI * 1.5;
   }
   else{
     let angle = Math.atan(Math.abs(dy)/Math.abs(dx));
