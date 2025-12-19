@@ -1,4 +1,4 @@
-var coverConfig = {
+const coverConfig = {
   color:"#3057E1",
   roughOptions:[
     {

@@ -2,21 +2,21 @@
 // this is where we check what the next action should be based on player input and movement parameter
 // this one is triggered at the end of a movement with property "resetAfter":true
 Player.prototype.findNextMovement = function(){
-  this.keepNextKeyFrameReference = (this.currentAction != "idling");
+  this.keepNextKeyFrameReference = (this.currentAction !== "idling");
   let next = false;
   let wideEnough = false;
   let offsets;
   switch(this.currentAction){
     case "edgeClimbing":
-      wideEnough = this.limits.usableHold == null || IsBlockWideEnough(level,this.limits.usableHold.blockIndex, this, (this.limits.usableHold.climbType == "stand"));
-      if(this.limits.usableHold != null && this.limits.usableHold.climbType == "crouch"){
+      wideEnough = this.limits.usableHold == null || IsBlockWideEnough(level,this.limits.usableHold.blockIndex, this, (this.limits.usableHold.climbType === "stand"));
+      if(this.limits.usableHold != null && this.limits.usableHold.climbType === "crouch"){
         if(wideEnough){
           this.keepNextKeyFrameReference = true;
           this.setMovement("crouching");
         }
         else{
           if(this.wantsToKeepDirection()){
-            let edgeCoords = GetBlockLimitCoords(level, this.limits.usableHold.blockIndex, (this.direction == 1 ? "right" : "left"), "top");
+            let edgeCoords = GetBlockLimitCoords(level, this.limits.usableHold.blockIndex, (this.direction === 1 ? "right" : "left"), "top");
             this.limits.usableHold = null;
             this.nextPositionKeyFrame.anchor = null;
             this.anchor = new Anchor(new Coordinates(edgeCoords.x + (this.direction*this.body.bodySize/2), edgeCoords.y - this.body.bodySize/2),"", null);
@@ -29,7 +29,7 @@ Player.prototype.findNextMovement = function(){
           }
         }
       }
-      else if(this.limits.usableHold != null && this.limits.usableHold.type == "pole"){
+      else if(this.limits.usableHold != null && this.limits.usableHold.type === "pole"){
         this.currentPosition.anchor = null;
         this.nextPositionKeyFrame.anchor = null;
         this.anchor = new Anchor(new Coordinates(this.limits.usableHold.coordinates.x, this.limits.usableHold.coordinates.y - this.body.bodySize/2),"", null);
@@ -58,7 +58,7 @@ Player.prototype.findNextMovement = function(){
               this.prepareHopForward();
             }
             else{
-              let edgeCoords = GetBlockLimitCoords(level, currentBlockIndex, (this.direction == 1 ? "right" : "left"), "top");
+              let edgeCoords = GetBlockLimitCoords(level, currentBlockIndex, (this.direction === 1 ? "right" : "left"), "top");
               this.limits.usableHold = null;
               this.nextPositionKeyFrame.anchor = null;
               this.anchor = new Anchor(new Coordinates(edgeCoords.x + (this.direction*this.body.bodySize/2), edgeCoords.y - this.body.bodySize/2),"", null);
@@ -78,7 +78,7 @@ Player.prototype.findNextMovement = function(){
     break;
     case "edgeClimbingDown":
       this.forceFrameCount = 20;
-      if(this.limits.usableHold.climbDownType == "edgeHangingWithLegs" || this.limits.usableHold.climbDownType == "edgeHanging")
+      if(this.limits.usableHold.climbDownType === "edgeHangingWithLegs" || this.limits.usableHold.climbDownType === "edgeHanging")
         this.setMovement(this.limits.usableHold.climbDownType);
     break;
     case "edgeHopping":
@@ -130,7 +130,7 @@ Player.prototype.findNextMovement = function(){
           this.climbEdge();
         }
       }
-      else if(this.canReachHoldDown(null, this.direction == 1 ? "right" : "left")){
+      else if(this.canReachHoldDown(null, this.direction === 1 ? "right" : "left")){
         this.currentPosition.anchor = false;
         this.nextPositionKeyFrame.anchor = false;
         this.climbEdge();
@@ -140,7 +140,7 @@ Player.prototype.findNextMovement = function(){
       }
     break;
     case "hoppingForwardLanding":
-      if(this.limits.reachableBlockStandingPoint.type == "idling"){
+      if(this.limits.reachableBlockStandingPoint.type === "idling"){
         this.limits.reachableBlockStandingPoint = null;
         this.keepNextKeyFrameReference = true;
         if(this.wantsToKeepDirection()){
@@ -189,7 +189,7 @@ Player.prototype.findNextMovement = function(){
           }
         }
         else if(this.controls.up){
-          if((this.previousAction == "edgeHangingFrontWithLegsReady" && this.limits.usableHold != null) || this.canReachHoldUp(null, null)){
+          if((this.previousAction === "edgeHangingFrontWithLegsReady" && this.limits.usableHold != null) || this.canReachHoldUp(null, null)){
             let holdCoordsX = this.limits.usableHold.coordinates.x;
             if(holdCoordsX > this.coordinates.x + this.body.hitBox.right){
               this.direction = 1;
@@ -296,7 +296,7 @@ Player.prototype.findNextMovement = function(){
     case "poleSwingingSwichingSide":
       this.direction *= -1;
       if(this.wantsToKeepDirection() || Math.abs(this.anglesOffsets.angularSpeed.xy) > 0){
-        if(Math.abs(this.anglesOffsets.angularSpeed.xy) == 0){
+        if(Math.abs(this.anglesOffsets.angularSpeed.xy) === 0){
           this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(-this.direction*0.02,0,0), new Angles(0,0,0), true, true, 0.12, 0.008);
         }
         this.setMovement("poleSwinging");

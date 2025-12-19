@@ -198,7 +198,7 @@ function animate(){
   requestAnimationFrame(animate);
 }
 
-// get contextes
+// get contexts
 function GetCanvasContext(){
   return lvlContext;
 }

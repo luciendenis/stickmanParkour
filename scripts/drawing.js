@@ -6,7 +6,7 @@ class ProgressiveDraw {
     this.drawsPerFrame = drawsPerFrame;
   }
   done(){
-    return (this.drawCount == this.drawFunctions.length);
+    return (this.drawCount === this.drawFunctions.length);
   }
   update(){
     for(let i = this.drawCount; i < Math.min(this.drawCount + this.drawsPerFrame, this.drawFunctions.length); i++){

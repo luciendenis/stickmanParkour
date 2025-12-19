@@ -1,4 +1,4 @@
-var levelConfigs = [
+const levelConfigs = [
   {
     name:"tutorial1",
     config:{
@@ -393,16 +393,16 @@ var levelConfigs = [
             {
               xLeft:340,
               xWidth:150,
-              yBottom:130,
-              yHeight:30,
+              yBottom:110,
+              yHeight:50,
               patternRepeat:8,
               direction:"down"
             },
             {
               xLeft:1600,
               xWidth:150,
-              yBottom:130,
-              yHeight:30,
+              yBottom:110,
+              yHeight:50,
               patternRepeat:8,
               direction:"down"
             }
@@ -1163,6 +1163,12 @@ var levelConfigs = [
               coordinates:{
                 x:1350,
                 y:750
+              }
+            },
+            {
+              coordinates:{
+                x:100,
+                y:900
               }
             }
           ]

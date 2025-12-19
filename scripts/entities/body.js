@@ -10,7 +10,7 @@ class Coordinates{
     return this;
   }
   clone(offset){
-    if(offset == null || offset === undefined)
+    if(offset == null)
       offset = new Coordinates(0,0);
     return new Coordinates(this.x + offset.x, this.y + offset.y);
   }
@@ -165,7 +165,7 @@ class Body {
     }
     for(let i = 0; i < this.drawInstructions.length ; i++){
       for(let j = 0; j <this.drawInstructions[i].endNames.length; j++){
-        if(this.drawInstructions[i].endNames[j] != "head"){
+        if(this.drawInstructions[i].endNames[j] !== "head"){
           context.line(
             this.junctions[this.drawInstructions[i].startName].coordinates.x,
             this.junctions[this.drawInstructions[i].startName].coordinates.y,
@@ -179,12 +179,12 @@ class Body {
     context.circle(this.junctions["head"].coordinates.x,this.junctions["head"].coordinates.y,this.junctions["head"].size, this.roughOptions);
   }
   calculateJunctionsForPosition(position){
-    var junctions = {};
+    let junctions = {};
     for(let i = 0; i < position.elements.length; i++){
       let currentPE = position.elements[i];
-      let startCoordinates = currentPE.startJunction == "center" ? new Coordinates(0,0) : junctions[currentPE.startJunction].coordinates;
+      let startCoordinates = currentPE.startJunction === "center" ? new Coordinates(0,0) : junctions[currentPE.startJunction].coordinates;
       junctions[currentPE.endJunction] = new Junction(CaclulateEndJunctionCoordinates(currentPE,startCoordinates, this.lengths[currentPE.startLength], this.lengths[currentPE.endLength], position.offsets["angles"].xy),this.junctions[currentPE.endJunction].size,this.junctions[currentPE.endJunction].color);
-      if(currentPE.middleJunction != ""){
+      if(currentPE.middleJunction !== ""){
         junctions[currentPE.middleJunction] = new Junction(CaclulateMiddleJunctionPosition(startCoordinates, junctions[currentPE.endJunction].coordinates, this.lengths[currentPE.startLength], this.lengths[currentPE.endLength], currentPE.angles.z),this.junctions[currentPE.middleJunction].size,this.junctions[currentPE.middleJunction].color);
       }
     }
@@ -193,9 +193,9 @@ class Body {
   setPositionRelative(position){ // computing junctions positions relative to center
     for(let i = 0; i < position.elements.length; i++){
       let currentPE = position.elements[i];
-      let startCoordinates = currentPE.startJunction == "center" ? new Coordinates(0,0) : this.junctions[currentPE.startJunction].coordinates;
+      let startCoordinates = currentPE.startJunction === "center" ? new Coordinates(0,0) : this.junctions[currentPE.startJunction].coordinates;
       this.junctions[currentPE.endJunction].coordinates = CaclulateEndJunctionCoordinates(currentPE,startCoordinates, this.lengths[currentPE.startLength], this.lengths[currentPE.endLength], position.offsets["angles"].xy);
-      if(currentPE.middleJunction != ""){
+      if(currentPE.middleJunction !== ""){
         this.junctions[currentPE.middleJunction].coordinates = CaclulateMiddleJunctionPosition(startCoordinates, this.junctions[currentPE.endJunction].coordinates, this.lengths[currentPE.startLength], this.lengths[currentPE.endLength], currentPE.angles.z);
       }
     }
@@ -233,7 +233,7 @@ class Body {
     return this.searchBodyDimensions("edgeHangingWithLegs",0).y - (this.bodySize/2);
   }
   getOffsetCoords(type, startCoordName){ // gives x and y offsets from center depending on the name of the junction or limit
-    return GetPositionOffsetCoords((type == "absolute" ? this.coordinates : null), this.junctions, startCoordName, this.hitBox);
+    return GetPositionOffsetCoords((type === "absolute" ? this.coordinates : null), this.junctions, startCoordName, this.hitBox);
   }
   getJunctionCoords(junctionName){
     let junction = this.junctions[junctionName];
@@ -258,8 +258,8 @@ class Body {
     return new Coordinates(referenceHitbox.totalWidth(),referenceHitbox.totalHeight());
   }
   searchBodyDimensions(movementName, positionIndex){
-    let calculatedDimensions = this.calculatedDimensions.find(d => d.movement == movementName && d.index == positionIndex);
-    if(calculatedDimensions == null || calculatedDimensions === undefined){
+    let calculatedDimensions = this.calculatedDimensions.find(d => d.movement === movementName && d.index === positionIndex);
+    if(calculatedDimensions == null){
       calculatedDimensions = new Dimensions(movementName, positionIndex, this.getDimensionsForPosition(LoadConfig(movementConfigs,movementName).positions[positionIndex]));
       this.calculatedDimensions.push(calculatedDimensions);
     }
@@ -277,7 +277,7 @@ class IntermediatePositionSettings {  // class used for calculus of positionElem
 
 
 function ApplyPositionOverrideSettings(position, frontSide, backSide, direction, body, anchor){
-  var newPosition = new Position();
+  let newPosition = new Position();
   if(position.offsets == null){
     newPosition.offsets["position"] = new Coordinates(0,0);
     newPosition.offsets["velocity"] = new Coordinates(0,0);
@@ -291,7 +291,7 @@ function ApplyPositionOverrideSettings(position, frontSide, backSide, direction,
     let newAngles;
     let newExtension;
     if(pe.anchor != null){
-      var startCoords = body.junctions[pe.startJunction].coordinates;
+      let startCoords = body.junctions[pe.startJunction].coordinates;
       newAngles = new Angles(AngleXYfromCoords(startCoords, anchor.coordinates), pe.angles.z, pe.angles.forceRotationDirection != null ? pe.angles.forceRotationDirection : null);
       newExtension = Math.min(1, (body.lengths[pe.startLength]+body.lengths[pe.endLength]) /DistBetweenCoords(startCoords, anchor.coordinates));
     }
@@ -313,7 +313,7 @@ function ApplyPositionOverrideSettings(position, frontSide, backSide, direction,
 }
 
 function ApplyPositionSettings(position, overrides, frontSide, backSide, direction, crouchFactor, anglesOffsets){
-  var newPosition = new Position();
+  let newPosition = new Position();
   newPosition.anchor = (position.anchor != null) ? new Anchor(new Coordinates(0,0), position.anchor.releaseOffset.replace('front', frontSide).replace('back', backSide), position.anchor.fpsCurveOffsets) : null;
   if(position.drawStartJunction != null){
     newPosition.drawStartJunction = position.drawStartJunction.replace('front', frontSide).replace('back', backSide);
@@ -335,7 +335,7 @@ function ApplyPositionSettings(position, overrides, frontSide, backSide, directi
     let startJunction = position.elements[i].startJunction.replace('front', frontSide).replace('back', backSide);
     let middleJunction = position.elements[i].middleJunction.replace('front', frontSide).replace('back', backSide);
     let endJunction = position.elements[i].endJunction.replace('front', frontSide).replace('back', backSide);
-    let positionElement = overrides == null ? null : overrides.elements.find(e => e.startJunction == startJunction && e.endJunction == endJunction);
+    let positionElement = overrides == null ? null : overrides.elements.find(e => e.startJunction === startJunction && e.endJunction === endJunction);
     positionElement = positionElement == null ? position.elements[i] : positionElement;
     newPosition.elements.push(new PositionElement(
       startJunction,
@@ -344,7 +344,7 @@ function ApplyPositionSettings(position, overrides, frontSide, backSide, directi
       positionElement.startLength,
       positionElement.endLength,
       new Angles(
-        direction == 1 ? positionElement.angles.xy : AngleMirrorY(positionElement.angles.xy),
+        direction === 1 ? positionElement.angles.xy : AngleMirrorY(positionElement.angles.xy),
         positionElement.angles.z * direction,
         positionElement.angles.forceRotationDirection != null ? positionElement.angles.forceRotationDirection : null
       ),
@@ -390,7 +390,7 @@ function GetPositionOffsetCoords(bodyCoords, junctions, startCoordName, hitbox){
 }
 
 function JunctionsSwitchSide(junctions){
-  var newJunctions = {};
+  let newJunctions = {};
   for(let key in junctions){
     let newKey = key.includes("right") ? key.replace('right', 'left') : key.includes("left") ? key.replace('left', 'right') : key;
     newJunctions[newKey] = junctions[key];

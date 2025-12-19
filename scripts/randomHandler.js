@@ -15,4 +15,4 @@ class RandomHandler {
   }
 }
 
-var randomHandler = new RandomHandler(100000);
+const randomHandler = new RandomHandler(100000);

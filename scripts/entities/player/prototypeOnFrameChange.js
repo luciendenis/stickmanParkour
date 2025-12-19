@@ -9,9 +9,9 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
         this.climbDownLadder();
       }
       else if(this.wantsToKeepDirection()){
-        if((this.direction == 1 && this.coordinates.x + this.body.hitBox.right >= this.limits.rightEdge) || (this.direction == -1 && this.coordinates.x + this.body.hitBox.left <= this.limits.leftEdge)){
+        if((this.direction === 1 && this.coordinates.x + this.body.hitBox.right >= this.limits.rightEdge) || (this.direction === -1 && this.coordinates.x + this.body.hitBox.left <= this.limits.leftEdge)){
           this.stopPlayerXAxis();
-          this.coordinates.x = (this.direction == 1) ? this.limits.rightEdge - this.body.hitBox.right : this.limits.leftEdge - this.body.hitBox.left;
+          this.coordinates.x = (this.direction === 1) ? this.limits.rightEdge - this.body.hitBox.right : this.limits.leftEdge - this.body.hitBox.left;
         }
         else{
           if(this.forcePathSettings == null){
@@ -53,7 +53,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
         else if(Math.abs(this.velocity.x) < settings.crouchingDistPerFrame/settings.crouchingFrameCount && this.wantsToKeepDirection()){
             this.setMovement("crouchTurning");
         }
-        else if(this.velocity.x == 0 && this.wantsToChangeDirection()){
+        else if(this.velocity.x === 0 && this.wantsToChangeDirection()){
           this.direction *=-1;
           this.setMovement("crouching");
         }
@@ -62,9 +62,9 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
     case "edgeClimbing":
     break;
     case "idling":
-      if((this.previousAction == "running" || this.previousAction == "stopping") && Math.abs(this.velocity.x) > 0){
+      if((this.previousAction === "running" || this.previousAction === "stopping") && Math.abs(this.velocity.x) > 0){
         let edgeSide = this.isOverEdge(this.coordinates);
-        if((edgeSide == "leftEdge" && this.direction == -1 && !this.obstacleLeft(this.coordinates)) || (edgeSide == "rightEdge" && this.direction == 1 && !this.obstacleRight(this.coordinates))){
+        if((edgeSide === "leftEdge" && this.direction === -1 && !this.obstacleLeft(this.coordinates)) || (edgeSide === "rightEdge" && this.direction === 1 && !this.obstacleRight(this.coordinates))){
           this.preventFall(edgeSide);
         }
       }
@@ -105,7 +105,6 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
           this.acceleration.x = 0; // stop accelerating
           if(this.canClimbEdge(null)){  // player wants to climb
             let height = this.body.coordinates.y - this.limits.usableHold.coordinates.y;
-            let indexFor = this.giveEdgeClimbingPositionIndexStartForHeight(height);
             if(this.controls.up || (this.limits.usableHold.blockIndex > -1 && this.giveEdgeClimbingPositionIndexStartForHeight(height) >= 1))
               this.climbEdge();
             else{
@@ -118,7 +117,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
         }
         else if(this.wantsToKeepDirection() && this.crossableObstacleAhead(this.coordinates)){
           this.stopPlayerYAxis();
-          let edgeCoords = this.direction == 1 ? new Coordinates(this.limits.right + settings.roundTolerance, this.limits.rightTop - settings.roundTolerance) : new Coordinates(this.limits.left - settings.roundTolerance, this.limits.leftTop - settings.roundTolerance);
+          let edgeCoords = this.direction === 1 ? new Coordinates(this.limits.right + settings.roundTolerance, this.limits.rightTop - settings.roundTolerance) : new Coordinates(this.limits.left - settings.roundTolerance, this.limits.leftTop - settings.roundTolerance);
           let framesCount = Math.min(frameInterpolationCountMin,Math.ceil(Math.abs(DistBetweenCoords(this.coordinates, edgeCoords)/this.velocity.x)));
           this.forcePathSettings = new ForcePathSettings(this.coordinates.clone(), edgeCoords, framesCount, true, null, null);
         }
@@ -135,7 +134,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
       }
       else if(Math.abs(this.velocity.x) < settings.minVelocityForStopping){
         let edgeSide = this.isOverEdge(this.coordinates);
-        if((edgeSide == "leftEdge" && this.direction == -1 && !this.obstacleLeft(this.coordinates)) || (edgeSide == "rightEdge" && this.direction == 1 && !this.obstacleRight(this.coordinates))){
+        if((edgeSide === "leftEdge" && this.direction === -1 && !this.obstacleLeft(this.coordinates)) || (edgeSide === "rightEdge" && this.direction === 1 && !this.obstacleRight(this.coordinates))){
           this.preventFall(edgeSide);
         }
       }
@@ -151,11 +150,11 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
       }
       if(this.readyToJump && this.currentPositionIndex > 0){
         let nextCoordinates = new Coordinates(this.coordinates.x + this.currentPosition.offsets["position"].x + this.velocity.x*this.currentFrameCount, this.coordinates.y);
-        if(this.direction == 1 && this.obstacleRight(nextCoordinates)){
+        if(this.direction === 1 && this.obstacleRight(nextCoordinates)){
           this.forceFrameCount = Math.floor((this.limits.right - this.coordinates.x - this.body.hitBox.right)/this.velocity.x);
           this.setMovement("wallPrepareJumping");
         }
-        else if(this.direction == -1 && this.obstacleLeft(nextCoordinates)){
+        else if(this.direction === -1 && this.obstacleLeft(nextCoordinates)){
           this.forceFrameCount = Math.floor((this.limits.left - this.coordinates.x - this.body.hitBox.left)/this.velocity.x);
           this.setMovement("wallPrepareJumping");
         }
@@ -214,7 +213,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
             }
             else{
               let edgeSide = this.isOverEdge(new Coordinates(this.coordinates.x, this.limits.bottom));
-              if((edgeSide == "leftEdge" && this.direction == -1 && !this.obstacleLeft(this.coordinates)) || (edgeSide == "rightEdge" && this.direction == 1 && !this.obstacleRight(this.coordinates))){
+              if((edgeSide === "leftEdge" && this.direction === -1 && !this.obstacleLeft(this.coordinates)) || (edgeSide === "rightEdge" && this.direction === 1 && !this.obstacleRight(this.coordinates))){
                 this.preventFall(edgeSide);
               }
               else{
@@ -322,18 +321,18 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
           this.fallFromAnchor(null);
         }
         else{ // still on the rope
-          let futureXLimit = this.coordinates.x + this.velocity.x*15 + (this.direction == 1 ? this.body.hitBox.right : this.body.hitBox.left);
-          let goingToHitAWall = (this.direction == 1 && futureXLimit > this.limits.right) || (this.direction == -1 && futureXLimit < this.limits.left);
-          if(!goingToHitAWall && ((this.direction == 1 && this.controls.right) || (this.direction == -1 && this.controls.left))){ // keep sliding
+          let futureXLimit = this.coordinates.x + this.velocity.x*15 + (this.direction === 1 ? this.body.hitBox.right : this.body.hitBox.left);
+          let goingToHitAWall = (this.direction === 1 && futureXLimit > this.limits.right) || (this.direction === -1 && futureXLimit < this.limits.left);
+          if(!goingToHitAWall && ((this.direction === 1 && this.controls.right) || (this.direction === -1 && this.controls.left))){ // keep sliding
             let atMaxSpeed = (Math.abs(this.velocity.x) > this.limits.usableRope.speedFactors.x*settings.ropeDownSlidingSpeed);
             this.acceleration.x = atMaxSpeed ? 0 : this.direction * settings.gravity*this.limits.usableRope.speedFactors.x;
             this.acceleration.y = atMaxSpeed ? 0 : -this.direction * settings.gravity*this.limits.usableRope.speedFactors.y;
           }
-          else if((this.direction == 1 && this.velocity.x > 0) || (this.direction == -1 && this.velocity.x < 0)){ // keep sliding but decelerating
+          else if((this.direction === 1 && this.velocity.x > 0) || (this.direction === -1 && this.velocity.x < 0)){ // keep sliding but decelerating
             this.acceleration.x = this.direction * settings.ropeDeceleration*this.limits.usableRope.speedFactors.x;
             this.acceleration.y = -this.direction * settings.ropeDeceleration*this.limits.usableRope.speedFactors.y;
           }
-          else if((this.direction == 1 && this.velocity.x <= 0) || (this.direction == -1 && this.velocity.x >= 0)){ // stop sliding
+          else if((this.direction === 1 && this.velocity.x <= 0) || (this.direction === -1 && this.velocity.x >= 0)){ // stop sliding
             this.stopPlayerAll();
             if(this.wantsToChangeDirection()){
               let nextX = this.coordinates.x + this.direction*-1*settings.ropeClimbingDistPerFrame*this.limits.usableRope.speedFactors.x;
@@ -345,9 +344,9 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
                 this.direction *= -1;
                 this.anglesOffsets = new PlayerAngles(new Angles(-this.limits.usableRope.angle,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
                 this.forceFrameCount = frameInterpolationCountMin;
-                let xLimit = (this.direction == 1) ? this.limits.usableRope.anchorLeft.x + settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x : this.limits.usableRope.anchorRight.x - settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x;
-                let nextX = ((this.coordinates.x <= xLimit && this.direction == 1) || (this.coordinates.x >= xLimit && this.direction == -1)) ? xLimit : this.coordinates.x;
-                if(nextX != this.coordinates.x){
+                let xLimit = (this.direction === 1) ? this.limits.usableRope.anchorLeft.x + settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x : this.limits.usableRope.anchorRight.x - settings.ropeClimbingEntryOffset*this.limits.usableRope.speedFactors.x;
+                let nextX = ((this.coordinates.x <= xLimit && this.direction === 1) || (this.coordinates.x >= xLimit && this.direction === -1)) ? xLimit : this.coordinates.x;
+                if(nextX !== this.coordinates.x){
                   let nextCoords = new Coordinates(nextX,this.limits.usableRope.giveYforX(nextX));
                   this.forcePathSettings = new ForcePathSettings(this.coordinates, nextCoords, this.forceFrameCount, true, null, null);
                 }
@@ -362,7 +361,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
     case "ropeCrossing":
       if(this.forcePathSettings == null && (this.controls.left || this.controls.right) && this.freezeFrame){
         let nextDir = (this.controls.left) ? -1 : 1;
-        let ffc = (nextDir == this.direction) ? settings.ropeCrossingFrameCount : frameInterpolationCountMin;
+        let ffc = (nextDir === this.direction) ? settings.ropeCrossingFrameCount : frameInterpolationCountMin;
         this.direction = nextDir;
         this.forceFrameCount = ffc;
         this.velocity.x = this.direction*(settings.ropeCrossingDistPerFrame/ffc)*this.limits.usableRope.speedFactors.x;
@@ -401,7 +400,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
         }
       }
       else if(this.controls.up && this.anglesOffsets.angles.xy*this.anglesOffsets.angularSpeed.xy > 0 && Math.abs(this.anglesOffsets.angularSpeed.xy) > 0.02 && Math.abs(this.anglesOffsets.angles.xy) > 1){
-        if(this.canReachHoldUp(null,this.direction == 1 ? "right" : "left")){
+        if(this.canReachHoldUp(null,this.direction === 1 ? "right" : "left")){
           this.setMovement("edgeHangingFrontSwingingOutUp");
         }
       }

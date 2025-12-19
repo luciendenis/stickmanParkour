@@ -10,7 +10,7 @@ class HslaColor{
   }
   parse(colorString){
     colorString = colorString.trim();
-    const hsla_color_regex = /([Hh][Ss][Ll][Aa]\(\s*(0|[1-9]\d?|[12]\d\d|3[0-5]\d)\s*,\s*(0|100|[1-9]\d?)\s*[%]?\s*,\s*(0|100|[1-9]\d?)\s*[%]?\s*,\s*(1|0|0?\.\d*)\s*\))/;
+    const hsla_color_regex = /([Hh][Ss][Ll][Aa]\(\s*(0|[1-9]\d?|[12]\d\d|3[0-5]\d)\s*,\s*(0|100|[1-9]\d?)\s*%?\s*,\s*(0|100|[1-9]\d?)\s*%?\s*,\s*(1|0|0?\.\d*)\s*\))/;
     let regex = new RegExp(hsla_color_regex);
     if(!regex.test(colorString))return null;
     // check and suppress 'hsla(' and ')'
@@ -53,7 +53,7 @@ class HslaColor{
 class HslaGradient{
   constructor(colorStops){
     this.colorStops = [];
-    if(colorStops.length == 1){
+    if(colorStops.length === 1){
       this.colorStops.push({
         position: 0,
         color: new HslaColor().parse(colorStops[0].color)

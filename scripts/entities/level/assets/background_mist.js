@@ -58,7 +58,7 @@ class Background_Mist {
     let i = 0;
     while(this.cloudClusterDensity[i].y < height){
       i++;
-    };
+    }
     let j = Math.max(i-1,0);
     let factor = (height - this.cloudClusterDensity[j].y)/(this.cloudClusterDensity[i].y - this.cloudClusterDensity[j].y);
     return {

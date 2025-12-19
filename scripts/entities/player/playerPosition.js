@@ -11,9 +11,9 @@ class ForcePathSettings {
   constructor(startCoords, endCoords, autoProgressFrameCount, anchorOnDeletion, releaseVelocity, curveOffsets) {
     this.startCoords = startCoords.clone();
     this.endCoords = endCoords.clone();
-    this.autoProgressCoords = autoProgressFrameCount == 0 ? null : new Coordinates((endCoords.x-startCoords.x)/autoProgressFrameCount,(endCoords.y-startCoords.y)/autoProgressFrameCount);
+    this.autoProgressCoords = autoProgressFrameCount === 0 ? null : new Coordinates((endCoords.x-startCoords.x)/autoProgressFrameCount,(endCoords.y-startCoords.y)/autoProgressFrameCount);
     this.direction = endCoords.x >= startCoords.x ? 1 : -1;
-    this.coefficient = endCoords.x == startCoords.x ? 0 : (endCoords.y - startCoords.y) / Math.abs(endCoords.x - startCoords.x);
+    this.coefficient = endCoords.x === startCoords.x ? 0 : (endCoords.y - startCoords.y) / Math.abs(endCoords.x - startCoords.x);
     this.roundTolerance = settings.roundTolerance;
     this.anchorOnDeletion = anchorOnDeletion;
     this.releaseVelocity = releaseVelocity == null ? new Coordinates(0,0) : releaseVelocity.clone();
@@ -22,10 +22,10 @@ class ForcePathSettings {
     this.curveOffsets = curveOffsets; // this is used to calculate position offsets during the transition to give a curve path effect instead of a straight line
   }
   giveYforX(x){
-    if((this.direction == 1 && x <= this.startCoords.x) || (this.direction == -1 && x >= this.startCoords.x)){
+    if((this.direction === 1 && x <= this.startCoords.x) || (this.direction === -1 && x >= this.startCoords.x)){
       return this.startCoords.y;
     }
-    else if((this.direction == 1 && x >= this.endCoords.x) || (this.direction == - 1 && x <= this.endCoords.x)){
+    else if((this.direction === 1 && x >= this.endCoords.x) || (this.direction === - 1 && x <= this.endCoords.x)){
       return this.endCoords.y;
     }
     else{
@@ -63,8 +63,8 @@ class ForcePathSettings {
 Player.prototype.updatePosition = function(){
   this.updatePlayerLimits();
   // checking if gravity should not affect the player
-  this.gravityOn = (this.forcePathSettings == null) && !(this.currentAction == "ropeClimbing" || this.currentAction == "ropeDownSliding" || this.currentAction == "ropeCrossing"
-  || this.currentAction == "ladderClimbing" || this.currentAction == "ladderDownSliding" || this.currentAction == "wallPrepareJumping");
+  this.gravityOn = (this.forcePathSettings == null) && !(this.currentAction === "ropeClimbing" || this.currentAction === "ropeDownSliding" || this.currentAction === "ropeCrossing"
+  || this.currentAction === "ladderClimbing" || this.currentAction === "ladderDownSliding" || this.currentAction === "wallPrepareJumping");
   // checking if player position relative to the bottom limit is coherent
   if(this.gravityOn && this.coordinates.y > this.limits.bottom){
     this.coordinates.y = this.limits.bottom;
@@ -136,7 +136,7 @@ Player.prototype.updatePosition = function(){
 
   // checking if player is crossing y limits
   // case the player lands on a block
-  if(this.forcePathSettings == null && this.currentAction != "ladderDownSliding" && this.coordinates.y + this.velocity.y + this.currentPosition.offsets["position"].y > this.limits.bottom && this.velocity.y > 0){
+  if(this.forcePathSettings == null && this.currentAction !== "ladderDownSliding" && this.coordinates.y + this.velocity.y + this.currentPosition.offsets["position"].y > this.limits.bottom && this.velocity.y > 0){
     this.stopPlayerYAxis();
     this.coordinates.y = this.limits.bottom;
   }

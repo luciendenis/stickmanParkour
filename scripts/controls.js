@@ -34,54 +34,54 @@ window.addEventListener('keydown',
     if(!gameRunning){
       // that is a menu interaction
       let selection = null;
-      if(event.keyCode == 13) selection = "ENTER";
-      else if(event.keyCode == 27) selection = "ESC";
-      else if(event.keyCode == 82) selection = "R";
+      if(event.code === "Enter") selection = "ENTER";
+      else if(event.code === "Escape") selection = "ESC";
+      else if(event.code === "KeyR") selection = "R";
       if(selection != null) menu.useShortcut(selection);
     }
     if(readyToPlay && gameRunning && !levelEnded){
       let keyList = [];
-      if(!spacebarDown && event.keyCode == 32){  // spacebar
+      if(!spacebarDown && event.code === "Space"){  // spacebar
         spacebarDown = true;
         keyList.push("jump");
         player.setControls(keyList, true);
       }
-      else if(!shiftKeyDown && event.keyCode == 16){  // shift
+      else if(!shiftKeyDown && (event.code === "ShiftLeft" || event.code === "ShiftRight")){  // shift
         shiftKeyDown = true;
         keyList.push("parkour");
         player.setControls(keyList, true);
       }
-      else if(!leftKeyDown && event.keyCode == 37){  // left
+      else if(!leftKeyDown && event.code === "ArrowLeft"){  // left
         leftKeyDown = true;
         keyList.push("left");
         player.setControls(keyList, true);
       }
-      else if(!upKeyDown && event.keyCode == 38){  // up
+      else if(!upKeyDown && event.code === "ArrowUp"){  // up
         upKeyDown = true;
         keyList.push("up");
         player.setControls(keyList, true);
       }
-      else if(!rightKeyDown && event.keyCode == 39){  // right
+      else if(!rightKeyDown && event.code === "ArrowRight"){  // right
         rightKeyDown = true;
         keyList.push("right");
         player.setControls(keyList, true);
       }
-      else if(!downKeyDown && event.keyCode == 40){  // down
+      else if(!downKeyDown && event.code === "ArrowDown"){  // down
         downKeyDown = true;
         keyList.push("down");
         player.setControls(keyList, true);
       }
-      else if(!punchKeyDown && event.keyCode == 65){ // 'a'
-        punchKeyDown = true;
-        keyList.push("punch");
-        player.setControls(keyList, true);
+      else if(!punchKeyDown && event.code === "KeyA"){ // 'a'
+        // punchKeyDown = true;
+        // keyList.push("punch");
+        // player.setControls(keyList, true);
       }
-      else if(!kickKeyDown && event.keyCode == 81){ // 'q'
-        kickKeyDown = true;
-        keyList.push("kick");
-        player.setControls(keyList, true);
+      else if(!kickKeyDown && event.code === "KeyQ"){ // 'q'
+        // kickKeyDown = true;
+        // keyList.push("kick");
+        // player.setControls(keyList, true);
       }
-      else if(event.keyCode == 27){
+      else if(event.code === "Escape"){
         PauseGame();
       }
     }
@@ -92,45 +92,45 @@ window.addEventListener('keyup',
     event.preventDefault();
     event.stopPropagation();
     let keyList = [];
-    if(spacebarDown && event.keyCode == 32){  // spacebar
+    if(spacebarDown && event.code === "Space"){  // spacebar
       spacebarDown = false;
       keyList.push("jump");
       player.setControls(keyList, false);
     }
-    else if(shiftKeyDown && event.keyCode == 16){  // left
+    else if(shiftKeyDown && (event.code === "ShiftLeft" || event.code === "ShiftRight")){  // shift
       shiftKeyDown = false;
       keyList.push("parkour");
       player.setControls(keyList, false);
     }
-    else if(leftKeyDown && event.keyCode == 37){  // left
+    else if(leftKeyDown && event.code === "ArrowLeft"){  // left
       leftKeyDown = false;
       keyList.push("left");
       player.setControls(keyList, false);
     }
-    else if(upKeyDown && event.keyCode == 38){  // up
+    else if(upKeyDown && event.code === "ArrowUp"){  // up
       upKeyDown = false;
       keyList.push("up");
       player.setControls(keyList, false);
     }
-    else if(rightKeyDown && event.keyCode == 39){  // right
+    else if(rightKeyDown && event.code === "ArrowRight"){  // right
       rightKeyDown = false;
       keyList.push("right");
       player.setControls(keyList, false);
     }
-    else if(downKeyDown && event.keyCode == 40){  // down
+    else if(downKeyDown && event.code === "ArrowDown"){  // down
       downKeyDown = false;
       keyList.push("down");
       player.setControls(keyList, false);
     }
-    else if(punchKeyDown && event.keyCode == 65){ // 'a'
-      punchKeyDown = false;
-      keyList.push("punch");
-      player.setControls(keyList, false);
+    else if(punchKeyDown && event.code === "KeyA"){ // 'a'
+      // punchKeyDown = false;
+      // keyList.push("punch");
+      // player.setControls(keyList, false);
     }
-    else if(kickKeyDown && event.keyCode == 81){ // 'q'
-      kickKeyDown = false;
-      keyList.push("kick");
-      player.setControls(keyList, false);
+    else if(kickKeyDown && event.code === "KeyQ"){ // 'q'
+      // kickKeyDown = false;
+      // keyList.push("kick");
+      // player.setControls(keyList, false);
     }
   }
 );

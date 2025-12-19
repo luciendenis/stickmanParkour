@@ -32,10 +32,10 @@ class Level {
     }
   }
   createDoor(type){
-    if(type == "spawn"){
+    if(type === "spawn"){
       this.door = new LevelDoor("spawn", this.spawn.coordinates, AdaptDoorSettingsToScale(LoadConfig(propsConfigs, "door"), globalScale), false, true);
     }
-    else if(type == "exit"){
+    else if(type === "exit"){
       this.door = new LevelDoor("exit", this.exit.coordinates, AdaptDoorSettingsToScale(LoadConfig(propsConfigs, "door"), globalScale), true, false);
     }
   }
@@ -81,15 +81,15 @@ class Level {
     for(let i = 0 ; i < this.collectiblesToDraw ; i++){
       this.collectibles[i].draw(context);
     }
-    if(this.collectiblesToDraw < this.collectibles.length && currentFrame%this.frameWait == 0){
+    if(this.collectiblesToDraw < this.collectibles.length && currentFrame%this.frameWait === 0){
       this.collectiblesToDraw++;
     }
   }
   drawDoor(context){
-    if(this.door != null && this.door.status() == "done"){
+    if(this.door != null && this.door.status() === "done"){
       this.door = null;
     }
-    if(this.door != null && this.collectiblesToDraw == this.collectibles.length){
+    if(this.door != null && this.collectiblesToDraw === this.collectibles.length){
       this.door.draw(context);
     }
   }
@@ -128,15 +128,15 @@ class Level {
     for(let i = 0 ; i < this.collectiblesToDraw ; i++){
       this.collectibles[i].drawRough(context);
     }
-    if(this.collectiblesToDraw < this.collectibles.length && currentFrame%this.frameWait == 0){
+    if(this.collectiblesToDraw < this.collectibles.length && currentFrame%this.frameWait === 0){
       this.collectiblesToDraw++;
     }
   }
   drawDoorRough(roughContext,context){
-    if(this.door != null && this.door.status() == "done"){
+    if(this.door != null && this.door.status() === "done"){
       this.door = null;
     }
-    if(this.door != null && this.collectiblesToDraw == this.collectibles.length){
+    if(this.door != null && this.collectiblesToDraw === this.collectibles.length){
       this.door.drawRough(roughContext,context);
     }
   }
@@ -200,30 +200,30 @@ class ClimbingHold {
     this.roughOptions = roughOptions;
   }
   giveProgressiveDrawInstructions(progressiveDrawObj){
-    let startAngle = this.type == "sideRight" ? Math.PI/2 : 0;
-    let endAngle = this.type == "sideLeft" ? Math.PI/2 : Math.PI;
-    let size = this.type == "pole" ? this.size/2 : this.size;
+    let startAngle = this.type === "sideRight" ? Math.PI/2 : 0;
+    let endAngle = this.type === "sideLeft" ? Math.PI/2 : Math.PI;
+    let size = this.type === "pole" ? this.size/2 : this.size;
     progressiveDrawObj.drawFunctions.push(new Function("context", "context.arc(" + this.coordinates.x + "," + this.coordinates.y + "," + size + "," + size + "," + startAngle + "," + endAngle + ",true," + JSON.stringify(this.roughOptions) + ");" ));
   }
   draw(context){
     context.beginPath();
     context.moveTo(this.coordinates.x, this.coordinates.y);
-    if(this.type == "sideLeft")
+    if(this.type === "sideLeft")
       context.lineTo(this.coordinates.x + this.size/2, this.coordinates.y);
-    else if(this.type == "sideRight")
+    else if(this.type === "sideRight")
       context.lineTo(this.coordinates.x, this.coordinates.y + this.size/2);
-    let startAngle = this.type == "sideRight" ? Math.PI/2 : 0;
-    let endAngle = this.type == "sideLeft" ? Math.PI/2 : this.type == "pole" ? 2*Math.PI : Math.PI;
-    let size = this.type == "pole" ? this.size/4 : this.size/2;
+    let startAngle = this.type === "sideRight" ? Math.PI/2 : 0;
+    let endAngle = this.type === "sideLeft" ? Math.PI/2 : this.type === "pole" ? 2*Math.PI : Math.PI;
+    let size = this.type === "pole" ? this.size/4 : this.size/2;
     context.arc(this.coordinates.x, this.coordinates.y, size, startAngle, endAngle, false);
     context.fillStyle = this.color;
     context.fill();
   }
   drawRough(context){
-    let startAngle = this.type == "sideRight" ? Math.PI/2 : 0;
-    let endAngle = this.type == "sideLeft" ? Math.PI/2 : this.type == "pole" ? 2*Math.PI : Math.PI;
-    let size = this.type == "pole" ? this.size/2: this.size;
-    context.arc(this.coordinates.x, this.coordinates.y, size, size, startAngle, endAngle, this.type == "pole" ? false : true, this.roughOptions);
+    let startAngle = this.type === "sideRight" ? Math.PI/2 : 0;
+    let endAngle = this.type === "sideLeft" ? Math.PI/2 : this.type === "pole" ? 2*Math.PI : Math.PI;
+    let size = this.type === "pole" ? this.size/2: this.size;
+    context.arc(this.coordinates.x, this.coordinates.y, size, size, startAngle, endAngle, this.type !== "pole", this.roughOptions);
   }
 }
 
@@ -317,7 +317,7 @@ class LevelCollectible{
   }
   draw(context){
     if(!this.collected){
-      if(this.type == "gear"){
+      if(this.type === "gear"){
         let offsetY = -gearsCurrentState.offsetY;
         var len = gearsCurrentState.points.length;
         context.strokeStyle = this.color;
@@ -335,7 +335,7 @@ class LevelCollectible{
   }
   drawRough(context){
     if(!this.collected){
-      if(this.type == "gear"){
+      if(this.type === "gear"){
         let offsetY = -gearsCurrentState.offsetY;
         context.circle(this.coordinates.x, this.coordinates.y+offsetY, gearsCurrentState.settings.centerDiameter, this.roughOptions);
         var len = gearsCurrentState.points.length;
@@ -364,13 +364,13 @@ class LevelDoor {
   }
   nextStatus(){
     this.doorStatus++;
-    if(this.type == "spawn" && this.status() == "opening"){
+    if(this.type === "spawn" && this.status() === "opening"){
       drawPlayer = true; // only starting to draw the player
     }
-    else if(this.type == "spawn" && this.status() == "closing"){
+    else if(this.type === "spawn" && this.status() === "closing"){
       StartLevel();
     }
-    else if(this.type == "exit" && this.status() == "fading"){
+    else if(this.type === "exit" && this.status() === "fading"){
       drawPlayer = false; // stop drawing the player
     }
   }
@@ -407,20 +407,20 @@ class LevelDoor {
     }
   }
   drawCurtain(context){
-    if(this.roughDrawCount == this.roughDrawInstructions.length){ // checking the door is fully drawn before drawing the curtain
+    if(this.roughDrawCount === this.roughDrawInstructions.length){ // checking the door is fully drawn before drawing the curtain
       context.clearRect(this.coordinates.x - this.settings.curtainWidth/2, this.coordinates.y, this.settings.curtainWidth, -this.settings.curtainHeight);
     }
   }
   drawRough(roughContext, context){
-    if(this.roughDrawInstructions.length == 0){
+    if(this.roughDrawInstructions.length === 0){
       this.createRoughDrawInstructions(true);
     }
     for(let i = 0; i < this.roughDrawCount ; i++){
       this.roughDrawInstructions[i](roughContext);
     }
-    if(this.status() == "drawing"){
+    if(this.status() === "drawing"){
       if(this.roughDrawCount < this.roughDrawInstructions.length){
-        if(currentFrame%this.frameWait == 0){
+        if(currentFrame%this.frameWait === 0){
           this.roughDrawCount++;
         }
       }
@@ -435,10 +435,10 @@ class LevelDoor {
     }
   }
   drawCurtainRough(roughContext,context){
-    if(this.roughDrawCount == this.roughDrawInstructions.length){ // checking the door is fully drawn before drawing the curtain
+    if(this.roughDrawCount === this.roughDrawInstructions.length){ // checking the door is fully drawn before drawing the curtain
       context.clearRect(this.coordinates.x - this.settings.curtainWidth/2, this.coordinates.y-this.settings.curtainHeight, this.settings.curtainWidth, this.settings.curtainHeight-this.curtainHeight);
       roughContext.rectangle(this.coordinates.x - this.settings.curtainWidth/2, this.coordinates.y-this.settings.curtainHeight, this.settings.curtainWidth, this.settings.curtainHeight-this.curtainHeight, this.settings.curtainRoughOptions);
-      if(this.status() == "opening"){
+      if(this.status() === "opening"){
         if(this.curtainHeight < this.settings.curtainHeight){
           this.curtainHeight += this.settings.curtainSpeed;
         }
@@ -447,7 +447,7 @@ class LevelDoor {
           this.curtainOverdraw = !this.curtainOverdraw;
         }
       }
-      else if(this.status() == "closing"){
+      else if(this.status() === "closing"){
         if(this.curtainHeight > 0){
           this.curtainHeight -= this.settings.curtainSpeed;
         }
@@ -455,7 +455,7 @@ class LevelDoor {
           this.nextStatus();
         }
       }
-      else if(this.status() == "fading"){
+      else if(this.status() === "fading"){
         if(this.settings.roughOptions.strokeWidth > 0.01){
           this.settings.roughOptions.strokeWidth = Math.max(0.01,this.settings.roughOptions.strokeWidth-2*this.settings.fadeSpeed);
           this.settings.curtainRoughOptions.fillWeight = Math.max(0.01,this.settings.curtainRoughOptions.fillWeight-this.settings.fadeSpeed);
@@ -483,7 +483,7 @@ class LevelHazard {
     this.roughOptions = roughOptions;
   }
   giveProgressiveDrawInstructions(progressiveDrawObj){
-    if(this.type == "spike"){
+    if(this.type === "spike"){
       let xStep;
       let yStep
       switch (this.direction) {
@@ -492,8 +492,8 @@ class LevelHazard {
           for(let i = 0; i < 2*this.patternRepeat; i++){
             let x1 = this.xLeft + i*xStep;
             let x2 = x1 + xStep;
-            let y1 = (i % 2 == 0) ? this.yBottom : this.yTop;
-            let y2 = (i % 2 == 1) ? this.yBottom : this.yTop;
+            let y1 = (i % 2 === 0) ? this.yBottom : this.yTop;
+            let y2 = (i % 2 === 1) ? this.yBottom : this.yTop;
             progressiveDrawObj.drawFunctions.push(new Function("context", "context.line(" + x1 + "," + y1 + "," + x2 + "," + y2 + "," + JSON.stringify(this.roughOptions) + ");" ));
           }
         break;
@@ -502,8 +502,8 @@ class LevelHazard {
           for(let i = 0; i < 2*this.patternRepeat; i++){
             let x1 = this.xLeft + i*xStep;
             let x2 = x1 + xStep;
-            let y1 = (i % 2 == 0) ? this.yTop : this.yBottom;
-            let y2 = (i % 2 == 1) ? this.yTop : this.yBottom;
+            let y1 = (i % 2 === 0) ? this.yTop : this.yBottom;
+            let y2 = (i % 2 === 1) ? this.yTop : this.yBottom;
             progressiveDrawObj.drawFunctions.push(new Function("context", "context.line(" + x1 + "," + y1 + "," + x2 + "," + y2 + "," + JSON.stringify(this.roughOptions) + ");" ));
           }
         break;
@@ -512,8 +512,8 @@ class LevelHazard {
           for(let i = 0; i < 2*this.patternRepeat; i++){
             let y1 = this.yBottom + i*yStep;
             let y2 = y1 + yStep;
-            let x1 = (i % 2 == 0) ? this.xRight : this.xLeft;
-            let x2 = (i % 2 == 1) ? this.xRight : this.xLeft;
+            let x1 = (i % 2 === 0) ? this.xRight : this.xLeft;
+            let x2 = (i % 2 === 1) ? this.xRight : this.xLeft;
             progressiveDrawObj.drawFunctions.push(new Function("context", "context.line(" + x1 + "," + y1 + "," + x2 + "," + y2 + "," + JSON.stringify(this.roughOptions) + ");" ));
           }
         break;
@@ -522,8 +522,8 @@ class LevelHazard {
           for(let i = 0; i < 2*this.patternRepeat; i++){
             let y1 = this.yBottom + i*yStep;
             let y2 = y1 + yStep;
-            let x1 = (i % 2 == 0) ? this.xLeft : this.xRight;
-            let x2 = (i % 2 == 1) ? this.xLeft : this.xRight;
+            let x1 = (i % 2 === 0) ? this.xLeft : this.xRight;
+            let x2 = (i % 2 === 1) ? this.xLeft : this.xRight;
             progressiveDrawObj.drawFunctions.push(new Function("context", "context.line(" + x1 + "," + y1 + "," + x2 + "," + y2 + "," + JSON.stringify(this.roughOptions) + ");" ));
           }
         break;
@@ -531,7 +531,7 @@ class LevelHazard {
     }
   }
   draw(context){
-    if(this.type == "spike"){
+    if(this.type === "spike"){
       context.strokeStyle = this.color;
       context.lineWidth = this.lineWidth;
       context.beginPath();
@@ -543,7 +543,7 @@ class LevelHazard {
           xStep = (this.xRight-this.xLeft)/(2*this.patternRepeat);
           for(let i = 0; i <= 2*this.patternRepeat; i++){
             let x = this.xLeft + i*xStep;
-            let y = (i % 2 == 0) ? this.yBottom : this.yTop;
+            let y = (i % 2 === 0) ? this.yBottom : this.yTop;
             context.lineTo(x,y);
           }
         break;
@@ -552,7 +552,7 @@ class LevelHazard {
           xStep = (this.xRight-this.xLeft)/(2*this.patternRepeat);
           for(let i = 0; i <= 2*this.patternRepeat; i++){
             let x = this.xLeft + i*xStep;
-            let y = (i % 2 == 0) ? this.yTop : this.yBottom;
+            let y = (i % 2 === 0) ? this.yTop : this.yBottom;
             context.lineTo(x,y);
           }
         break;
@@ -561,7 +561,7 @@ class LevelHazard {
           yStep = (this.yTop-this.yBottom)/(2*this.patternRepeat);
           for(let i = 0; i <= 2*this.patternRepeat; i++){
             let y = this.yBottom + i*yStep;
-            let x = (i % 2 == 0) ? this.xRight : this.xLeft;
+            let x = (i % 2 === 0) ? this.xRight : this.xLeft;
             context.lineTo(x,y);
           }
         break;
@@ -570,7 +570,7 @@ class LevelHazard {
           yStep = (this.yTop-this.yBottom)/(2*this.patternRepeat);
           for(let i = 0; i <= 2*this.patternRepeat; i++){
             let y = this.yBottom + i*yStep;
-            let x = (i % 2 == 0) ? this.xLeft : this.xRight;
+            let x = (i % 2 === 0) ? this.xLeft : this.xRight;
             context.lineTo(x,y);
           }
         break;
@@ -579,7 +579,7 @@ class LevelHazard {
     }
   }
   drawRough(context){
-    if(this.type == "spike"){
+    if(this.type === "spike"){
       let xStep;
       let yStep
       switch (this.direction) {
@@ -588,8 +588,8 @@ class LevelHazard {
           for(let i = 0; i < 2*this.patternRepeat; i++){
             let x1 = this.xLeft + i*xStep;
             let x2 = x1 + xStep;
-            let y1 = (i % 2 == 0) ? this.yBottom : this.yTop;
-            let y2 = (i % 2 == 1) ? this.yBottom : this.yTop;
+            let y1 = (i % 2 === 0) ? this.yBottom : this.yTop;
+            let y2 = (i % 2 === 1) ? this.yBottom : this.yTop;
             context.line(x1,y1,x2,y2,this.roughOptions);
           }
         break;
@@ -598,8 +598,8 @@ class LevelHazard {
           for(let i = 0; i < 2*this.patternRepeat; i++){
             let x1 = this.xLeft + i*xStep;
             let x2 = x1 + xStep;
-            let y1 = (i % 2 == 0) ? this.yTop : this.yBottom;
-            let y2 = (i % 2 == 1) ? this.yTop : this.yBottom;
+            let y1 = (i % 2 === 0) ? this.yTop : this.yBottom;
+            let y2 = (i % 2 === 1) ? this.yTop : this.yBottom;
             context.line(x1,y1,x2,y2,this.roughOptions);
           }
         break;
@@ -608,8 +608,8 @@ class LevelHazard {
           for(let i = 0; i < 2*this.patternRepeat; i++){
             let y1 = this.yBottom + i*yStep;
             let y2 = y1 + yStep;
-            let x1 = (i % 2 == 0) ? this.xRight : this.xLeft;
-            let x2 = (i % 2 == 1) ? this.xRight : this.xLeft;
+            let x1 = (i % 2 === 0) ? this.xRight : this.xLeft;
+            let x2 = (i % 2 === 1) ? this.xRight : this.xLeft;
             context.line(x1,y1,x2,y2,this.roughOptions);
           }
         break;
@@ -618,8 +618,8 @@ class LevelHazard {
           for(let i = 0; i < 2*this.patternRepeat; i++){
             let y1 = this.yBottom + i*yStep;
             let y2 = y1 + yStep;
-            let x1 = (i % 2 == 0) ? this.xLeft : this.xRight;
-            let x2 = (i % 2 == 1) ? this.xLeft : this.xRight;
+            let x1 = (i % 2 === 0) ? this.xLeft : this.xRight;
+            let x2 = (i % 2 === 1) ? this.xLeft : this.xRight;
             context.line(x1,y1,x2,y2,this.roughOptions);
           }
         break;
@@ -858,10 +858,10 @@ function GetBlockEdgeTypeForPlayer(level, blockIndex, side, player){
   let yMax = currentBlock.yTop;
   let yMinStand = yMax - standDimensions.y;
   let yMinCrouch = yMax - crouchDimensions.y;
-  let xMinStand = (side == "sideRight") ? currentBlock.xLeft : currentBlock.xRight - standDimensions.x;
-  let xMinCrouch = (side == "sideRight") ? currentBlock.xLeft : currentBlock.xRight - crouchDimensions.x;
-  let xMaxStand = (side == "sideRight") ? currentBlock.xLeft + standDimensions.x : currentBlock.xRight;
-  let xMaxCrouch = (side == "sideRight") ? currentBlock.xLeft + crouchDimensions.x : currentBlock.xRight;
+  let xMinStand = (side === "sideRight") ? currentBlock.xLeft : currentBlock.xRight - standDimensions.x;
+  let xMinCrouch = (side === "sideRight") ? currentBlock.xLeft : currentBlock.xRight - crouchDimensions.x;
+  let xMaxStand = (side === "sideRight") ? currentBlock.xLeft + standDimensions.x : currentBlock.xRight;
+  let xMaxCrouch = (side === "sideRight") ? currentBlock.xLeft + crouchDimensions.x : currentBlock.xRight;
   let standOk = IsZoneClear(level, blockIndex, xMinStand, xMaxStand, yMinStand, yMax);
   let crouchOk = IsZoneClear(level, blockIndex, xMinCrouch, xMaxCrouch, yMinCrouch, yMax);
   return standOk ? "stand" : crouchOk ? "crouch" : null;
@@ -871,8 +871,8 @@ function GetBlockEdgeDownTypeForPlayer(level, blockIndex, side, player){
     return null;
   let currentBlock = level.blocks[blockIndex];
   let standDimensions = player.body.standDimensions();
-  let xMin = (side == "sideLeft") ? currentBlock.xRight : currentBlock.xLeft - standDimensions.x;
-  let xMax = (side == "sideRight") ? currentBlock.xLeft : currentBlock.xRight + standDimensions.x;
+  let xMin = (side === "sideLeft") ? currentBlock.xRight : currentBlock.xLeft - standDimensions.x;
+  let xMax = (side === "sideRight") ? currentBlock.xLeft : currentBlock.xRight + standDimensions.x;
   let yMaxHang = currentBlock.yTop + standDimensions.y;
   let yMaxHop = currentBlock.yTop + player.body.crossingAbility();
   let yMin = currentBlock.yTop;
@@ -884,7 +884,7 @@ function GetBlockEdgeDownTypeForPlayer(level, blockIndex, side, player){
 }
 
 function IsBlockWideEnough(level, blockIndex, player, stand){
-  if(blockIndex == -1)
+  if(blockIndex === -1)
     return true;
   let block = level.blocks[blockIndex];
   let minWidth = stand ? player.body.standDimensions().x : player.body.crouchDimensions().x;
@@ -894,8 +894,8 @@ function IsBlockWideEnough(level, blockIndex, player, stand){
 function GetBlockLimitCoords(level, blockIndex, xLimit, yLimit){ // transform to coords
   if(blockIndex >= level.blocks.length) return new Coordinates(0,0);
   let block = level.blocks[blockIndex];
-  let x = (xLimit == "right") ? block.xRight : (xLimit == "left") ? block.xLeft : (block.xLeft + block.xRight)/2 ;
-  let y = (yLimit == "top") ? block.yTop : (yLimit == "bottom") ? block.yBottom : (block.yTop + block.yBottom)/2 ;
+  let x = (xLimit === "right") ? block.xRight : (xLimit === "left") ? block.xLeft : (block.xLeft + block.xRight)/2 ;
+  let y = (yLimit === "top") ? block.yTop : (yLimit === "bottom") ? block.yBottom : (block.yTop + block.yBottom)/2 ;
   return new Coordinates(x,y);
 }
 
@@ -905,7 +905,7 @@ function IsZoneClear(level, ignoreBlockIndex, xMin, xMax, yMin, yMax){
     return false;
   let i = 0;
   while(clear && i < level.blocks.length){
-    if(i != ignoreBlockIndex){
+    if(i !== ignoreBlockIndex){
       let b = level.blocks[i];
       clear = (b.xRight < xMin || b.xLeft > xMax || b.yTop > yMax || b.yBottom < yMin);
     }
@@ -926,14 +926,14 @@ function GetBlockIndexesInZone(level, ignoreBlockIndex, xMin, xMax, yMin, yMax, 
   let indexes = [];
   let xValues = [];
   for(let i = 0 ; i < level.blocks.length ; i++){
-    if(i != ignoreBlockIndex){
+    if(i !== ignoreBlockIndex){
       let b = level.blocks[i];
-      let x = (xLimit == "left") ? b.xLeft : b.xRight;
-      let y = (yLimit == "bottom") ? b.yBottom : b.yTop;
+      let x = (xLimit === "left") ? b.xLeft : b.xRight;
+      let y = (yLimit === "bottom") ? b.yBottom : b.yTop;
       if(x >= xMin && x <= xMax && y <= yMax && y >= yMin){
         // Block is in the zone, now placing it in the list following the order
         let j = 0;
-        while(j < xValues.length && ((xSort == "ascending" && x < xValues[j]) || (xSort == "descending" && x > xValues[j]))){
+        while(j < xValues.length && ((xSort === "ascending" && x < xValues[j]) || (xSort === "descending" && x > xValues[j]))){
           j++;
         }
         indexes.splice(j,0,i);
@@ -947,7 +947,7 @@ function GetBlockIndexesInZone(level, ignoreBlockIndex, xMin, xMax, yMin, yMax, 
 function GetDistBetweenBlocks(level, firstIndex, secondIndex){
   let firstBlock = level.blocks[firstIndex];
   let secondBlock = level.blocks[secondIndex];
-  if(firstBlock == null || firstBlock === undefined || secondBlock == null || secondBlock === undefined)
+  if(firstBlock == null || secondBlock == null)
     return 0;
   let yDist = (firstBlock.yBottom < secondBlock.yTop) ? secondBlock.yTop - firstBlock.yBottom : (firstBlock.yTop > secondBlock.yBottom) ? secondBlock.yBottom - firstBlock.yTop : 0;
   let xDist = (firstBlock.xRight < secondBlock.xLeft) ? secondBlock.xLeft - firstBlock.xRight : (firstBlock.xLeft > secondBlock.xRight) ? secondBlock.xRight - firstBlock.xLeft : 0;

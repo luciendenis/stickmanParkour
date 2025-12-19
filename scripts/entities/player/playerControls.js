@@ -104,17 +104,17 @@ Player.prototype.forceControlTemp = function(name, down, timer){
 }
 Player.prototype.forceControlUntilNextKeyFrame = function(name, down, nextAction){
   let transition = nextAction == null ? null : LoadTransitionConfig(movementTransitionConfigs, this.currentAction, nextAction, this.sideSwitch);
-  let forceDuration = 10 + (transition != null && transition.frameCount != null ? transition.frameCount : this.forceFrameCount != 0 ? this.forceFrameCount : frameInterpolationCountMin)*1000/60;
+  let forceDuration = 10 + (transition != null && transition.frameCount != null ? transition.frameCount : this.forceFrameCount !== 0 ? this.forceFrameCount : frameInterpolationCountMin)*1000/60;
   this.controls.forceTemp(name, down, forceDuration);
 }
 Player.prototype.wantsNoDirection = function(){
-  return (this.controls.left == this.controls.right);
+  return (this.controls.left === this.controls.right);
 }
 Player.prototype.wantsToKeepDirection = function(){
-  return ((this.direction == 1 && this.controls.right && !this.controls.left) || (this.direction == -1 && this.controls.left && !this.controls.right));
+  return ((this.direction === 1 && this.controls.right && !this.controls.left) || (this.direction === -1 && this.controls.left && !this.controls.right));
 }
 Player.prototype.wantsToChangeDirection = function(){
-  return ((this.direction == -1 && this.controls.right && !this.controls.left) || (this.direction == 1 && this.controls.left && !this.controls.right));
+  return ((this.direction === -1 && this.controls.right && !this.controls.left) || (this.direction === 1 && this.controls.left && !this.controls.right));
 }
 Player.prototype.killAllControls = function(){
   this.controls.killAllControls();

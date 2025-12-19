@@ -41,7 +41,7 @@ function AdaptAssetToScale(asset, levelLimits, scale){
 function LinkAssetsChildren(assetsList){
   for(let i = 0; i < assetsList.length; i++){
     if(assetsList[i].parent != null){
-      let parentAsset = assetsList.find(a => a.id == assetsList[i].parent);
+      let parentAsset = assetsList.find(a => a.id === assetsList[i].parent);
       if(parentAsset !== null && parentAsset !== undefined && typeof parentAsset.object.addChild === "function"){
         parentAsset.object.addChild(assetsList[i].object);
       }
@@ -86,7 +86,7 @@ class DepthPolygon {
     let i = 0;
     while(this.points[i].distance <= dist){
       i++;
-    };
+    }
     let j = Math.max(i-1,0);
     let factor = (dist - this.points[j].distance)/(this.points[i].distance - this.points[j].distance);
     return {
@@ -103,7 +103,7 @@ class DepthPolygon {
       let current = this.points[i];
       arrForward.push(new Coordinates(current.distance-previous.distance, current.offset-previous.offset));
       arrBackward.unshift(new Coordinates(previous.distance-current.distance, (previous.offset + previous.length) - (current.offset + current.length)));
-      if(i == (this.points.length-1) && current.length > 0){
+      if(i === (this.points.length-1) && current.length > 0){
         arrForward.push(new Coordinates(0, current.length));
       }
       previous = current;

@@ -23,7 +23,6 @@ class Cover {
     }
   }
   nextLevel(){
-    console.log("Next level");
     this.transitionType = "nextLevel";
     this.position = innerWidth;
     this.moveToPosition(0, -60);

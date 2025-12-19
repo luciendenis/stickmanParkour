@@ -1,4 +1,4 @@
-var propsConfigs = [
+const propsConfigs = [
   {
     name:"gear",
     config:{

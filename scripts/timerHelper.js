@@ -36,14 +36,14 @@ class Timer{
     return Timer.millisecondsToString(this.totalTime());
   }
   static millisecondsToString(duration){
-    if(duration == null || duration == undefined) return "-- : --. --- ";
+    if(duration == null) return "-- : --. --- ";
     let milliseconds = Math.floor(duration % 1000);
     let seconds = Math.floor((duration / 1000) % 60);
     let minutes = Math.floor((duration / (1000 * 60)) % 60);
 
     minutes = (minutes < 10) ? "0" + minutes : minutes;
     seconds = (seconds < 10) ? "0" + seconds : seconds;
-    milliseconds = (milliseconds < 100) ? (milliseconds < 10) ? (milliseconds == 0) ? "000" : "00" + milliseconds : "0" + milliseconds : milliseconds;
+    milliseconds = (milliseconds < 100) ? (milliseconds < 10) ? (milliseconds === 0) ? "000" : "00" + milliseconds : "0" + milliseconds : milliseconds;
 
     return minutes + ":" + seconds + "." + milliseconds;
   }

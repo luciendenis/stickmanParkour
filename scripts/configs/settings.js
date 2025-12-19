@@ -1,4 +1,4 @@
-var settingsConfigs = [
+const settingsConfigs = [
   {
     name:"default",
     config:{

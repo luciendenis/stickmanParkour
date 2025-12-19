@@ -1,4 +1,4 @@
-var bodyConfigs = [
+const bodyConfigs = [
   {
     name:"default",
     config:{

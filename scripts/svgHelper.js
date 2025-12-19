@@ -217,4 +217,4 @@ class SvgHelper {
 
 
 
-var svgHelper = new SvgHelper();
+const svgHelper = new SvgHelper();

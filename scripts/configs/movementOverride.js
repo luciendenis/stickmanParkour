@@ -1,4 +1,4 @@
-var movementOverrideConfigs = [
+const movementOverrideConfigs = [
   {
     name:"prepareJump",
     config:{

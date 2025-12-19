@@ -1,4 +1,4 @@
-var levelConfigs = [
+const levelConfigs = [
   {
     name:"levelTestAssets",
     config:{

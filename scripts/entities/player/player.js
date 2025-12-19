@@ -23,9 +23,9 @@ class Player {
     this.acceleration = new Coordinates(0,0);
     this.gravityOn = false;
     this.frontSide = levelSpawn.frontSide;
-    this.backSide = levelSpawn.frontSide == 'left' ? 'right' : 'left';
+    this.backSide = levelSpawn.frontSide === 'left' ? 'right' : 'left';
     this.overrideFrontSide = levelSpawn.frontSide;
-    this.overrideBackSide = levelSpawn.frontSide == 'left' ? 'right' : 'left';
+    this.overrideBackSide = levelSpawn.frontSide === 'left' ? 'right' : 'left';
     this.crouchFactor = 1;
     this.readyToJump = false;
     this.lastPositionKeyFrame = ApplyPositionSettings(this.currentMovement.positions[0], this.currentMovementOverride, this.frontSide, this.backSide, this.direction, new Angles(0,0,0));
@@ -49,7 +49,7 @@ class Player {
     this.newMovement = true;
   }
   update(){
-    if(this.currentFrame == 0){ // reached a keyframe, need to update next keyframe
+    if(this.currentFrame === 0){ // reached a keyframe, need to update next keyframe
       this.inTransition = this.newMovement;
       this.checkForNextActionOnKeyFrameChange();
       let positionOverride = null;
@@ -64,7 +64,7 @@ class Player {
         }
         this.lastPositionKeyFrame = this.nextPositionKeyFrame;
         if(!this.freezeFrame){
-          if(this.currentMovement.resetAfter && (this.currentPositionIndex == this.currentMovement.positions.length - 1 )){
+          if(this.currentMovement.resetAfter && (this.currentPositionIndex === this.currentMovement.positions.length - 1 )){
             return this.findNextMovement();
           }
           this.currentPositionIndex = this.currentPositionIndex + 1 < this.currentMovement.positions.length ? this.currentPositionIndex + 1 : this.currentMovement.cycle ? 0 : this.currentPositionIndex;
@@ -91,7 +91,7 @@ class Player {
         else{
           this.currentFrameCount = frameInterpolationCountMin; // for a transition keeping interpolation frames to a minimum
         }
-        if(this.forcePositionIndex != 0){
+        if(this.forcePositionIndex !== 0){
           this.currentPositionIndex = this.forcePositionIndex;
           this.forcePositionIndex = 0;
         }
@@ -100,12 +100,12 @@ class Player {
         }
         this.currentMovementOverrideIndex = 0;
         if(this.sideSwitch){
-          this.frontSide = this.frontSide == 'left' ? 'right' : 'left';
-          this.backSide = this.backSide == 'left' ? 'right' : 'left';
+          this.frontSide = this.frontSide === 'left' ? 'right' : 'left';
+          this.backSide = this.backSide === 'left' ? 'right' : 'left';
         }
         if(this.currentMovementOverride != null && this.sideSwitch){
-          this.overrideFrontSide = this.overrideFrontSide == 'left' ? 'right' : 'left';
-          this.overrideBackSide = this.overrideBackSide == 'left' ? 'right' : 'left';
+          this.overrideFrontSide = this.overrideFrontSide === 'left' ? 'right' : 'left';
+          this.overrideBackSide = this.overrideBackSide === 'left' ? 'right' : 'left';
         }
 
         applyVelocityOffSets = true;
@@ -117,13 +117,13 @@ class Player {
 
 
       // Switching sides if necessary
-      if(this.currentPositionIndex == 0 && this.currentMovement.switchSide && !this.freezeFrame){
-        this.frontSide = this.frontSide == 'left' ? 'right' : 'left';
-        this.backSide = this.backSide == 'left' ? 'right' : 'left';
+      if(this.currentPositionIndex === 0 && this.currentMovement.switchSide && !this.freezeFrame){
+        this.frontSide = this.frontSide === 'left' ? 'right' : 'left';
+        this.backSide = this.backSide === 'left' ? 'right' : 'left';
       }
-      if(this.currentMovementOverride != null && this.currentMovementOverrideIndex == 0 && this.currentMovementOverride.switchSide && !this.freezeFrame){
-        this.overrideFrontSide = this.overrideFrontSide == 'left' ? 'right' : 'left';
-        this.overrideBackSide = this.overrideBackSide == 'left' ? 'right' : 'left';
+      if(this.currentMovementOverride != null && this.currentMovementOverrideIndex === 0 && this.currentMovementOverride.switchSide && !this.freezeFrame){
+        this.overrideFrontSide = this.overrideFrontSide === 'left' ? 'right' : 'left';
+        this.overrideBackSide = this.overrideBackSide === 'left' ? 'right' : 'left';
       }
 
       // Applying settings to positions
@@ -136,12 +136,12 @@ class Player {
       if(applyVelocityOffSets){
         let offsetsToApply = this.nextPositionKeyFrame.offsets["velocity"];
         if(offsetsToApply != null){
-          if(offsetsToApply.y != null && offsetsToApply.y != 0){
+          if(offsetsToApply.y != null && offsetsToApply.y !== 0){
             this.crouchFactor = Math.max(this.crouchFactor, settings.crouchFactorMin);
             this.velocity.y += offsetsToApply.y * 1/Math.pow(this.crouchFactor,2);
             this.crouchFactor = 1;
           }
-          if(offsetsToApply.x !=null && offsetsToApply.x != 0){
+          if(offsetsToApply.x !=null && offsetsToApply.x !== 0){
             this.velocity.x += offsetsToApply.x;
           }
         }
@@ -151,7 +151,7 @@ class Player {
       this.intermediatePositionSettings = {};
       for(let i = 0; i < this.lastPositionKeyFrame.elements.length; i++){
         let lastCurrentElement = this.lastPositionKeyFrame.elements[i];
-        let nextCurrentElement = this.nextPositionKeyFrame.elements.find(e => e.startJunction == lastCurrentElement.startJunction && e.middleJunction == lastCurrentElement.middleJunction && e.endJunction == lastCurrentElement.endJunction);
+        let nextCurrentElement = this.nextPositionKeyFrame.elements.find(e => e.startJunction === lastCurrentElement.startJunction && e.middleJunction === lastCurrentElement.middleJunction && e.endJunction === lastCurrentElement.endJunction);
         let angleDiff = AngleDiff(nextCurrentElement.angles.xy, lastCurrentElement.angles.xy, lastCurrentElement.angles.forceRotationDirection, this.direction);
         // key to retrieve the values is concatenation of startJunction and endJunction names
         this.intermediatePositionSettings[lastCurrentElement.startJunction+lastCurrentElement.endJunction] = new IntermediatePositionSettings(angleDiff / (this.currentFrameCount-this.currentFrame), (nextCurrentElement.angles.z - lastCurrentElement.angles.z) / (this.currentFrameCount-this.currentFrame), (nextCurrentElement.extension - lastCurrentElement.extension) / (this.currentFrameCount-this.currentFrame));
@@ -195,7 +195,7 @@ class Player {
       }
       // if drawStartJunction changes on the next frame, we need to add it to the offsets for a smooth transition
       let dsjOffsetCoords;
-      if(this.nextPositionKeyFrame.drawStartJunction != this.currentPosition.drawStartJunction){
+      if(this.nextPositionKeyFrame.drawStartJunction !== this.currentPosition.drawStartJunction){
         let nextPositionJunctions = this.body.calculateJunctionsForPosition(this.nextPositionKeyFrame);
         let nextOffsets = GetPositionOffsetCoords(null, nextPositionJunctions, this.nextPositionKeyFrame.drawStartJunction, null);
         let currentOffset = GetPositionOffsetCoords(null, nextPositionJunctions, this.currentPosition.drawStartJunction, null);
@@ -222,7 +222,7 @@ class Player {
                                                           this.lastPositionKeyFrame.offsets["angles"].forceRotationDirection + this.intermediateOffsetSettings["angles"].forceRotationDirection * this.currentFrame);
     for(let i = 0; i < this.lastPositionKeyFrame.elements.length; i++){
       let lastCurrentElement = this.lastPositionKeyFrame.elements[i];
-      let nextCurrentElement = this.nextPositionKeyFrame.elements.find(e => e.startJunction == lastCurrentElement.startJunction && e.middleJunction == lastCurrentElement.middleJunction && e.endJunction == lastCurrentElement.endJunction);
+      let nextCurrentElement = this.nextPositionKeyFrame.elements.find(e => e.startJunction === lastCurrentElement.startJunction && e.middleJunction === lastCurrentElement.middleJunction && e.endJunction === lastCurrentElement.endJunction);
       let steps = this.intermediatePositionSettings[lastCurrentElement.startJunction + lastCurrentElement.endJunction];
       this.currentPosition.elements.push(new PositionElement(
         lastCurrentElement.startJunction,
@@ -268,13 +268,13 @@ class Player {
         let rd = transition.rotationDirections[i];
         let endJunctionName = rd.endJunction.replace('front', this.frontSide).replace('back', this.backSide);
         if(this.keepNextKeyFrameReference){
-          if(this.nextPositionKeyFrame.elements.find(e => e.endJunction == endJunctionName) !== undefined){
-            this.nextPositionKeyFrame.elements.find(e => e.endJunction == endJunctionName).angles.forceRotationDirection = rd.direction;
+          if(this.nextPositionKeyFrame.elements.find(e => e.endJunction === endJunctionName) !== undefined){
+            this.nextPositionKeyFrame.elements.find(e => e.endJunction === endJunctionName).angles.forceRotationDirection = rd.direction;
           }
         }
         else{
-          if(this.currentPosition.elements.find(e => e.endJunction == endJunctionName) !== undefined){
-            this.currentPosition.elements.find(e => e.endJunction == endJunctionName).angles.forceRotationDirection = rd.direction;
+          if(this.currentPosition.elements.find(e => e.endJunction === endJunctionName) !== undefined){
+            this.currentPosition.elements.find(e => e.endJunction === endJunctionName).angles.forceRotationDirection = rd.direction;
           }
         }
       }
@@ -296,7 +296,7 @@ class Player {
   }
   checkForFall(height){
     if(height > settings.fallHeight){
-      if(this.forcePathSettings == null && (this.currentAction == "running" || this.currentAction == "stopping" || this.currentAction == "idling" || this.currentAction == "crouchSliding")){
+      if(this.forcePathSettings == null && (this.currentAction === "running" || this.currentAction === "stopping" || this.currentAction === "idling" || this.currentAction === "crouchSliding")){
         this.fall();
       }
     }
@@ -348,7 +348,7 @@ class Player {
     this.anglesOffsets = new PlayerAngles(new Angles(0,0,forceRotationDirection), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
     this.currentMovementOverride = (movementOverride == null) ? null : LoadConfig(movementOverrideConfigs,movementOverride);
     this.currentMovementOverrideIndex = 0;
-    if(forceRotationDirection == -1){
+    if(forceRotationDirection === -1){
       this.forceFrameCount = 30;
     }
     this.switchDrawStartJunction("hitboxbottom");
@@ -359,7 +359,7 @@ class Player {
     currentCenterCoords.x -= this.currentPosition.offsets["position"].x;
     currentCenterCoords.y -= this.currentPosition.offsets["position"].y;
     let currentOffsetCoords = new Coordinates(0,0);
-    if(this.currentPosition.drawStartJunction != this.nextPositionKeyFrame.drawStartJunction){
+    if(this.currentPosition.drawStartJunction !== this.nextPositionKeyFrame.drawStartJunction){
       // TODO check if this code might be useful in the future
       console.log("switchDrawStartJunction, case this.currentPosition.drawStartJunction != this.nextPositionKeyFrame.drawStartJunction");
       //currentOffsetCoords = this.body.getOffsetCoordsBetweenDrawStartJunctions(this.currentPosition.drawStartJunction, this.nextPositionKeyFrame.drawStartJunction);
@@ -373,10 +373,10 @@ class Player {
     this.nextPositionKeyFrame.anchor = null;
   }
   tryExitLadder(side){
-    let canExit = (side == 'left') ? (this.limits.left < this.limits.usableLadder.xLeft - this.body.hitBox.totalWidth()) : (this.limits.right > this.limits.usableLadder.xRight + this.body.hitBox.totalWidth());
+    let canExit = (side === 'left') ? (this.limits.left < this.limits.usableLadder.xLeft - this.body.hitBox.totalWidth()) : (this.limits.right > this.limits.usableLadder.xRight + this.body.hitBox.totalWidth());
     if(canExit){
-      let nextDirection = (side == 'left') ? -1 : 1;
-      this.sideSwitch = this.direction != nextDirection;
+      let nextDirection = (side === 'left') ? -1 : 1;
+      this.sideSwitch = this.direction !== nextDirection;
       this.direction = nextDirection;
       this.velocity.x =this.direction*settings.ladderOffSpeed;
       this.fall();
@@ -423,7 +423,7 @@ class Player {
   climbLadder(){
     this.stopPlayerXAxis();
     this.forceFrameCount = frameInterpolationCountMin;
-    if(this.velocity.y == 0 && this.acceleration.y == 0){
+    if(this.velocity.y === 0 && this.acceleration.y === 0){
       this.forcePathSettings = new ForcePathSettings(this.coordinates, new Coordinates(this.limits.usableLadder.xMiddle, this.coordinates.y + settings.ladderClimbSpeed*this.forceFrameCount), this.forceFrameCount, true, new Coordinates(0, settings.ladderClimbSpeed), null);
       this.setMovement("ladderClimbing");
     }
@@ -444,7 +444,7 @@ class Player {
   climbDownLadder(){
     let nextFrameY = this.coordinates.y;
     let nextFrameSpeed = this.velocity.y;
-    let frameCount = (this.currentAction == "idling" || this.currentAction == "running" || this.currentAction == "stopping" || this.currentAction == "crouching" || this.currentAction == "crouchSliding") ? 20 : frameInterpolationCountMin;
+    let frameCount = (this.currentAction === "idling" || this.currentAction === "running" || this.currentAction === "stopping" || this.currentAction === "crouching" || this.currentAction === "crouchSliding") ? 20 : frameInterpolationCountMin;
     let nextFrameAcceleration = Math.max(this.acceleration.y, settings.gravity);
     for(let i = 0; i < frameCount; i++){
       nextFrameSpeed += nextFrameAcceleration;
@@ -462,15 +462,15 @@ class Player {
     this.crouchFactor = 1;
     this.currentMovementOverride = null;
     let hold = this.limits.usableHold;
-    let distReduction = ((this.currentAction == "hoppingForwardJumping" || this.currentAction == "idling" || this.currentAction == "running") && hold.blockIndex == -1 && hold.climbDownType == "edgeHangingFront") ? settings.hoppingDistMin : 0;
+    let distReduction = ((this.currentAction === "hoppingForwardJumping" || this.currentAction === "idling" || this.currentAction === "running") && hold.blockIndex === -1 && hold.climbDownType === "edgeHangingFront") ? settings.hoppingDistMin : 0;
     let dist = DistBetweenCoords(this.body.coordinates, hold.coordinates) - distReduction;
     this.forceFrameCount = Math.round(Math.max(dist/settings.hoppingDistPerFrame, 2));
     let anchorFpsOffsets = new Coordinates(0,-Math.max(0,dist)*0.3);
-    this.anchor = new Anchor(new Coordinates(hold.coordinates.x + ((hold.type == "front" || hold.type == "pole") ? 0 : this.direction*this.body.bodySize/2), hold.coordinates.y - (hold.type == "pole" ? 0 : this.body.bodySize/2)),null, anchorFpsOffsets);
-    let positionIndexStart = (hold.climbType == null || hold.type == "front") ? 0 : this.giveEdgeClimbingPositionIndexStartForHeight(this.body.coordinates.y - hold.coordinates.y);
+    this.anchor = new Anchor(new Coordinates(hold.coordinates.x + ((hold.type === "front" || hold.type === "pole") ? 0 : this.direction*this.body.bodySize/2), hold.coordinates.y - (hold.type === "pole" ? 0 : this.body.bodySize/2)),null, anchorFpsOffsets);
+    let positionIndexStart = (hold.climbType == null || hold.type === "front") ? 0 : this.giveEdgeClimbingPositionIndexStartForHeight(this.body.coordinates.y - hold.coordinates.y);
     this.keepNextKeyFrameReference = true;
     if(positionIndexStart <= 0){
-      if(hold.climbDownType == "edgeHangingFront" || hold.climbDownType == "pole"){
+      if(hold.climbDownType === "edgeHangingFront" || hold.climbDownType === "pole"){
         let startCoords = this.coordinates.clone();
         if(this.currentAction.startsWith("edgeHanging")){
           startCoords = this.body.getJunctionCoords(this.frontSide + "foot");
@@ -483,13 +483,13 @@ class Player {
             startCoords.addOffset(fallOffsetCoords);
             this.forceFrameCount = framesToHoldWithXSpeed;
             let nextDirection = hold.coordinates.x > startCoords.x ? 1 : -1;
-            this.sideSwitch = this.direction != nextDirection;
+            this.sideSwitch = this.direction !== nextDirection;
             this.direction = nextDirection;
           }
         }
         let xyAngle = AngleXYfromCoords(hold.coordinates, startCoords) - Math.PI/2;
-        let friction = hold.climbDownType == "edgeHangingFront" ? 0.01 : 0.008;
-        let controlStrength = hold.climbDownType == "edgeHangingFront" ? 0.1 : 0.12;
+        let friction = hold.climbDownType === "edgeHangingFront" ? 0.01 : 0.008;
+        let controlStrength = hold.climbDownType === "edgeHangingFront" ? 0.1 : 0.12;
         this.anglesOffsets = new PlayerAngles(new Angles(xyAngle,0,0), new Angles(-xyAngle/30,0,0), new Angles(0,0,0), true, true, controlStrength, friction);
         this.setMovement(hold.climbDownType + "Swinging");
       }
@@ -507,26 +507,26 @@ class Player {
     }
   }
   climbDownEdge(){
-    let nextDirection = this.limits.usableHold.type == "sideRight" ? 1 : -1;
-    this.sideSwitch = nextDirection != this.direction;
+    let nextDirection = this.limits.usableHold.type === "sideRight" ? 1 : -1;
+    this.sideSwitch = nextDirection !== this.direction;
     this.direction = nextDirection;
     this.anchor = new Anchor(new Coordinates(this.limits.usableHold.coordinates.x + (this.direction*this.body.bodySize/2), this.limits.usableHold.coordinates.y - this.body.bodySize/2),"", null);
     this.keepNextKeyFrameReference = true;
     this.anglesOffsets = new PlayerAngles(this.limits.usableHold.angles.clone(), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
     this.forceFrameCount = 20;
-    if(this.currentAction == "crouchSliding"){
-      if(this.limits.usableHold.climbDownType == "edgeHangingWithLegs" || this.limits.usableHold.climbDownType == "edgeHanging")
+    if(this.currentAction === "crouchSliding"){
+      if(this.limits.usableHold.climbDownType === "edgeHangingWithLegs" || this.limits.usableHold.climbDownType === "edgeHanging")
         this.setMovement(this.limits.usableHold.climbDownType);
     }
     else{
-      if(this.currentAction == "edgeClimbing"){ // in this case player goes directly from one side of a wall to the other
+      if(this.currentAction === "edgeClimbing"){ // in this case player goes directly from one side of a wall to the other
         this.nextPositionKeyFrame.anchor = null;
-        this.forcePositionIndex = (this.limits.usableHold.climbDownType == "edgeHopping") ? 0 : 1;
+        this.forcePositionIndex = (this.limits.usableHold.climbDownType === "edgeHopping") ? 0 : 1;
       }
-      else if(this.currentAction == "oneFootBalance"){
+      else if(this.currentAction === "oneFootBalance"){
         this.sideSwitch = false;
       }
-      if(this.limits.usableHold.climbDownType == "edgeHopping"){
+      if(this.limits.usableHold.climbDownType === "edgeHopping"){
         this.direction *= -1;
         this.setMovement("edgeHopping");
       }
@@ -551,16 +551,16 @@ class Player {
   }
   preventFall(edgeSide){
     this.stopPlayerAll();
-    let edgeCoords = (edgeSide == "leftEdge") ? new Coordinates(this.limits.leftEdge, this.limits.bottom) : (edgeSide == "rightEdge") ? new Coordinates(this.limits.rightEdge, this.limits.bottom) : new Coordinates((this.limits.rightEdge + this.limits.leftEdge)/2, this.limits.bottom);
-    this.anchor = new Anchor(new Coordinates(edgeCoords.x - (edgeSide == "leftEdge" || edgeSide == "rightEdge" ? this.direction*this.body.bodySize/2 : 0), edgeCoords.y - this.body.bodySize/2),"", null);
-    this.forceFrameCount = (this.forceFrameCount != 0) ? this.forceFrameCount : 10;
+    let edgeCoords = (edgeSide === "leftEdge") ? new Coordinates(this.limits.leftEdge, this.limits.bottom) : (edgeSide === "rightEdge") ? new Coordinates(this.limits.rightEdge, this.limits.bottom) : new Coordinates((this.limits.rightEdge + this.limits.leftEdge)/2, this.limits.bottom);
+    this.anchor = new Anchor(new Coordinates(edgeCoords.x - (edgeSide === "leftEdge" || edgeSide === "rightEdge" ? this.direction*this.body.bodySize/2 : 0), edgeCoords.y - this.body.bodySize/2),"", null);
+    this.forceFrameCount = (this.forceFrameCount !== 0) ? this.forceFrameCount : 10;
     this.setMovement("edgePreventFall");
   }
   prepareHopForward(){
-    if(this.currentAction == "running"){
-      if(this.currentPositionIndex == 0)
+    if(this.currentAction === "running"){
+      if(this.currentPositionIndex === 0)
         this.sideSwitch = true;
-      let edgeCoords = new Coordinates(this.direction == 1 ? this.limits.rightEdge : this.limits.leftEdge, this.limits.bottom);
+      let edgeCoords = new Coordinates(this.direction === 1 ? this.limits.rightEdge : this.limits.leftEdge, this.limits.bottom);
       this.anchor = new Anchor(new Coordinates(edgeCoords.x - this.direction*this.body.bodySize/2, edgeCoords.y - this.body.bodySize/2),"", null);
     }
     this.setMovement("hoppingForwardJumping");
@@ -575,19 +575,7 @@ class Player {
     this.forceFrameCount = Math.round(Math.max(dist/settings.hoppingDistPerFrame, 2));
     let anchorFpsOffsets = new Coordinates(0,-Math.max(0,dist)*0.3);
     // Setting the anchor
-    this.anchor = new Anchor(new Coordinates(standPoint.coordinates.x + (standPoint.type == "idling" ? this.direction*this.body.bodySize/2 : 0), standPoint.coordinates.y - this.body.bodySize/2),"", anchorFpsOffsets);
-    this.setMovement("hoppingForwardLanding");
-  }
-  edgeHopForward(){
-    let standPoint = this.limits.reachableBlockStandingPoint;
-    this.nextPositionKeyFrame.anchor = null;
-    this.currentPosition.anchor = null;
-    // Calculating how many frames are needed to reach the next standPoint as well as the curve settings for the transition
-    let dist = DistBetweenCoords(this.coordinates, standPoint.coordinates) - settings.hoppingDistMin;
-    this.forceFrameCount = Math.round(Math.max(dist/settings.hoppingDistPerFrame, 2));
-    let anchorFpsOffsets = new Coordinates(0,-Math.max(0,dist)*0.3);
-    // Setting the anchor
-    this.anchor = new Anchor(new Coordinates(standPoint.coordinates.x + (standPoint.type == "idling" ? this.direction*this.body.bodySize/2 : 0), standPoint.coordinates.y - this.body.bodySize/2),"", anchorFpsOffsets);
+    this.anchor = new Anchor(new Coordinates(standPoint.coordinates.x + (standPoint.type === "idling" ? this.direction*this.body.bodySize/2 : 0), standPoint.coordinates.y - this.body.bodySize/2),"", anchorFpsOffsets);
     this.setMovement("hoppingForwardLanding");
   }
   tryClimbAnything(){

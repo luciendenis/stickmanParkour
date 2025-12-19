@@ -15,7 +15,7 @@ Player.prototype.fightAction = function(callback){
   if(callback){
     let type = this.controls.punch ? "Punch" : this.controls.kick ? "Kick" : "";
     let height = (this.wantsNoDirection() ? "" : this.controls.up ? "High" : this.controls.down ? "Low" : "Mid");
-    if(type == "" || height == "") return;
+    if(type === "" || height === "") return;
     let previousDirection;
     let previousAction;
     if(this.fightActions.length > 0){
@@ -29,10 +29,10 @@ Player.prototype.fightAction = function(callback){
     }
     let nextDirection = this.controls.right ? 1 : this.controls.left ? -1 : previousDirection;
     console.log("PreviousAction : " + previousAction + ", LeftKeyDown ? " + this.controls.left + ", RightKeyDown ? " + this.controls.right + ", PreviousDirection : " + previousDirection + ", NextDirection : " + nextDirection);
-    let sideSwitch = (previousDirection != nextDirection);
+    let sideSwitch = (previousDirection !== nextDirection);
 
     let memberSelect = sideSwitch ? (previousAction.startsWith("front") ? "front" : "back") : (previousAction.startsWith("front") ? "back" : "front");
-    memberSelect += (type == "Punch") ? "Hand" : "Leg";
+    memberSelect += (type === "Punch") ? "Hand" : "Leg";
     type = memberSelect + type + height;  // this is the name of the next movement
     if(this.fightActions.length < 2)
       this.fightActions.push(new FightAction(type, nextDirection, sideSwitch));

@@ -3,14 +3,14 @@
 // this one is triggered only on position keyframe update
 Player.prototype.checkForNextActionOnKeyFrameChange = function(){
   this.freezeFrame = false;
-  if(this.currentAction != "running" && this.currentAction != "idling" && this.currentAction != "wallPrepareJumping" && this.currentAction != "oneFootBalance"
-  && this.currentAction != "edgeHangingFrontWithLegs"  && this.currentAction != "edgeHangingFrontWithLegsSideJumping"  && this.currentAction != "edgeHangingFrontWithLegsJumping"){
+  if(this.currentAction !== "running" && this.currentAction !== "idling" && this.currentAction !== "wallPrepareJumping" && this.currentAction !== "oneFootBalance"
+  && this.currentAction !== "edgeHangingFrontWithLegs"  && this.currentAction !== "edgeHangingFrontWithLegsSideJumping"  && this.currentAction !== "edgeHangingFrontWithLegsJumping"){
     this.readyToJump = false;
   }
   switch(this.currentAction){
     case "oneFootBalance":
       if(this.inTransition){
-        if(this.forceFrameCount == 0){
+        if(this.forceFrameCount === 0){
           this.forceFrameCount = 25;
         }
       }
@@ -84,11 +84,11 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
         this.forceFrameCount = 12;
     break;
     case "edgePreventFall":
-      if(!this.inTransition && this.forceFrameCount == 0)
+      if(!this.inTransition && this.forceFrameCount === 0)
         this.forceFrameCount = 10;
     break;
     case "edgeClimbingDown":
-      if(!this.inTransition && this.forceFrameCount == 0){
+      if(!this.inTransition && this.forceFrameCount === 0){
         this.forceFrameCount = 10;
       }
     break;
@@ -98,8 +98,8 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     case "backHandPunchMid":
     case "backHandPunchHigh":
     case "backHandPunchLow":
-      this.freezeFrame = waitingForMultiKeyPress || (this.currentPositionIndex == 0 && this.fightActions.length == 0 && this.wantsToKeepDirection());
-      if(this.forceFrameCount == 0) this.forceFrameCount = settings.fightFrameCount;
+      this.freezeFrame = waitingForMultiKeyPress || (this.currentPositionIndex === 0 && this.fightActions.length === 0 && this.wantsToKeepDirection());
+      if(this.forceFrameCount === 0) this.forceFrameCount = settings.fightFrameCount;
       break;
     case "idling":
       if(!this.inTransition)
@@ -113,13 +113,13 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     break;
     case "crouching":
       if(!this.inTransition){
-        if(this.wantsNoDirection() && this.currentPositionIndex == 0){
+        if(this.wantsNoDirection() && this.currentPositionIndex === 0){
           this.freezeFrame = true;
           this.stopPlayerXAxis();
         }
         else if(this.wantsToKeepDirection()){
-          if((this.direction == 1 && (this.edgeRight(this.coordinates) || this.obstacleRight(this.coordinates))) || (this.direction == -1 && (this.edgeLeft(this.coordinates) || this.obstacleLeft(this.coordinates)))){
-            if(this.currentPositionIndex == 0){
+          if((this.direction === 1 && (this.edgeRight(this.coordinates) || this.obstacleRight(this.coordinates))) || (this.direction === -1 && (this.edgeLeft(this.coordinates) || this.obstacleLeft(this.coordinates)))){
+            if(this.currentPositionIndex === 0){
               this.freezeFrame = true;
             }
           }
@@ -150,7 +150,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
       }
       if(this.wantsNoDirection()){
         if(!this.inTransition){
-          if(this.currentPositionIndex == 1 && (this.velocity.x + this.acceleration.x * this.currentFrameCount)*this.velocity.x <= settings.minVelocityForStopping){ // if total loss of speed, go to idle
+          if(this.currentPositionIndex === 1 && (this.velocity.x + this.acceleration.x * this.currentFrameCount)*this.velocity.x <= settings.minVelocityForStopping){ // if total loss of speed, go to idle
             this.setMovement("idling");
           }
           else{
@@ -168,17 +168,16 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
       else if(this.wantsToKeepDirection()){
         if(this.isOnBlock(this.coordinates) || (this.forcePathSettings != null && this.forcePathSettings.autoProgressCoords == null)){
           let nextX = this.coordinates.x + this.velocity.x*this.currentFrameCount;
-          let nextCoords = new Coordinates(nextX, this.coordinates.y);
           if(!this.obstacleAhead(this.coordinates)){
             // no obstacle in the way, accelerating or staying at max speed
-            if(this.currentPositionIndex == 1)
+            if(this.currentPositionIndex === 1)
               this.velocity.x = Math.abs(this.velocity.x) < settings.minVelocityX ? this.direction*settings.minVelocityX : this.velocity.x;
             this.acceleration.x = Math.abs(this.velocity.x) >= settings.maxVelocityX ? 0 : this.direction*settings.accelerationX;
             // checking if there is a crossable obstacle in the way
-            let topLimit = this.direction == 1 ? this.limits.rightTop : this.limits.leftTop;
-            let hitboxSize = this.direction == 1 ? this.body.hitBox.right : this.body.hitBox.left;
-            let xLimit = this.direction == 1 ? this.limits.right : this.limits.left;
-            if(this.velocity.y*this.direction >= 0 && ((this.direction == 1 && nextX + hitboxSize > xLimit) || (this.direction == -1 && nextX + hitboxSize < xLimit))){
+            let topLimit = this.direction === 1 ? this.limits.rightTop : this.limits.leftTop;
+            let hitboxSize = this.direction === 1 ? this.body.hitBox.right : this.body.hitBox.left;
+            let xLimit = this.direction === 1 ? this.limits.right : this.limits.left;
+            if(this.velocity.y*this.direction >= 0 && ((this.direction === 1 && nextX + hitboxSize > xLimit) || (this.direction === -1 && nextX + hitboxSize < xLimit))){
               if(topLimit - this.coordinates.y < this.body.crossingAbility()){
                 let dy = this.coordinates.y - topLimit;
                 this.crouchFactor = Math.max(1 - 0.3*dy/this.body.crossingAbility(), settings.crouchFactorMin);
@@ -232,15 +231,15 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
         this.forceFrameCount = frames - 10;
         this.setMovement("falling");
       }
-      else if(this.currentPositionIndex == this.currentMovement.positions.length -1){
+      else if(this.currentPositionIndex === this.currentMovement.positions.length -1){
         this.forceFrameCount = Math.floor(Math.abs(this.velocity.y/this.acceleration.y));
       }
       if(this.controls.up){ // player wants to climb on something
-        if(this.direction == 1 && this.obstacleRight(this.coordinates)){
+        if(this.direction === 1 && this.obstacleRight(this.coordinates)){
           let positionIndexStart = this.giveEdgeClimbingPositionIndexStartForHeight(this.coordinates.y -this.limits.rightTop);
           if(positionIndexStart > -1){
             this.anchor = new Anchor(new Coordinates(this.limits.right + this.body.bodySize/2, this.limits.rightTop - this.body.bodySize/2),"", null);
-            if(positionIndexStart == 0){
+            if(positionIndexStart === 0){
               this.setMovement("edgeHangingWithLegs");
             }
             else{
@@ -249,11 +248,11 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
             }
           }
         }
-        else if(this.direction == -1 && this.obstacleLeft(this.coordinates)){
+        else if(this.direction === -1 && this.obstacleLeft(this.coordinates)){
           let positionIndexStart = this.giveEdgeClimbingPositionIndexStartForHeight(this.coordinates.y -this.limits.leftTop);
           if(positionIndexStart > -1){
             this.anchor = new Anchor(new Coordinates(this.limits.left - this.body.bodySize/2, this.limits.leftTop - this.body.bodySize/2),"", null);
-            if(positionIndexStart == 0){
+            if(positionIndexStart === 0){
               this.setMovement("edgeHangingWithLegs");
             }
             else{
@@ -291,7 +290,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
         }
       }
       else if(this.readyToJump && !this.controls.jump){
-        if((this.direction == 1 && this.obstacleRight(this.coordinates)) || (this.direction == -1 && this.obstacleLeft(this.coordinates))){
+        if((this.direction === 1 && this.obstacleRight(this.coordinates)) || (this.direction === -1 && this.obstacleLeft(this.coordinates))){
           this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
           if(this.controls.up){
             this.forceFrameCount = 10;
@@ -322,7 +321,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     case "ropeCrossing":
       if(this.forcePathSettings == null && !this.wantsNoDirection()){
         let nextDir = (this.controls.left) ? -1 : 1;
-        if(this.direction != nextDir){
+        if(this.direction !== nextDir){
           this.direction = nextDir;
           this.forceFrameCount = frameInterpolationCountMin;
           this.velocity.x = this.direction*(settings.ropeCrossingDistPerFrame/this.forceFrameCount)*this.limits.usableRope.speedFactors.x;
@@ -340,7 +339,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
             this.stopPlayerVelocity();
           }
           else{
-            this.forceFrameCount = this.forceFrameCount != 0 ? this.forceFrameCount : settings.ropeCrossingFrameCount;
+            this.forceFrameCount = this.forceFrameCount !== 0 ? this.forceFrameCount : settings.ropeCrossingFrameCount;
             this.velocity.x = this.direction*(settings.ropeCrossingDistPerFrame/this.forceFrameCount)*this.limits.usableRope.speedFactors.x;
             this.velocity.y = -this.direction*(settings.ropeCrossingDistPerFrame/this.forceFrameCount)*this.limits.usableRope.speedFactors.y;
           }
@@ -354,7 +353,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     case "ropeClimbing":
       if(this.forcePathSettings == null && !this.wantsNoDirection()){
         let nextDir = (this.controls.left) ? -1 : 1;
-        if(this.direction != nextDir){
+        if(this.direction !== nextDir){
           this.direction = nextDir;
           this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
           this.forceFrameCount = frameInterpolationCountMin;
@@ -416,7 +415,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     case "edgeHangingFront":
       if(!this.wantsNoDirection()){
         let nextDirection = this.controls.left ? -1 : 1;
-        this.sideSwitch = (this.direction != nextDirection);
+        this.sideSwitch = (this.direction !== nextDirection);
         this.forceFrameCount = 15;
         this.direction = nextDirection;
         this.anglesOffsets.angles.xy = -this.direction*0.2;
@@ -428,7 +427,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     break;
     case "poleSwinging":
     case "edgeHangingFrontSwinging":
-      if(this.forceFrameCount == 0){
+      if(this.forceFrameCount === 0){
         this.forceFrameCount = 5;
       }
     break;

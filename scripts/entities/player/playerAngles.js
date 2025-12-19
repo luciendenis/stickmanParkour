@@ -10,7 +10,7 @@ class PlayerAngles {
   }
   update(control){
     const factor = 1/180;
-    let controlAcceleration = this.controlAffected ? this.controlStrength*factor*(control == null ? 0 : control == "right" ? -1 : 1) : 0;
+    let controlAcceleration = this.controlAffected ? this.controlStrength*factor*(control == null ? 0 : control === "right" ? -1 : 1) : 0;
     let gravityAcceleration = this.gravityAffected ? Math.cos(this.angles.xy + Math.PI/2)*settings.gravity*factor : 0;
     let nextAngularSpeed = (this.angularSpeed.xy + this.angularAcceleration.xy + gravityAcceleration + controlAcceleration)*(1 - this.friction);
     this.angularSpeed.xy = nextAngularSpeed;
@@ -22,7 +22,7 @@ class PlayerAngles {
     const factor = 1/180;
     let nextAnglesXY = this.angles.xy;
     let nextAngularSpeedXY = this.angularSpeed.xy;
-    let controlAcceleration = this.controlAffected ? this.controlStrength*factor*(control == null ? 0 : control == "right" ? -1 : 1) : 0;
+    let controlAcceleration = this.controlAffected ? this.controlStrength*factor*(control == null ? 0 : control === "right" ? -1 : 1) : 0;
     for(let i = 0 ; i < frameCount; i++){
       let gravityAcceleration = this.gravityAffected ? Math.cos(nextAnglesXY + Math.PI/2)*settings.gravity*factor : 0;
       nextAngularSpeedXY = (nextAngularSpeedXY + this.angularAcceleration.xy + gravityAcceleration + controlAcceleration)*(1 - this.friction);

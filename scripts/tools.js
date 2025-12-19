@@ -5,10 +5,10 @@ function GetCoordsMiddle(firstCoord, secondCoord){
   return new Coordinates((firstCoord.x + secondCoord.x)/2,(firstCoord.y + secondCoord.y)/2);
 }
 function DistBetweenCoordsWithDirection(firstCoord, secondCoord, direction){
-  if(direction == "left" || direction == "right"){
+  if(direction === "left" || direction === "right"){
     return Math.abs(firstCoord.x - secondCoord.x);
   }
-  else if(direction == "up" || direction == "down"){
+  else if(direction === "up" || direction === "down"){
     return Math.abs(firstCoord.y - secondCoord.y);
   }
   else{
@@ -18,7 +18,7 @@ function DistBetweenCoordsWithDirection(firstCoord, secondCoord, direction){
 function AngleXYfromCoords(startCoords, endCoords){
   let dx = endCoords.x-startCoords.x;
   let dy = endCoords.y-startCoords.y;
-  if(dx == 0){
+  if(dx === 0){
     return dy > 0 ? Math.PI * .5 : Math.PI * 1.5;
   }
   else{
@@ -57,11 +57,11 @@ function AngleDiff(nextAngle, currentAngle, forceRotationDirection, direction){
     angleDiff += 2*Math.PI;
   }
   // ... unless we force the rotation in a given direction
-  if(forceRotationDirection != null && forceRotationDirection != 0){
-    if(forceRotationDirection*direction == -1){
+  if(forceRotationDirection != null && forceRotationDirection !== 0){
+    if(forceRotationDirection*direction === -1){
       angleDiff += angleDiff >= 0 ? 0 : 2*Math.PI;
     }
-    else if(forceRotationDirection*direction == 1){
+    else if(forceRotationDirection*direction === 1){
       angleDiff -= angleDiff <= 0 ? 0 : 2*Math.PI;
     }
   }
