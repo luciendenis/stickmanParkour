@@ -360,9 +360,7 @@ class Player {
     currentCenterCoords.y -= this.currentPosition.offsets["position"].y;
     let currentOffsetCoords = new Coordinates(0,0);
     if(this.currentPosition.drawStartJunction !== this.nextPositionKeyFrame.drawStartJunction){
-      // TODO check if this code might be useful in the future
-      console.log("switchDrawStartJunction, case this.currentPosition.drawStartJunction != this.nextPositionKeyFrame.drawStartJunction");
-      //currentOffsetCoords = this.body.getOffsetCoordsBetweenDrawStartJunctions(this.currentPosition.drawStartJunction, this.nextPositionKeyFrame.drawStartJunction);
+      currentOffsetCoords = this.body.getOffsetCoordsBetweenDrawStartJunctions(this.currentPosition.drawStartJunction, this.nextPositionKeyFrame.drawStartJunction);
     }
     let nextOffsetCoords = this.body.getOffsetCoords("absolute", newDrawStartJunction);
     this.coordinates.x = currentCenterCoords.x + currentOffsetCoords.x - nextOffsetCoords.x;

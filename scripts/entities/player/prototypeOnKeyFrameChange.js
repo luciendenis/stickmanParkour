@@ -55,6 +55,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     break;
     case "edgeHangingWithLegs":
       if(!this.inTransition && (this.controls.down || this.wantsToChangeDirection())){
+        this.currentPosition.anchor = this.nextPositionKeyFrame.anchor;
         this.limits.usableHold = null;
         if(this.wantsToChangeDirection()){
           this.direction *= -1;
@@ -64,7 +65,8 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
           this.fallFromAnchor(null);
         }
       }
-      else if(this.controls.jump){
+      else if(!this.inTransition && this.controls.jump){
+        this.currentPosition.anchor = this.nextPositionKeyFrame.anchor;
         this.readyToJump = true;
         if(!this.inTransition){
           this.forceFrameCount = 14;
@@ -332,6 +334,7 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
           let nextY = this.coordinates.y + this.direction*settings.ropeCrossingDistPerFrame*this.limits.usableRope.speedFactors.y;
           if(nextX < this.limits.usableRope.anchorLeft.x || nextX > this.limits.usableRope.anchorRight.x){
             this.forceFrameCount = frameInterpolationCountMin;
+            this.currentPosition.drawStartJunction = this.nextPositionKeyFrame.drawStartJunction;
             this.fallFromAnchor(null);
           }
           else if(nextX + this.body.hitBox.left < this.limits.left || nextX + this.body.hitBox.right > this.limits.right || nextY + this.body.hitBox.totalHeight() > this.limits.bottom || nextY < this.limits.top){

@@ -219,6 +219,7 @@ Player.prototype.action = function(){
     break;
     case "ropeCrossing":
       if(this.controls.down){
+        this.currentPosition.drawStartJunction = this.nextPositionKeyFrame.drawStartJunction;
         this.fallFromAnchor(null);
       }
       else if(this.forcePathSettings == null && (!this.wantsNoDirection()) && this.freezeFrame){
@@ -326,7 +327,7 @@ Player.prototype.action = function(){
           this.fallFromAnchor(null);
         }
       }
-      else if(this.controls.jump){
+      else if(!this.inTransition && this.controls.jump){
         this.readyToJump = true;
         if(!this.inTransition){
           this.forceFrameCount = 14;
