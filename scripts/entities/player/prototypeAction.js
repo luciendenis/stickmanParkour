@@ -156,8 +156,10 @@ Player.prototype.action = function(){
         this.climbEdge(null);
       }
     break;
-    case "wallPrepareJumping":
-      if(this.readyToJump && !this.controls.jump){
+      case "wallPrepareJumping":
+        // Wall prepare jumping happens when player comes from a jump against a wall,
+        // Or when he is edgeHangingWithLegs. In this case, we must wait for the transition to be complete before jumping.
+      if(this.readyToJump && !this.controls.jump && (this.limits.usableHold == null || !this.inTransition)){
         if((this.direction === 1 && this.obstacleRight(this.coordinates)) || (this.direction === -1 && this.obstacleLeft(this.coordinates))){
           this.anglesOffsets = new PlayerAngles(new Angles(0,0,0), new Angles(0,0,0), new Angles(0,0,0), false, false, 0, 0);
           if(this.controls.up){
@@ -447,8 +449,7 @@ Player.prototype.action = function(){
           let exitVelocityCoords = this.anglesOffsets.exitVelocityCoords(false);
           this.velocity.x = exitVelocityCoords.x;
           this.velocity.y = exitVelocityCoords.y;
-          let nextDir = this.velocity.x > 0 ? 1 : -1;
-          this.direction = nextDir;
+          this.direction = this.velocity.x > 0 ? 1 : -1;
           this.fallFromAnchor(null);
         }
       }
