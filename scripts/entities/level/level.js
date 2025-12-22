@@ -201,8 +201,8 @@ class ClimbingHold {
   }
   giveProgressiveDrawInstructions(progressiveDrawObj){
     let startAngle = this.type === "sideRight" ? Math.PI/2 : 0;
-    let endAngle = this.type === "sideLeft" ? Math.PI/2 : Math.PI;
-    let size = this.type === "pole" ? this.size/2 : this.size;
+    let endAngle = this.type === "pole" ? 2*Math.PI : this.type === "sideLeft" ? Math.PI/2 : Math.PI;
+    let size = this.type === "pole" ? this.size/3 : this.size;
     progressiveDrawObj.drawFunctions.push(new Function("context", "context.arc(" + this.coordinates.x + "," + this.coordinates.y + "," + size + "," + size + "," + startAngle + "," + endAngle + ",true," + JSON.stringify(this.roughOptions) + ");" ));
   }
   draw(context){

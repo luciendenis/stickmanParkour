@@ -14,6 +14,13 @@ class Coordinates{
       offset = new Coordinates(0,0);
     return new Coordinates(this.x + offset.x, this.y + offset.y);
   }
+  angle(){
+      let dummy = new Coordinates(0,0);
+      return AngleXYfromCoords(dummy, this);
+  }
+  getLength(){
+      return Math.sqrt(this.x**2 + this.y**2);
+  }
 }
 class PolarCoordinates {
   constructor(distance, angle) {

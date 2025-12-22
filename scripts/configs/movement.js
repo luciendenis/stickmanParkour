@@ -191,10 +191,10 @@ var movementConfigs = [
           ]
         },
         {
-          "offsets":{
-            "position":{
-              "x":20,
-              "y":-15
+          offsets:{
+            position:{
+              x:20,
+              y:-15
             }
           },
           elements:[
@@ -391,10 +391,10 @@ var movementConfigs = [
       switchSide:false,
       positions:[
         {
-          "offsets":{
-            "velocity":{
-              "x":0,
-              "y":-12
+          offsets:{
+            velocity:{
+              x:0,
+              y:-12
             }
           },
           elements:[
@@ -485,10 +485,10 @@ var movementConfigs = [
           ]
         },
         {
-          "offsets":{
-            "position":{
-              "x":15,
-              "y":-45
+          offsets:{
+            position:{
+              x:15,
+              y:-45
             }
           },
           elements:[
@@ -588,10 +588,10 @@ var movementConfigs = [
       switchSide:false,
       positions:[
         {
-          "offsets":{
-            "position":{
-              "x":0,
-              "y":0
+          offsets:{
+            position:{
+              x:0,
+              y:0
             }
           },
           elements:[
@@ -2994,10 +2994,10 @@ var movementConfigs = [
           "anchor":{
             "releaseOffset":"backhand"
           },
-          "offsets":{
-            "velocity":{
-              "x":3,
-              "y":4
+          offsets:{
+            velocity:{
+              x:3,
+              y:4
             }
           },
           "drawStartJunction":"backhand",
@@ -3195,14 +3195,14 @@ var movementConfigs = [
       switchSide:false,
       positions:[
         {
-          "offsets":{
-            "position":{
-              "x":0,
-              "y":-30
+          offsets:{
+            position:{
+              x:0,
+              y:-30
             },
-            "velocity":{
-              "x":-10,
-              "y":-11
+            velocity:{
+              x:-10,
+              y:-11
             }
           },
           elements:[
@@ -3302,14 +3302,14 @@ var movementConfigs = [
       switchSide:false,
       positions:[
         {
-          "offsets":{
-            "position":{
-              "x":15,
-              "y":0
+          offsets:{
+            position:{
+              x:15,
+              y:0
             },
-            "velocity":{
-              "x":0,
-              "y":-12
+            velocity:{
+              x:0,
+              y:-12
             }
           },
           elements:[
@@ -3412,10 +3412,10 @@ var movementConfigs = [
       "resetAfter":false,
       positions:[
         {
-          "offsets":{
-            "velocity":{
-              "x":0,
-              "y":-14
+          offsets:{
+            velocity:{
+              x:0,
+              y:-14
             }
           },
           elements:[

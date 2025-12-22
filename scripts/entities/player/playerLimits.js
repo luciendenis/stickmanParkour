@@ -47,7 +47,19 @@ Player.prototype.updatePlayerLimits = function(){ // computing what the player l
   for(let i = 0; i < level.hazards.length; i++){
     let hazard = level.hazards[i];
     if(hazard.xRight > bodyHitBoxLeft && hazard.xLeft < bodyHitBoxRight && hazard.yBottom > bodyHitBoxTop && hazard.yTop < bodyHitBoxBottom){
-      Die();
+        // Player is close enough to a hazard to check if he is touching it
+        let touching = false;
+        let junctionKeys = Object.keys(this.body.junctions);
+        let junctionIndex = 0;
+        while(!touching && junctionIndex < junctionKeys.length){
+            let j = this.body.junctions[junctionKeys[junctionIndex]];
+            touching = hazard.xRight > this.body.coordinates.x + j.coordinates.x - j.size/2
+                && hazard.xLeft < this.body.coordinates.x + j.coordinates.x + j.size/2
+                && hazard.yBottom > this.body.coordinates.y + j.coordinates.y - j.size/2
+                && hazard.yTop < this.body.coordinates.y + j.coordinates.y + j.size/2;
+            junctionIndex++;
+        }
+        if(touching) { Die(); }
     }
   }
   let newLimits = new PlayerLimits(level.levelLimits.xLeft, level.levelLimits.yCeiling, level.levelLimits.xRight, level.levelLimits.yGround);

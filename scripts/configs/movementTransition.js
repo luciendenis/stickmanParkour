@@ -29,6 +29,36 @@ var movementTransitionConfigs = [
       }
     ]
   },
+    {
+        from:"running",
+        to:"jumping",
+        sideSwitch:null,
+        rotationDirections:[
+            {
+                endJunction:"fronthand",
+                direction:1
+            },
+            {
+                endJunction:"backhand",
+                direction:1
+            }
+        ]
+    },
+    {
+        from:"running",
+        to:"poleSwinging",
+        sideSwitch:null,
+        rotationDirections:[
+            {
+                endJunction:"fronthand",
+                direction:1
+            },
+            {
+                endJunction:"backhand",
+                direction:1
+            }
+        ]
+    },
   {
     from:"falling",
     to:"idling",
@@ -59,6 +89,21 @@ var movementTransitionConfigs = [
       }
     ]
   },
+    {
+        from:"falling",
+        to:"poleSwinging",
+        sideSwitch:null,
+        rotationDirections:[
+            {
+                endJunction:"fronthand",
+                direction:1
+            },
+            {
+                endJunction:"backhand",
+                direction:1
+            }
+        ]
+    },
   {
     from:"ropeDownSliding",
     to:"falling",
@@ -213,6 +258,21 @@ var movementTransitionConfigs = [
     frameCount:12,
     rotationDirections:[]
   },
+    {
+        from:"idling",
+        to:"poleSwinging",
+        sideSwitch:null,
+        rotationDirections:[
+            {
+                endJunction:"fronthand",
+                direction:1
+            },
+            {
+                endJunction:"backhand",
+                direction:1
+            }
+        ]
+    },
   {
     from:"crouching",
     to:"edgeHopping",

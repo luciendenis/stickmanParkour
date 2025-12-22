@@ -21,7 +21,6 @@ function AngleXYfromCoords(startCoords, endCoords){
   if(dx === 0){
     return dy > 0 ? Math.PI * .5 : Math.PI * 1.5;
   }
-  else{
     let angle = Math.atan(Math.abs(dy)/Math.abs(dx));
     if(dx > 0){
       return dy > 0 ? angle : Math.PI*2 - angle;
@@ -29,7 +28,6 @@ function AngleXYfromCoords(startCoords, endCoords){
     else{
       return dy > 0 ? Math.PI - angle : Math.PI + angle;
     }
-  }
 }
 
 function AngleMirrorY(angle){

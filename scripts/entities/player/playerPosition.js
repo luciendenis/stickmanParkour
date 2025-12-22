@@ -143,6 +143,7 @@ Player.prototype.updatePosition = function(){
   // case the player hits the ceiling
   else if(this.gravityOn && this.coordinates.y + this.velocity.y + this.currentPosition.offsets["position"].y + this.body.hitBox.top - this.body.hitBox.bottom < this.limits.top  && this.velocity.y < 0){
     this.velocity.y = 0;
+    if(this.velocity.x !== 0) this.direction = Math.sign(this.velocity.x);
     this.setMovement("falling");
   }
   this.coordinates.y += this.velocity.y;
