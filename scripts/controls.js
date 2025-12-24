@@ -71,16 +71,16 @@ window.addEventListener('keydown',
         keyList.push("down");
         player.setControls(keyList, true);
       }
-      else if(!punchKeyDown && event.code === "KeyA"){ // 'a'
-        // punchKeyDown = true;
-        // keyList.push("punch");
-        // player.setControls(keyList, true);
-      }
-      else if(!kickKeyDown && event.code === "KeyQ"){ // 'q'
-        // kickKeyDown = true;
-        // keyList.push("kick");
-        // player.setControls(keyList, true);
-      }
+      // else if(!punchKeyDown && event.code === "KeyQ"){ // 'a' on azerty
+      //   punchKeyDown = true;
+      //   keyList.push("punch");
+      //   player.setControls(keyList, true);
+      // }
+      // else if(!kickKeyDown && event.code === "KeyA"){ // 'q' on azerty
+      //   kickKeyDown = true;
+      //   keyList.push("kick");
+      //   player.setControls(keyList, true);
+      // }
       else if(event.code === "Escape"){
         PauseGame();
       }
@@ -122,15 +122,15 @@ window.addEventListener('keyup',
       keyList.push("down");
       player.setControls(keyList, false);
     }
-    else if(punchKeyDown && event.code === "KeyA"){ // 'a'
-      // punchKeyDown = false;
-      // keyList.push("punch");
-      // player.setControls(keyList, false);
-    }
-    else if(kickKeyDown && event.code === "KeyQ"){ // 'q'
-      // kickKeyDown = false;
-      // keyList.push("kick");
-      // player.setControls(keyList, false);
-    }
+    // else if(punchKeyDown && event.code === "KeyQ"){ // 'a' on azerty
+    //   punchKeyDown = false;
+    //   keyList.push("punch");
+    //   player.setControls(keyList, false);
+    // }
+    // else if(kickKeyDown && event.code === "KeyA"){ // 'q' on azerty
+    //   kickKeyDown = false;
+    //   keyList.push("kick");
+    //   player.setControls(keyList, false);
+    // }
   }
 );

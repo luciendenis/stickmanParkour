@@ -2,6 +2,9 @@
 // this is where we check what the next action should be based on player input and movement parameter
 // this one is triggered every frame
 Player.prototype.checkForNextActionOnFrameChange = function(){
+    if (this.controls.punch || this.controls.kick) {
+        return;
+    }
   switch(this.currentAction){
     case "crouchTurning":
     case "crouching":

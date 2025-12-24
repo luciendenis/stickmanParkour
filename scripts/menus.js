@@ -102,7 +102,7 @@ class Menu {
   useShortcut(name){
     if(this.currentElementsArray != null && this.currentElementsArray.length > 0){
       let destination = Array.prototype.find.call(this.currentElementsArray, (e => e.dataset.shortcut === name));
-      if(destination != null){
+      if(destination != null && window.getComputedStyle(destination,"style").display === "block"){
         this.displayMenu(destination.dataset.destination);
       }
     }

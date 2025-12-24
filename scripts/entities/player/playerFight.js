@@ -12,7 +12,9 @@ class FightAction {
 
 // We add prototypes relative to the fighting actions to the player
 Player.prototype.fightAction = function(callback){
+    console.log("Fight Action: " + this.currentAction + ", callback: " + callback);
   if(callback){
+      console.log("punch ? " + this.controls.punch + ", kick ? " + this.controls.kick);
     let type = this.controls.punch ? "Punch" : this.controls.kick ? "Kick" : "";
     let height = (this.wantsNoDirection() ? "" : this.controls.up ? "High" : this.controls.down ? "Low" : "Mid");
     if(type === "" || height === "") return;
@@ -28,7 +30,6 @@ Player.prototype.fightAction = function(callback){
       previousDirection = this.direction;
     }
     let nextDirection = this.controls.right ? 1 : this.controls.left ? -1 : previousDirection;
-    console.log("PreviousAction : " + previousAction + ", LeftKeyDown ? " + this.controls.left + ", RightKeyDown ? " + this.controls.right + ", PreviousDirection : " + previousDirection + ", NextDirection : " + nextDirection);
     let sideSwitch = (previousDirection !== nextDirection);
 
     let memberSelect = sideSwitch ? (previousAction.startsWith("front") ? "front" : "back") : (previousAction.startsWith("front") ? "back" : "front");
