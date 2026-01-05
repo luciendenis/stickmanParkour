@@ -475,7 +475,7 @@ class Player {
       if(hold.climbDownType === "edgeHangingFront" || hold.climbDownType === "pole"){
         let startCoords = this.coordinates.clone();
         let distsToHold = new Coordinates(hold.coordinates.x - this.coordinates.x, hold.coordinates.y - this.coordinates.y);
-        let speed = Math.max(this.velocity.getLength(),0.01);
+        let speed = Math.max(this.velocity.getLength()/(2*globalScale),0.01);
         let angleToHold = Math.abs(distsToHold.angle() - this.velocity.angle());
         if(this.currentAction.startsWith("edgeHanging")){
           startCoords = this.body.getJunctionCoords(this.frontSide + "foot");
