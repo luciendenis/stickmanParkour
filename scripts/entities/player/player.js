@@ -57,7 +57,6 @@ class Player {
       if(!this.newMovement){
         if(this.forceFrameCount > 0){
           this.currentFrameCount = this.forceFrameCount;
-          this.forceFrameCount = 0;
         }
         else{
           this.currentFrameCount = frameInterpolationCountMin + Math.floor(frameInterpolationCount * ((settings.maxVelocityX - Math.max(Math.abs(this.velocity.x),0))/ settings.maxVelocityX));
@@ -77,7 +76,7 @@ class Player {
         this.currentFrame = 1;  // to avoid position redundancy
         // checking if there is a transition between the movements
         let transition = LoadTransitionConfig(movementTransitionConfigs, this.previousAction, this.currentAction, this.sideSwitch);
-        console.log("New movement : { previousAction : " + this.previousAction + ", currentAction : " + this.currentAction + ", sideSwitch : " + this.sideSwitch + " }");
+        if(debugMode) console.log("New movement : { previousAction : " + this.previousAction + ", currentAction : " + this.currentAction + ", sideSwitch : " + this.sideSwitch + " }");
         if(transition != null){
           this.applyTransition(transition);
         }
@@ -86,7 +85,6 @@ class Player {
         this.keepNextKeyFrameReference = false;
         if(this.forceFrameCount > 0){
           this.currentFrameCount = this.forceFrameCount;
-          this.forceFrameCount = 0;
         }
         else{
           this.currentFrameCount = frameInterpolationCountMin; // for a transition keeping interpolation frames to a minimum
@@ -115,7 +113,6 @@ class Player {
 
       this.currentPosition = this.lastPositionKeyFrame;
 
-
       // Switching sides if necessary
       if(this.currentPositionIndex === 0 && this.currentMovement.switchSide && !this.freezeFrame){
         this.frontSide = this.frontSide === 'left' ? 'right' : 'left';
@@ -131,6 +128,13 @@ class Player {
         positionOverride = ApplyPositionOverrideSettings(this.currentMovementOverride.positions[this.currentMovementOverrideIndex], this.overrideFrontSide, this.overrideBackSide, this.direction, this.body, this.anchor);
       }
       this.nextPositionKeyFrame = ApplyPositionSettings(this.currentMovement.positions[this.currentPositionIndex], positionOverride, this.frontSide, this.backSide, this.direction, this.crouchFactor, this.anglesOffsets.angles.clone());
+
+        if(this.forceFrameCount > 0){
+            this.forceFrameCount = 0;
+        }
+        else if(this.nextPositionKeyFrame.duration !== null){
+            this.currentFrameCount = Math.round(frameInterpolationCountMin*this.nextPositionKeyFrame.duration);
+        }
 
       // Applying velocity offsets
       if(applyVelocityOffSets){

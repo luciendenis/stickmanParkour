@@ -30,6 +30,7 @@ var currentLevelName;
 var globalScale;
 var debugMode = false;
 var roughMode = true;
+var fightAllowed = false;
 var progressiveDrawMode = true;
 var progressiveDraw = new ProgressiveDraw(lvlContext, 20);
 var readyToPlay = false;

@@ -1,9 +1,6 @@
 // This file must be loaded after class Player declared player.js
 // triggered when player presses or releases a control key
 Player.prototype.action = function () {
-    if (this.controls.punch || this.controls.kick) {
-        return this.fightAction(false);
-    }
     switch (this.currentAction) {
         case "frontHandPunchMid":
         case "frontHandPunchHigh":
@@ -12,7 +9,21 @@ Player.prototype.action = function () {
         case "backHandPunchHigh":
         case "backHandPunchLow":
             break;
+        case "guard":
+        case "guardDuck":
+            if(!this.inTransition){
+                console.log("Guard or GuardDuck ACTION");
+                this.stopPlayerXAxis();
+                if (this.isInFightMode()) {
+                    return this.fightAction(false);
+                }
+                else{ this.setMovement("idling"); }
+            }
+            break;
         case "idling":
+            if (this.isInFightMode()) {
+                return this.fightAction(false);
+            }
             if (!this.inTransition) {
                 if (this.controls.jump) {
                     this.prepareJump();
@@ -145,9 +156,10 @@ Player.prototype.action = function () {
         case "wallPrepareJumping":
             // Wall prepare jumping happens when player comes from a jump against a wall,
             // Or when he is edgeHangingWithLegs. In this case, we must wait for the transition to be complete before jumping.
-            if (this.readyToJump && !this.controls.jump && (this.limits.usableHold == null || !this.inTransition)) {
-                if ((this.direction === 1 && this.obstacleRight(this.coordinates)) || (this.direction === -1 && this.obstacleLeft(this.coordinates))) {
+            if (this.readyToJump && !this.controls.jump && (this.limits.usableHold === null || !this.inTransition)) {
+                if (this.obstacleAhead(this.coordinates)){
                     this.anglesOffsets = new PlayerAngles(new Angles(0, 0, 0), new Angles(0, 0, 0), new Angles(0, 0, 0), false, false, 0, 0);
+                    this.limits.usableHold = null;
                     if (this.controls.up) {
                         this.forceFrameCount = 10;
                         this.forceControlTemp("up", false, 120); // this avoids to climb the edge the playing is jumping from

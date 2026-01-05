@@ -6,6 +6,8 @@ var upKeyDown = false;
 var downKeyDown = false;
 var punchKeyDown = false;
 var kickKeyDown = false;
+var grabKeyDown = false;
+var guardKeyDown = false;
 var shiftKeyDown = false;
 const delayForMultiKeyPress = 30 // delay in milliseconds to wait for checking a multiple key press
 const delayForKeyRelease = 120; // delay in milliseconds to wait for checking if player just pressed a key or if he is holding it
@@ -20,6 +22,8 @@ function GetKeyStatus(name){
     case "right": return rightKeyDown;
     case "punch": return punchKeyDown;
     case "kick":  return kickKeyDown;
+    case "grab": return grabKeyDown;
+    case "guard":  return guardKeyDown;
     case "parkour": return shiftKeyDown;
     default: return false;
   }
@@ -41,6 +45,7 @@ window.addEventListener('keydown',
     }
     if(readyToPlay && gameRunning && !levelEnded){
       let keyList = [];
+      // Move controls
       if(!spacebarDown && event.code === "Space"){  // spacebar
         spacebarDown = true;
         keyList.push("jump");
@@ -71,16 +76,27 @@ window.addEventListener('keydown',
         keyList.push("down");
         player.setControls(keyList, true);
       }
-      // else if(!punchKeyDown && event.code === "KeyQ"){ // 'a' on azerty
-      //   punchKeyDown = true;
-      //   keyList.push("punch");
-      //   player.setControls(keyList, true);
-      // }
-      // else if(!kickKeyDown && event.code === "KeyA"){ // 'q' on azerty
-      //   kickKeyDown = true;
-      //   keyList.push("kick");
-      //   player.setControls(keyList, true);
-      // }
+      // Fight controls
+      else if(fightAllowed && !punchKeyDown && event.code === "KeyQ"){ // 'a' on azerty
+        punchKeyDown = true;
+        keyList.push("punch");
+        player.setControls(keyList, true);
+      }
+      else if(fightAllowed && !kickKeyDown && event.code === "KeyA"){ // 'q' on azerty
+        kickKeyDown = true;
+        keyList.push("kick");
+        player.setControls(keyList, true);
+      }
+      else if(fightAllowed && !grabKeyDown && event.code === "KeyW"){ // 'z' on azerty
+          grabKeyDown = true;
+          keyList.push("grab");
+          player.setControls(keyList, true);
+      }
+      else if(fightAllowed && !guardKeyDown && event.code === "KeyS"){ // 's' on azerty
+          guardKeyDown = true;
+          keyList.push("guard");
+          player.setControls(keyList, true);
+      }
       else if(event.code === "Escape"){
         PauseGame();
       }
@@ -92,6 +108,7 @@ window.addEventListener('keyup',
     event.preventDefault();
     event.stopPropagation();
     let keyList = [];
+    // Move controls
     if(spacebarDown && event.code === "Space"){  // spacebar
       spacebarDown = false;
       keyList.push("jump");
@@ -122,15 +139,26 @@ window.addEventListener('keyup',
       keyList.push("down");
       player.setControls(keyList, false);
     }
-    // else if(punchKeyDown && event.code === "KeyQ"){ // 'a' on azerty
-    //   punchKeyDown = false;
-    //   keyList.push("punch");
-    //   player.setControls(keyList, false);
-    // }
-    // else if(kickKeyDown && event.code === "KeyA"){ // 'q' on azerty
-    //   kickKeyDown = false;
-    //   keyList.push("kick");
-    //   player.setControls(keyList, false);
-    // }
+    // Fight controls
+    else if(fightAllowed && punchKeyDown && event.code === "KeyQ"){ // 'a' on azerty
+      punchKeyDown = false;
+      keyList.push("punch");
+      player.setControls(keyList, false);
+    }
+    else if(fightAllowed && kickKeyDown && event.code === "KeyA"){ // 'q' on azerty
+      kickKeyDown = false;
+      keyList.push("kick");
+      player.setControls(keyList, false);
+    }
+    else if(fightAllowed && grabKeyDown && event.code === "KeyW"){ // 'z' on azerty
+        grabKeyDown = false;
+        keyList.push("grab");
+        player.setControls(keyList, false);
+    }
+    else if(fightAllowed && guardKeyDown && event.code === "KeyS"){ // 's' on azerty
+        guardKeyDown = false;
+        keyList.push("guard");
+        player.setControls(keyList, false);
+    }
   }
 );

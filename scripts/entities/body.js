@@ -9,6 +9,15 @@ class Coordinates{
     this.y += offsetCoords.y;
     return this;
   }
+  static cast(object, direction, scale){
+      direction = direction || 1;
+      scale = scale || 1;
+      if(object == null) return null;
+      return new Coordinates(
+          object.x != null ? object.x*direction*scale : 0,
+          object.y != null ? object.y*scale : 0
+      );
+  }
   clone(offset){
     if(offset == null)
       offset = new Coordinates(0,0);
@@ -34,6 +43,15 @@ class Angles {
     this.xy = xy; // angle on the pane formed by the x and y axis, between 0 and 2Pi
     this.z = z;   // angle on the pane formed by the xy line and the z axis, between -1 and 1
     this.forceRotationDirection = forceRotationDirection; // null or -1 or 1, used to force rotation direction to the next frame
+  }
+  static cast(object, direction){
+      direction = direction || 1;
+      if(object == null) return null;
+      return new Angles(
+          object.xy != null ? object.xy*direction : 0,
+          object.z != null ? object.z*direction : 0,
+          object.forceRotationDirection != null ? object.forceRotationDirection*direction : 0
+      );
   }
   clone(){
     return new Angles(this.xy, this.z, this.forceRotationDirection);
@@ -73,6 +91,7 @@ class Position {
   constructor() {
     this.anchor = null;  // if true, the drawing on the level will start on an anchor point instead of the coordinates of the player
     this.drawStartJunction = "hitboxbottom";  // from which point on the body this position is meant to be drawn
+    this.duration = null;   // if not null, it is a multiplicator to apply to frame count
     this.offsets = {};  // collection of offsets for the position (coordinates, velocity and acceleration)
     this.elements = []; // collection of position elements, order is very important
     // it starts from the center, then shoulders and hips, then head, hands and feet
@@ -288,10 +307,12 @@ function ApplyPositionOverrideSettings(position, frontSide, backSide, direction,
   if(position.offsets == null){
     newPosition.offsets["position"] = new Coordinates(0,0);
     newPosition.offsets["velocity"] = new Coordinates(0,0);
+    newPosition.offsets["angles"] = new Angles(0,0,0);
   }
   else{
-    newPosition.offsets["position"] = position.offsets.position != null ? new Coordinates(position.offsets.position.x != null ? position.offsets.position.x : 0, position.offsets.position.y != null ? position.offsets.position.y : 0) : new Coordinates(0,0);
-    newPosition.offsets["velocity"] = position.offsets.velocity != null ? new Coordinates(position.offsets.velocity.x != null ? position.offsets.velocity.x : 0, position.offsets.velocity.y != null ? position.offsets.velocity.y : 0) : new Coordinates(0,0);
+    newPosition.offsets["position"] = position.offsets.position != null ? Coordinates.cast(position.offsets.position) : new Coordinates(0,0);
+    newPosition.offsets["velocity"] = position.offsets.velocity != null ? Coordinates.cast(position.offsets.velocity) : new Coordinates(0,0);
+    newPosition.offsets["angles"] = position.offsets.angles != null ? Angles.cast(position.offsets.angles): new Angles(0,0,0);
   }
   for(let i = 0; i < position.elements.length; i++){
     let pe = position.elements[i];
@@ -326,18 +347,25 @@ function ApplyPositionSettings(position, overrides, frontSide, backSide, directi
     newPosition.drawStartJunction = position.drawStartJunction.replace('front', frontSide).replace('back', backSide);
   }
   if(overrides != null && overrides.offsets != null){
-    newPosition.offsets["position"] = overrides.offsets.position != null ? new Coordinates(overrides.offsets.position.x != null ? overrides.offsets.position.x*globalScale*direction : 0, overrides.offsets.position.y != null ? overrides.offsets.position.y*globalScale : 0) : new Coordinates(0,0);
-    newPosition.offsets["velocity"] = overrides.offsets.velocity != null ? new Coordinates(overrides.offsets.velocity.x != null ? overrides.offsets.velocity.x*globalScale*direction : 0, overrides.offsets.velocity.y != null ? overrides.offsets.velocity.y*globalScale : 0) : new Coordinates(0,0);
+    newPosition.offsets["position"] = overrides.offsets.position != null ? Coordinates.cast(overrides.offsets.position, direction, globalScale) : new Coordinates(0,0);
+    newPosition.offsets["velocity"] = overrides.offsets.velocity != null ? Coordinates.cast(overrides.offsets.velocity, direction, globalScale) : new Coordinates(0,0);
   }
-  else if(position.offsets == null){
-    newPosition.offsets["position"] = new Coordinates(0,0);
-    newPosition.offsets["velocity"] = new Coordinates(0,0);
+  else if (position.offsets != null){
+      newPosition.offsets["position"] = position.offsets.position != null ? Coordinates.cast(position.offsets.position, direction, globalScale) : new Coordinates(0,0);
+      newPosition.offsets["velocity"] = position.offsets.velocity != null ? Coordinates.cast(position.offsets.velocity, direction, globalScale) : new Coordinates(0,0);
   }
   else{
-    newPosition.offsets["position"] = position.offsets.position != null ? new Coordinates(position.offsets.position.x != null ? position.offsets.position.x*globalScale*direction : 0, position.offsets.position.y != null ? position.offsets.position.y*globalScale : 0) : new Coordinates(0,0);
-    newPosition.offsets["velocity"] = position.offsets.velocity != null ? new Coordinates(position.offsets.velocity.x != null ? position.offsets.velocity.x*globalScale*direction : 0, position.offsets.velocity.y != null ? position.offsets.velocity.y*globalScale : 0) : new Coordinates(0,0);
+      newPosition.offsets["position"] = new Coordinates(0,0);
+      newPosition.offsets["velocity"] = new Coordinates(0,0);
   }
-  newPosition.offsets["angles"] = (anglesOffsets != null) ? anglesOffsets : new Angles(0,0,0);
+  newPosition.offsets["angles"] =
+    overrides != null && overrides.offsets != null && overrides.offsets.angles != null ? Angles.cast(overrides.offsets.angles, direction) :
+    position.offsets != null && position.offsets.angles != null ? Angles.cast(position.offsets.angles, direction) :
+    anglesOffsets != null ? anglesOffsets : new Angles(0,0,0);
+
+  if(position.duration !== undefined && position.duration !== null){
+      newPosition.duration = position.duration;
+  }
   for(let i = 0; i < position.elements.length; i++){
     let startJunction = position.elements[i].startJunction.replace('front', frontSide).replace('back', backSide);
     let middleJunction = position.elements[i].middleJunction.replace('front', frontSide).replace('back', backSide);

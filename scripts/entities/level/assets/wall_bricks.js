@@ -110,7 +110,7 @@ class Wall_Bricks {
     context.translate(-this.bottomLeftCoords.x, -this.bottomLeftCoords.y);
     context.rotate(-this.orientation);
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
   drawRough(context){
     var t0 = performance.now();
@@ -233,6 +233,6 @@ class Wall_Bricks {
       currentHeight += currentBrickLayerHeight + this.jointThickness + 2*this.strokeStrength;
     }
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
 }

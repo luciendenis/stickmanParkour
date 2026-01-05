@@ -64,7 +64,7 @@ class Ground_Depth_Concrete {
     }
 
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
   drawRough(context){
     var t0 = performance.now();
@@ -123,7 +123,7 @@ class Ground_Depth_Concrete {
     }
 
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
   drawGradient(context){
     // rough or not, the context is the canvas

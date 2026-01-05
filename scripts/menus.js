@@ -109,7 +109,7 @@ class Menu {
   }
   selectLevel(levelName){
     let menuLevel = this.allLevels.find(l => l.name === levelName);
-    if(menuLevel != null && menuLevel.selectable){
+    if(menuLevel != null && (menuLevel.selectable || debugMode)){
         this.displayMenu("");
         this.currentLevelName = levelName;
         LoadLevel(levelName);

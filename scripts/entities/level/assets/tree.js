@@ -78,7 +78,7 @@ class Tree {
       this.seed = this.branches[i].drawLeavesFrontLayer(this.seed,{gradient:this.leavesFrontLayerGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, maxWidthForLeaves:this.maxWidthForLeaves, minSegmentForLeaves:this.minSegmentForLeaves, leavesAreaSize:this.leavesAreaSize, leavesSize:this.leavesSize, leavesCountPerBush:this.leavesCountPerBush});
     }
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
   drawRough(context){
     var t0 = performance.now();
@@ -95,7 +95,7 @@ class Tree {
       this.seed = this.branches[i].drawLeavesFrontLayerRough(this.seed,{gradient:this.leavesFrontLayerGradient, strokeStrength:this.strokeStrength, roughness:this.roughness, maxWidthForLeaves:this.maxWidthForLeaves, minSegmentForLeaves:this.minSegmentForLeaves, leavesAreaSize:this.leavesAreaSize, leavesSize:this.leavesSize, leavesCountPerBush:this.leavesCountPerBush});
     }
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
 }
 

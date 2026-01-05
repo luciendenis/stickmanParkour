@@ -271,7 +271,7 @@ class Background_Mountains {
     this.drawTrees(treeArray, this.treeGradient);
 
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
   closeShadowArea(shadowAreasArray, currentShadowAreaArray, secondPathArray, rockAreasArray, randomIndex){
     if(currentShadowAreaArray.length < 2 || secondPathArray.length < 2)

@@ -48,7 +48,7 @@ class Background_Mist {
     }
 
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
   drawRough(context){
     this.draw(context);

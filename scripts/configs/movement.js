@@ -790,7 +790,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -892,7 +892,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -1095,7 +1095,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -1197,7 +1197,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -1299,7 +1299,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -1603,7 +1603,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -1705,7 +1705,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -2009,7 +2009,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -2203,7 +2203,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -2305,7 +2305,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -2508,7 +2508,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -2702,7 +2702,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -2896,7 +2896,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -3358,7 +3358,7 @@ var movementConfigs = [
               angles:{
                 xy:5,
                 z:1,
-                "forceRotationDirection":-1
+                forceRotationDirection:-1
               },
               extension:0.98
             },
@@ -3371,7 +3371,7 @@ var movementConfigs = [
               angles:{
                 xy:2.5,
                 z:1,
-                "forceRotationDirection":1
+                forceRotationDirection:1
               },
               extension:0.9
             },
@@ -3409,7 +3409,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":false,
+      resetAfter:false,
       positions:[
         {
           offsets:{
@@ -3844,7 +3844,7 @@ var movementConfigs = [
               angles:{
                 xy:3.9,
                 z:-1,
-                "forceRotationDirection":1
+                forceRotationDirection:1
               },
               extension:0.98
             },
@@ -3857,7 +3857,7 @@ var movementConfigs = [
               angles:{
                 xy:5.5,
                 z:1,
-                "forceRotationDirection":1
+                forceRotationDirection:1
               },
               extension:0.98
             },
@@ -4559,7 +4559,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -4612,7 +4612,7 @@ var movementConfigs = [
               angles:{
                 xy:3.1,
                 z:1,
-                "forceRotationDirection":1
+                forceRotationDirection:1
               },
               extension:0.97
             },
@@ -4625,7 +4625,7 @@ var movementConfigs = [
               angles:{
                 xy:3.3,
                 z:1,
-                "forceRotationDirection":1
+                forceRotationDirection:1
               },
               extension:0.97
             },
@@ -4706,7 +4706,7 @@ var movementConfigs = [
               angles:{
                 xy:0,
                 z:1,
-                "forceRotationDirection":1
+                forceRotationDirection:1
               },
               extension:0.97
             },
@@ -4719,7 +4719,7 @@ var movementConfigs = [
               angles:{
                 xy:0.2,
                 z:1,
-                "forceRotationDirection":1
+                forceRotationDirection:1
               },
               extension:0.97
             },
@@ -4849,7 +4849,7 @@ var movementConfigs = [
     config:{
       cycle:true,
       switchSide:false,
-      "resetAfter":false,
+      resetAfter:false,
       positions:[
         {
           "anchor":{
@@ -5043,7 +5043,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -5145,7 +5145,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{
@@ -5247,7 +5247,7 @@ var movementConfigs = [
     config:{
       cycle:false,
       switchSide:false,
-      "resetAfter":true,
+      resetAfter:true,
       positions:[
         {
           "anchor":{

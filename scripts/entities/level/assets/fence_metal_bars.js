@@ -132,7 +132,7 @@ class Fence_Metal_Bars {
     context.translate(-this.bottomLeftCoords.x, -this.bottomLeftCoords.y);
     context.rotate(-this.orientation);
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
   drawRough(context){
     var t0 = performance.now();
@@ -240,6 +240,6 @@ class Fence_Metal_Bars {
     }
 
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
 }

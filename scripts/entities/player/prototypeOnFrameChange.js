@@ -2,9 +2,6 @@
 // this is where we check what the next action should be based on player input and movement parameter
 // this one is triggered every frame
 Player.prototype.checkForNextActionOnFrameChange = function(){
-    if (this.controls.punch || this.controls.kick) {
-        return;
-    }
   switch(this.currentAction){
     case "crouchTurning":
     case "crouching":
@@ -71,7 +68,7 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
           this.preventFall(edgeSide);
         }
       }
-      if(!this.inTransition && this.forcePathSettings == null){
+      if(!this.inTransition && this.forcePathSettings == null && !this.isInFightMode()){
         if(this.wantsToKeepDirection()){
           this.setMovement(((this.controls.left && this.obstacleLeft(this.coordinates)) || this.controls.right && this.obstacleRight(this.coordinates)) ? "idling" : "running");
         }
@@ -142,6 +139,15 @@ Player.prototype.checkForNextActionOnFrameChange = function(){
         }
       }
     break;
+    case "guardJump":
+    case "guardJumpForward":
+    case "guardJumpBackwards":
+        if(!this.inTransition && this.velocity.y > 0){
+            this.forceFrameCount = CalculateFrameCountToReachLimitDown(this.coordinates.y, this.velocity.y, this.acceleration.y, this.limits.bottom);
+            this.crouchFactor = 0.95;
+            this.setMovement(this.controls.guard ? "guard" : "idling");
+        }
+        break;
     case "jumping":
       if(this.controls.up){ // player wants to climb on something
         this.tryClimbAnything();

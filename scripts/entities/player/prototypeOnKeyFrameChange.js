@@ -100,8 +100,41 @@ Player.prototype.checkForNextActionOnKeyFrameChange = function(){
     case "backHandPunchMid":
     case "backHandPunchHigh":
     case "backHandPunchLow":
+    case "frontLegKickMid":
+    case "frontLegKickHigh":
+    case "frontLegKickLow":
+    case "backLegKickMid":
+    case "backLegKickHigh":
+    case "backLegKickLow":
       this.freezeFrame = waitingForMultiKeyPress || (this.currentPositionIndex === 0 && this.fightActions.length === 0 && this.wantsToKeepDirection());
-      if(this.forceFrameCount === 0) this.forceFrameCount = settings.fightFrameCount;
+      break;
+    case "guardForward":
+    case "guardBackwards":
+    case "guardDuckForward":
+    case "guardDuckBackwards":
+        if(!this.inTransition){
+            this.setMovement(this.controls.guard ? this.controls.down ? "guardDuck" : "guard" : "idling");
+        }
+        break;
+    case "guardRollForward":
+    case "guardRollBackwards":
+        if(!this.inTransition && this.currentPositionIndex === 1){
+            this.setMovement(this.controls.guard ? this.controls.down ? "guardDuck" : "guard" : "idling");
+        }
+        break;
+    case "guardDuck":
+        if(!this.inTransition){
+            this.stopPlayerXAxis();
+            if(!this.controls.guard) this.setMovement("idling");
+            else if(!this.controls.down) this.setMovement("guard");
+        }
+        break;
+    case "guard":
+        if(!this.inTransition){
+            this.stopPlayerXAxis();
+            this.crouchFactor = 1;
+            if(!this.controls.guard) this.setMovement("idling");
+        }
       break;
     case "idling":
       if(!this.inTransition)

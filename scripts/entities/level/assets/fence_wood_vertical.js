@@ -165,7 +165,7 @@ class Fence_Wood_Vertical {
     context.translate(-this.bottomLeftCoords.x, -this.bottomLeftCoords.y);
     context.rotate(-this.orientation);
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
   drawRough(context){
     var t0 = performance.now();
@@ -328,6 +328,6 @@ class Fence_Wood_Vertical {
     }
 
     var t1 = performance.now();
-    console.log("Render time : " + (t1 - t0) + " ms");
+    if(debugMode) console.log("Render time : " + (t1 - t0) + " ms");
   }
 }

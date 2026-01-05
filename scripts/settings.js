@@ -2,7 +2,7 @@ class Settings {
   constructor(minVelocityForStopping, minVelocityX, maxVelocityX, accelerationX, stoppingAccelerationFactor, crouchSlidingAccelerationFactor, gravity,
     crouchFactorMin, crouchFactorDiff, bodyCrossingAbilityFactor, bodyHeightFactor, obstacleRange, roundTolerance, ladderDetectionRange, ladderClimbSpeed,
     ladderDownSlidingSpeed, ladderDeceleration, ladderOffSpeed, ropeDetectionRange, ropeCrossingDistPerFrame, ropeCrossingFrameCount, ropeDownSlidingSpeed,
-    ropeDeceleration, ropeClimbingEntryOffset, ropeClimbingDistPerFrame, ropeClimbingFrameCount, ropeCrossingAngleLimit, fightFrameCount, fallHeight,
+    ropeDeceleration, ropeClimbingEntryOffset, ropeClimbingDistPerFrame, ropeClimbingFrameCount, ropeCrossingAngleLimit, fallHeight,
     crouchingDistPerFrame, crouchingFrameCount, crouchTurningFactor, hoppingRangeX, hoppingRangeY, hoppingDistPerFrame, hoppingDistMin) {
     this.minVelocityForStopping = minVelocityForStopping;
     this.minVelocityX = minVelocityX;
@@ -31,7 +31,6 @@ class Settings {
     this.ropeClimbingDistPerFrame = ropeClimbingDistPerFrame;
     this.ropeClimbingFrameCount = ropeClimbingFrameCount;
     this.ropeCrossingAngleLimit = ropeCrossingAngleLimit;
-    this.fightFrameCount = fightFrameCount;
     this.fallHeight = fallHeight;
     this.crouchingDistPerFrame = crouchingDistPerFrame;
     this.crouchingFrameCount = crouchingFrameCount;
@@ -106,7 +105,6 @@ function AdaptSettingsToScale(settings, scale){
     settings.ropeClimbingDistPerFrame*scale,
     settings.ropeClimbingFrameCount,
     settings.ropeCrossingAngleLimit,
-    settings.fightFrameCount,
     settings.fallHeight*scale,
     settings.crouchingDistPerFrame*scale,
     settings.crouchingFrameCount,

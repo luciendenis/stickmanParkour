@@ -340,7 +340,6 @@ Player.prototype.findNextMovement = function(){
       let fightAction = this.fightActions[0];
       this.direction = fightAction.direction;
       this.sideSwitch = fightAction.sideSwitch;
-      this.forceFrameCount = settings.fightFrameCount;
       this.fightActions.splice(0,1);
       this.setMovement(fightAction.action);
     }
@@ -354,7 +353,7 @@ Player.prototype.findNextMovement = function(){
       }
     }
     else{
-      this.setMovement("idling");
+        this.setMovement("idling");
     }
   }
 }

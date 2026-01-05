@@ -29,7 +29,6 @@ const settingsConfigs = [
       ropeClimbingDistPerFrame:44.93,
       ropeClimbingFrameCount:20,
       ropeCrossingAngleLimit:0.4,
-      fightFrameCount:12,
       fallHeight:70,
       crouchingDistPerFrame:35,
       crouchingFrameCount:16,
