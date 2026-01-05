@@ -475,7 +475,7 @@ class Player {
       if(hold.climbDownType === "edgeHangingFront" || hold.climbDownType === "pole"){
         let startCoords = this.coordinates.clone();
         let distsToHold = new Coordinates(hold.coordinates.x - this.coordinates.x, hold.coordinates.y - this.coordinates.y);
-        let speed = Math.max(this.velocity.getLength()/(2*globalScale),0.01);
+        let speed = Math.max(this.velocity.getLength(),0.01);
         let angleToHold = Math.abs(distsToHold.angle() - this.velocity.angle());
         if(this.currentAction.startsWith("edgeHanging")){
           startCoords = this.body.getJunctionCoords(this.frontSide + "foot");
@@ -497,7 +497,7 @@ class Player {
         let xyAngle = AngleXYfromCoords(hold.coordinates, startCoords) - Math.PI/2;
         let friction = hold.climbDownType === "edgeHangingFront" ? 0.01 : 0.008;
         let controlStrength = hold.climbDownType === "edgeHangingFront" ? 0.1 : 0.12;
-        this.anglesOffsets = new PlayerAngles(new Angles(xyAngle,0,0), new Angles(-Math.sign(xyAngle)*speed/75,0,0), new Angles(0,0,0), true, true, controlStrength, friction);
+        this.anglesOffsets = new PlayerAngles(new Angles(xyAngle,0,0), new Angles(-Math.sign(xyAngle)*Math.min(speed,15)*settings.poleEntrySpeedFactor,0,0), new Angles(0,0,0), true, true, controlStrength, friction);
         this.setMovement(hold.climbDownType + "Swinging");
       }
       else{

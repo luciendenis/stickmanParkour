@@ -36,7 +36,9 @@ const settingsConfigs = [
       hoppingRangeX:3,
       hoppingRangeY:0.4,
       hoppingDistPerFrame:6,
-      hoppingDistMin:80
+      hoppingDistMin:80,
+      poleEntrySpeedFactor:0.0083,
+      poleExitSpeedFactor:120
     }
   }
 ];

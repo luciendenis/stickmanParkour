@@ -31,7 +31,7 @@ class PlayerAngles {
     return nextAngularSpeedXY;
   }
   exitVelocityCoords(jump){
-    let totalExitSpeed = this.angularSpeed.xy*120*globalScale;
+    let totalExitSpeed = this.angularSpeed.xy*settings.poleExitSpeedFactor;
     // if jumping, go straight out to the opposite of the pole, else just keep momentum going
     let jumpAngleOffset = jump ? (this.angularSpeed.xy > 0 ? Math.PI/2 : -Math.PI/2) : 0;
     let exitAngle = (this.angularSpeed.xy > 0 ? Math.PI : 0) - this.angles.xy + jumpAngleOffset;

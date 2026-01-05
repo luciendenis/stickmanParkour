@@ -3,7 +3,7 @@ class Settings {
     crouchFactorMin, crouchFactorDiff, bodyCrossingAbilityFactor, bodyHeightFactor, obstacleRange, roundTolerance, ladderDetectionRange, ladderClimbSpeed,
     ladderDownSlidingSpeed, ladderDeceleration, ladderOffSpeed, ropeDetectionRange, ropeCrossingDistPerFrame, ropeCrossingFrameCount, ropeDownSlidingSpeed,
     ropeDeceleration, ropeClimbingEntryOffset, ropeClimbingDistPerFrame, ropeClimbingFrameCount, ropeCrossingAngleLimit, fallHeight,
-    crouchingDistPerFrame, crouchingFrameCount, crouchTurningFactor, hoppingRangeX, hoppingRangeY, hoppingDistPerFrame, hoppingDistMin) {
+    crouchingDistPerFrame, crouchingFrameCount, crouchTurningFactor, hoppingRangeX, hoppingRangeY, hoppingDistPerFrame, hoppingDistMin, poleEntrySpeedFactor, poleExitSpeedFactor) {
     this.minVelocityForStopping = minVelocityForStopping;
     this.minVelocityX = minVelocityX;
     this.maxVelocityX = maxVelocityX;
@@ -39,6 +39,8 @@ class Settings {
     this.hoppingRangeY = hoppingRangeY;
     this.hoppingDistPerFrame = hoppingDistPerFrame;
     this.hoppingDistMin = hoppingDistMin;
+    this.poleEntrySpeedFactor = poleEntrySpeedFactor;
+    this.poleExitSpeedFactor = poleExitSpeedFactor;
   }
 }
 
@@ -112,7 +114,9 @@ function AdaptSettingsToScale(settings, scale){
     settings.hoppingRangeX,
     settings.hoppingRangeY,
     settings.hoppingDistPerFrame*scale,
-    settings.hoppingDistMin*scale
+    settings.hoppingDistMin*scale,
+    settings.poleEntrySpeedFactor/scale,
+    settings.poleExitSpeedFactor*scale
   );
 }
 
